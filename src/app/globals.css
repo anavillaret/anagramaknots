@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-teal: #6FC3A8;
+  --color-teal-dark: #4da88a;
+  --color-teal-light: #eaf6f1;
+  --color-teal-deep: #008080;
+  --color-linen: #F5EFE0;
+  --color-rose: #C8897A;
+  --color-stone: #8A837C;
+  --color-stone-light: #d4cfc9;
+  --color-ink: #1a1a1a;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Spacing */
+  --spacing-section: 6rem;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: var(--color-ink);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  ::selection {
+    background-color: var(--color-teal-deep);
+    color: white;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  .field-input {
+    width: 100%;
+    border: 1px solid var(--color-stone-light);
+    padding: 0.625rem 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--color-ink);
+    background: white;
+    outline: none;
+    transition: border-color 0.15s;
+    font-family: var(--font-sans);
+  }
+  .field-input::placeholder {
+    color: var(--color-stone-light);
+  }
+  .field-input:focus {
+    border-color: var(--color-teal-deep);
+  }
+}
