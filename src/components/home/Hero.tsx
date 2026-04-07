@@ -43,42 +43,59 @@ export default function Hero() {
   const slide = t.hero.slides[current]
 
   return (
-    <section className="pt-16 h-screen flex flex-col">
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-2">
+    <section className="pt-16 md:h-screen md:flex md:flex-col">
+      <div className="md:flex-1 grid grid-cols-1 md:grid-cols-2">
 
-        {/* Left — text */}
-        <div className="flex flex-col justify-center px-10 md:px-16 lg:px-24 py-20 md:py-0 bg-white order-2 md:order-1">
+        {/* Image — top on mobile, right on desktop */}
+        <div
+          className="relative overflow-hidden order-1 md:order-2 h-[70vw] md:h-full"
+          style={{ backgroundColor: '#e6f3f3' }}
+        >
+          <Image
+            src={slideMeta.image}
+            alt={slideMeta.alt}
+            fill
+            className="object-cover object-center"
+            style={{ opacity: fading ? 0 : 1, transition: 'opacity 0.4s ease' }}
+            priority={current === 0}
+          />
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/10 to-transparent" />
+          <Watermark />
+        </div>
+
+        {/* Text — bottom on mobile, left on desktop */}
+        <div className="flex flex-col justify-center px-8 md:px-16 lg:px-24 py-10 md:py-0 bg-white order-2 md:order-1">
           <div
             className="max-w-md transition-opacity duration-400"
             style={{ opacity: fading ? 0 : 1 }}
           >
-            <p className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">
+            <p className="text-[13px] md:text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-4 md:mb-6">
               {slide.label}
             </p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-ink leading-[1.1] tracking-tight">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-semibold text-ink leading-[1.1] tracking-tight">
               {slide.heading[0]}<br />
               <em className="font-normal not-italic text-teal">{slide.heading[1]}</em>
             </h1>
-            <p className="mt-6 text-[14px] leading-relaxed text-stone max-w-sm">
+            <p className="mt-4 md:mt-6 text-[13px] md:text-[14px] leading-relaxed text-stone max-w-sm">
               {slide.sub}
             </p>
-            <div className="mt-10 flex items-center gap-5">
+            <div className="mt-6 md:mt-10 flex flex-wrap items-center gap-4 md:gap-5">
               <Link
                 href={slideMeta.href}
-                className="inline-flex items-center bg-teal text-white text-[11px] tracking-[0.2em] uppercase px-8 py-3.5 hover:bg-teal-dark transition-colors duration-200"
+                className="inline-flex items-center bg-teal text-white text-[10px] md:text-[11px] tracking-[0.2em] uppercase px-6 md:px-8 py-3 md:py-3.5 hover:bg-teal-dark transition-colors duration-200"
               >
                 {slide.cta}
               </Link>
               <Link
                 href="/story"
-                className="text-[11px] tracking-[0.15em] uppercase text-stone hover:text-ink transition-colors border-b border-stone-light pb-0.5"
+                className="text-[10px] md:text-[11px] tracking-[0.15em] uppercase text-stone hover:text-ink transition-colors border-b border-stone-light pb-0.5"
               >
                 {slide.secondary}
               </Link>
             </div>
 
             {/* Slide indicators */}
-            <div className="mt-10 flex items-center gap-2">
+            <div className="mt-6 md:mt-10 flex items-center gap-2">
               {SLIDE_META.map((_, i) => (
                 <button
                   key={i}
@@ -93,23 +110,6 @@ export default function Hero() {
               ))}
             </div>
           </div>
-        </div>
-
-        {/* Right — image */}
-        <div
-          className="relative overflow-hidden order-1 md:order-2 h-[55vw] md:h-full"
-          style={{ backgroundColor: '#e6f3f3' }}
-        >
-          <Image
-            src={slideMeta.image}
-            alt={slideMeta.alt}
-            fill
-            className="object-cover object-center"
-            style={{ opacity: fading ? 0 : 1, transition: 'opacity 0.4s ease' }}
-            priority={current === 0}
-          />
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/10 to-transparent" />
-          <Watermark />
         </div>
       </div>
     </section>
