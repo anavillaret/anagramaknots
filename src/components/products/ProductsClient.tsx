@@ -65,7 +65,9 @@ export default function ProductsClient() {
                 <p className="text-[13px] font-medium text-ink group-hover:text-teal transition-colors">
                   ※ {product.name}
                 </p>
-                <p className="text-[13px] font-medium text-ink shrink-0">€{product.price}</p>
+                {product.badge !== 'soldout' && (
+                  <p className="text-[13px] font-medium text-ink shrink-0">€{product.price}</p>
+                )}
               </div>
               {product.species && (
                 <p className="text-[11px] text-stone italic">{product.species}</p>

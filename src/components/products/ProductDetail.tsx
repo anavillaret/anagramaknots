@@ -73,7 +73,9 @@ export default function ProductDetail({ product, related }: { product: Product; 
             <h1 className="text-3xl md:text-4xl font-semibold text-ink tracking-tight">
               ※ {product.name}
             </h1>
-            <p className="mt-4 text-2xl font-medium text-ink">€{product.price}</p>
+            {product.badge !== 'soldout' && (
+              <p className="mt-4 text-2xl font-medium text-ink">€{product.price}</p>
+            )}
 
             {product.fact && (
               <div className="mt-6 border-l-2 border-teal pl-4">
@@ -143,7 +145,9 @@ export default function ProductDetail({ product, related }: { product: Product; 
                   </div>
                   <div className="mt-2 flex items-start justify-between gap-2">
                     <p className="text-[12px] font-medium text-ink group-hover:text-teal transition-colors">※ {r.name}</p>
-                    <p className="text-[12px] text-ink shrink-0">€{r.price}</p>
+                    {r.badge !== 'soldout' && (
+                      <p className="text-[12px] text-ink shrink-0">€{r.price}</p>
+                    )}
                   </div>
                   {r.species && <p className="text-[10px] text-stone italic mt-0.5">{r.species}</p>}
                 </Link>

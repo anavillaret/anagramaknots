@@ -39,17 +39,19 @@ export default function ProductCard({ product }: { product: Product }) {
 
         <Watermark />
 
-        {/* Quick add — appears on hover */}
-        <div
-          className={`absolute inset-x-0 bottom-0 bg-white/95 backdrop-blur-sm px-4 py-3 flex items-center justify-between transition-all duration-300 ${
-            hovered ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
-          }`}
-        >
-          <span className="text-[10px] tracking-[0.15em] uppercase text-ink">
-            {t.product.addToCart}
-          </span>
-          <ShoppingBag size={15} strokeWidth={1.5} className="text-teal" />
-        </div>
+        {/* Quick add — appears on hover, only if not sold */}
+        {product.badge !== 'soldout' && (
+          <div
+            className={`absolute inset-x-0 bottom-0 bg-white/95 backdrop-blur-sm px-4 py-3 flex items-center justify-between transition-all duration-300 ${
+              hovered ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+            }`}
+          >
+            <span className="text-[10px] tracking-[0.15em] uppercase text-ink">
+              {t.product.addToCart}
+            </span>
+            <ShoppingBag size={15} strokeWidth={1.5} className="text-teal" />
+          </div>
+        )}
       </div>
 
       {/* Info */}
@@ -65,9 +67,11 @@ export default function ProductCard({ product }: { product: Product }) {
               </p>
             )}
           </div>
-          <p className="text-[12px] font-semibold text-ink shrink-0">
-            €{product.price}
-          </p>
+          {product.badge !== 'soldout' && (
+            <p className="text-[12px] font-semibold text-ink shrink-0">
+              €{product.price}
+            </p>
+          )}
         </div>
 
         {product.fact && (
