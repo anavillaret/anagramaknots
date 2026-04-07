@@ -102,22 +102,8 @@ export default function Nav() {
             <CartIcon size={18} />
           </div>
 
-          {/* Mobile: lang + search + cart */}
-          <div className="md:hidden flex items-center gap-3">
-            <div className="flex items-center border border-stone-light text-[9px] tracking-[0.1em] uppercase overflow-hidden">
-              <button
-                onClick={() => setLang('en')}
-                className={`px-1.5 py-1 transition-colors ${lang === 'en' ? 'bg-ink text-white' : 'text-stone'}`}
-              >
-                EN
-              </button>
-              <button
-                onClick={() => setLang('pt')}
-                className={`px-1.5 py-1 border-l border-stone-light transition-colors ${lang === 'pt' ? 'bg-ink text-white' : 'text-stone'}`}
-              >
-                PT
-              </button>
-            </div>
+          {/* Mobile: search + cart only */}
+          <div className="md:hidden flex items-center gap-4">
             <button
               onClick={() => setSearchOpen(true)}
               className="text-ink hover:text-teal transition-colors"
@@ -142,6 +128,21 @@ export default function Nav() {
                 {link.label}
               </Link>
             ))}
+            {/* Language toggle in drawer */}
+            <div className="flex items-center border border-stone-light text-[10px] tracking-[0.1em] uppercase overflow-hidden w-fit mt-2">
+              <button
+                onClick={() => setLang('en')}
+                className={`px-2.5 py-1.5 transition-colors ${lang === 'en' ? 'bg-ink text-white' : 'text-stone'}`}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => setLang('pt')}
+                className={`px-2.5 py-1.5 border-l border-stone-light transition-colors ${lang === 'pt' ? 'bg-ink text-white' : 'text-stone'}`}
+              >
+                PT
+              </button>
+            </div>
           </nav>
         )}
       </header>
