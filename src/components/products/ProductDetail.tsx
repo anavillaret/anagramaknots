@@ -17,6 +17,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
   const [justAdded, setJustAdded] = useState(false)
 
   const isSold = product.badge === 'soldout'
+  const isOnRequest = product.availableOnRequest === true
   const inCart = hasItem(product.id)
 
   const handleAdd = () => {
@@ -73,7 +74,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
             <h1 className="text-3xl md:text-4xl font-semibold text-ink tracking-tight">
               ※ {product.name}
             </h1>
-            {product.badge !== 'soldout' && (
+            {product.badge !== 'soldout' && !product.availableOnRequest && (
               <p className="mt-4 text-2xl font-medium text-ink">€{product.price}</p>
             )}
 
@@ -95,6 +96,22 @@ export default function ProductDetail({ product, related }: { product: Product; 
                 >
                   {p.requestSimilar}
                 </Link>
+              </div>
+            ) : isOnRequest ? (
+              /* Available on request state */
+              <div className="mt-8 flex flex-col gap-4">
+                <p className="text-[13px] text-stone leading-relaxed">
+                  This piece is made to order. Tell Ana what you have in mind and she will bring it to life — just for you.
+                </p>
+                <Link
+                  href={commissionHref}
+                  className="flex items-center justify-center gap-3 py-4 bg-teal text-white text-[11px] tracking-[0.2em] uppercase hover:bg-teal-dark transition-colors duration-200"
+                >
+                  Commission this piece
+                </Link>
+                <p className="text-[11px] text-stone text-center">
+                  3–5 working days to reply · No commitment required
+                </p>
               </div>
             ) : (
               /* Available state */

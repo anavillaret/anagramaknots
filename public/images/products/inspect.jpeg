@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photo Inspector</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f5f5f5;
+}
+#container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+#image-display {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#image-display img {
+  max-width: 600px;
+  max-height: 600px;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+.controls {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background: #007AFF;
+  color: white;
+  cursor: pointer;
+}
+button:hover { background: #0051D5; }
+.info {
+  background: white;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.info p { margin: 8px 0; line-height: 1.6; }
+.counter { font-weight: bold; color: #007AFF; }
+</style>
+</head>
+<body>
+<div id="container">
+<h1>Photo Inspector</h1>
+<div id="image-display">
+<img id="photo" src="" alt="Photo">
+<div id="filename" style="font-size: 14px; color: #666;"></div>
+</div>
+<div class="controls">
+<button onclick="prevPhoto()">Previous</button>
+<button onclick="firstPhoto()">First</button>
+<button onclick="nextPhoto()">Next</button>
+<button onclick="lastPhoto()">Last</button>
+<input type="number" id="jumpTo" min="1" max="96" placeholder="Go to #" style="padding: 8px; width: 80px;">
+<button onclick="goToPhoto()">Jump</button>
+</div>
+<div class="info">
+<p>Current: <span class="counter" id="counter">1</span> / 96</p>
+<textarea id="notes" placeholder="Document observations here..." style="width: 100%; height: 100px; padding: 10px; border-radius: 4px; border: 1px solid #ddd; font-family: monospace;"></textarea>
+</div>
+</div>
+
+<script>
+const files = [
+"06B28B2C-947A-440F-B859-E03BA448E00B.jpg", "1AB5BF04-B9AD-4F1D-AD8B-D3369FFBF06F.jpg", "2B6EBF1B-939A-4E5E-9E96-D160C24701BE.jpg", "487272E8-5C1C-47FB-8C35-31AE2EC81BCE.jpg", "56059B9F-6644-418A-B7FD-8F7C5866E778.jpg", "76237F24-FFCE-4D32-A021-648787CF915A.jpg", "8EC6E752-2970-4B7F-9E6E-E26E24F19F0C.jpg", "9F699272-B5F6-40C6-B158-39642C463500.jpg", "B41D4A5C-BBA1-4276-B647-DEC5D27E9E35.jpg", "D9FE13DA-39B9-4ED6-A361-E0EA5C1B774D.jpg", "IMG_0318.jpeg", "IMG_0327.jpeg", "IMG_0330.jpeg", "IMG_0356.jpeg", "IMG_0434.jpeg", "IMG_0438.jpeg", "IMG_0444.jpeg", "IMG_0446.jpeg", "IMG_0452.jpeg", "IMG_0455.jpeg", "IMG_0458.jpeg", "IMG_0466.jpeg", "IMG_0468.jpeg", "IMG_0471.jpeg", "IMG_0473.jpeg", "IMG_0524.jpeg", "IMG_0563.jpeg", "IMG_6323.jpeg", "IMG_6359.jpeg", "IMG_6360.jpeg", "IMG_6426.jpeg", "IMG_6490.jpeg", "IMG_6504.jpeg", "IMG_6601.jpeg", "IMG_6646.jpeg", "IMG_6710.jpeg", "IMG_6730.jpeg", "IMG_6731.jpeg", "IMG_6775.jpeg", "IMG_6909.jpeg", "IMG_6927.jpeg", "IMG_7122.jpeg", "IMG_7171.jpeg", "IMG_7247.jpeg", "IMG_7269.jpeg", "IMG_7272.jpeg", "IMG_7273.jpeg", "IMG_7334.jpeg", "IMG_7343.jpeg", "IMG_7408.jpeg", "IMG_7501.jpeg", "IMG_7537.jpeg", "IMG_7548.jpeg", "IMG_7576.jpeg", "IMG_7659.jpeg", "IMG_7740.jpeg", "IMG_7865.jpeg", "IMG_7881.jpeg", "IMG_7915.jpeg", "IMG_7939.jpeg", "IMG_7994.jpeg", "IMG_8161.jpeg", "IMG_8162.jpeg", "IMG_8218.jpeg", "IMG_8252.jpeg", "IMG_8284.jpeg", "IMG_8285.jpeg", "IMG_8355.jpeg", "IMG_8385.jpeg", "IMG_8399.jpeg", "IMG_8400.jpeg", "IMG_8562.jpeg", "IMG_8603.jpeg", "IMG_8805.jpeg", "IMG_9026.jpeg", "IMG_9100.jpeg", "IMG_9120.jpeg", "IMG_9121.jpeg", "IMG_9127.jpeg", "IMG_9129.jpeg", "IMG_9134.jpeg", "IMG_9147.jpeg", "IMG_9150.jpeg", "IMG_9151.jpeg", "IMG_9154.jpeg", "IMG_9157.jpeg", "IMG_9181.jpeg", "IMG_9186.jpeg", "IMG_9191.jpeg", "IMG_9314.jpeg", "IMG_9329.jpeg", "IMG_9330.jpeg", "IMG_9502.jpeg", "IMG_9504.jpeg", "IMG_9706.jpeg", "image0000001.jpg"
+];
+
+let current = 0;
+
+function showPhoto(index) {
+  if (index < 0) index = files.length - 1;
+  if (index >= files.length) index = 0;
+  current = index;
+  
+  document.getElementById('photo').src = files[current];
+  document.getElementById('filename').textContent = files[current];
+  document.getElementById('counter').textContent = current + 1;
+  document.getElementById('notes').placeholder = `Notes for photo ${current + 1}...`;
+}
+
+function nextPhoto() { showPhoto(current + 1); }
+function prevPhoto() { showPhoto(current - 1); }
+function firstPhoto() { showPhoto(0); }
+function lastPhoto() { showPhoto(files.length - 1); }
+function goToPhoto() {
+  const num = parseInt(document.getElementById('jumpTo').value) - 1;
+  if (num >= 0 && num < files.length) showPhoto(num);
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') nextPhoto();
+  if (e.key === 'ArrowLeft') prevPhoto();
+});
+
+showPhoto(0);
+</script>
+</body>
+</html>

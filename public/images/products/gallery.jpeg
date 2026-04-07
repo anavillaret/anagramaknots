@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Crochet Photo Gallery</title>
+<style>
+body { 
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  padding: 20px;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.photo {
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.photo img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.filename {
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
+  word-break: break-all;
+}
+</style>
+</head>
+<body>
+<h1>Crochet Inventory Photos</h1>
+<div class="gallery" id="gallery"></div>
+<script>
+const files = [
+"06B28B2C-947A-440F-B859-E03BA448E00B.jpg",
+"1AB5BF04-B9AD-4F1D-AD8B-D3369FFBF06F.jpg",
+"2B6EBF1B-939A-4E5E-9E96-D160C24701BE.jpg",
+"487272E8-5C1C-47FB-8C35-31AE2EC81BCE.jpg",
+"56059B9F-6644-418A-B7FD-8F7C5866E778.jpg",
+"76237F24-FFCE-4D32-A021-648787CF915A.jpg",
+"8EC6E752-2970-4B7F-9E6E-E26E24F19F0C.jpg",
+"9F699272-B5F6-40C6-B158-39642C463500.jpg",
+"B41D4A5C-BBA1-4276-B647-DEC5D27E9E35.jpg",
+"D9FE13DA-39B9-4ED6-A361-E0EA5C1B774D.jpg",
+"IMG_0318.jpeg",
+"IMG_0327.jpeg",
+"IMG_0330.jpeg",
+"IMG_0356.jpeg",
+"IMG_0434.jpeg",
+"IMG_0438.jpeg",
+"IMG_0444.jpeg",
+"IMG_0446.jpeg",
+"IMG_0452.jpeg",
+"IMG_0455.jpeg",
+"IMG_0458.jpeg",
+"IMG_0466.jpeg",
+"IMG_0468.jpeg",
+"IMG_0471.jpeg",
+"IMG_0473.jpeg",
+"IMG_0524.jpeg",
+"IMG_0563.jpeg",
+"IMG_6323.jpeg",
+"IMG_6359.jpeg",
+"IMG_6360.jpeg",
+"IMG_6426.jpeg",
+"IMG_6490.jpeg",
+"IMG_6504.jpeg",
+"IMG_6601.jpeg",
+"IMG_6646.jpeg",
+"IMG_6710.jpeg",
+"IMG_6730.jpeg",
+"IMG_6731.jpeg",
+"IMG_6775.jpeg",
+"IMG_6909.jpeg",
+"IMG_6927.jpeg",
+"IMG_7122.jpeg",
+"IMG_7171.jpeg",
+"IMG_7247.jpeg",
+"IMG_7269.jpeg",
+"IMG_7272.jpeg",
+"IMG_7273.jpeg",
+"IMG_7334.jpeg",
+"IMG_7343.jpeg",
+"IMG_7408.jpeg",
+"IMG_7501.jpeg",
+"IMG_7537.jpeg",
+"IMG_7548.jpeg",
+"IMG_7576.jpeg",
+"IMG_7659.jpeg",
+"IMG_7740.jpeg",
+"IMG_7865.jpeg",
+"IMG_7881.jpeg",
+"IMG_7915.jpeg",
+"IMG_7939.jpeg",
+"IMG_7994.jpeg",
+"IMG_8161.jpeg",
+"IMG_8162.jpeg",
+"IMG_8218.jpeg",
+"IMG_8252.jpeg",
+"IMG_8284.jpeg",
+"IMG_8285.jpeg",
+"IMG_8355.jpeg",
+"IMG_8385.jpeg",
+"IMG_8399.jpeg",
+"IMG_8400.jpeg",
+"IMG_8562.jpeg",
+"IMG_8603.jpeg",
+"IMG_8805.jpeg",
+"IMG_9026.jpeg",
+"IMG_9100.jpeg",
+"IMG_9120.jpeg",
+"IMG_9121.jpeg",
+"IMG_9127.jpeg",
+"IMG_9129.jpeg",
+"IMG_9134.jpeg",
+"IMG_9147.jpeg",
+"IMG_9150.jpeg",
+"IMG_9151.jpeg",
+"IMG_9154.jpeg",
+"IMG_9157.jpeg",
+"IMG_9181.jpeg",
+"IMG_9186.jpeg",
+"IMG_9191.jpeg",
+"IMG_9314.jpeg",
+"IMG_9329.jpeg",
+"IMG_9330.jpeg",
+"IMG_9502.jpeg",
+"IMG_9504.jpeg",
+"IMG_9706.jpeg",
+"image0000001.jpg"
+];
+
+const gallery = document.getElementById('gallery');
+files.forEach(file => {
+  const div = document.createElement('div');
+  div.className = 'photo';
+  div.innerHTML = `<img src="${file}" alt="${file}" loading="lazy"><div class="filename">${file}</div>`;
+  gallery.appendChild(div);
+});
+</script>
+</body>
+</html>
