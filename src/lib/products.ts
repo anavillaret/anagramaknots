@@ -19,7 +19,7 @@ export const PRODUCTS: Product[] = [
     price: 65,
     category: 'amigurumis',
     image: '/images/cockatoo.jpeg',
-    badge: 'bestseller',
+    badge: 'soldout',
     slug: 'cockatoo',
   },
   {
@@ -30,7 +30,7 @@ export const PRODUCTS: Product[] = [
     price: 58,
     category: 'amigurumis',
     image: '/images/penguin.jpeg',
-    badge: 'new',
+    badge: 'soldout',
     slug: 'penguin',
   },
   {
@@ -41,7 +41,7 @@ export const PRODUCTS: Product[] = [
     price: 72,
     category: 'amigurumis',
     image: '/images/bumblebee.jpeg',
-    badge: 'new',
+    badge: 'soldout',
     slug: 'patagonian-bumblebee',
   },
   {
@@ -52,6 +52,7 @@ export const PRODUCTS: Product[] = [
     price: 60,
     category: 'amigurumis',
     image: '/images/bear.jpeg',
+    badge: 'soldout',
     slug: 'grizzly-bear',
   },
   {
@@ -62,7 +63,7 @@ export const PRODUCTS: Product[] = [
     price: 35,
     category: 'acessorios',
     image: '/images/beanie.jpeg',
-    badge: 'bestseller',
+    badge: 'soldout',
     slug: 'rainbow-beanie',
   },
   {
@@ -73,7 +74,7 @@ export const PRODUCTS: Product[] = [
     price: 18,
     category: 'acessorios',
     image: '/images/bookmarks.jpeg',
-    badge: 'new',
+    badge: 'soldout',
     slug: 'cat-bookmarks',
   },
 ]
