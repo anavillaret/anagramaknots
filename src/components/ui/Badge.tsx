@@ -5,7 +5,7 @@ type BadgeType = 'new' | 'bestseller' | 'soldout' | 'sale'
 const labels: Record<BadgeType, string> = {
   new: 'New',
   bestseller: 'Best Seller',
-  soldout: 'Sold Out',
+  soldout: 'Sold',
   sale: 'On Sale',
 }
 

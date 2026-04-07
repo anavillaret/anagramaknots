@@ -85,7 +85,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
               /* Sold state */
               <div className="mt-8 flex flex-col gap-4">
                 <p className="text-[13px] text-stone leading-relaxed">
-                  This piece has found its home. But Ana can make something just like it — or entirely your own.
+                  This piece has found its home. Every piece is unique — but Ana can create something inspired by it, entirely your own.
                 </p>
                 <Link
                   href={commissionHref}
