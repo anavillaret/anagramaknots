@@ -127,6 +127,24 @@ export default function ProductDetail({ product, related }: { product: Product; 
           </div>
         </div>
 
+        {/* Details & Care */}
+        {(product.details || product.careTips) && (
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-stone-light pt-12">
+            {product.details && (
+              <div>
+                <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.details}</p>
+                <p className="text-[13px] leading-relaxed text-stone">{product.details}</p>
+              </div>
+            )}
+            {product.careTips && (
+              <div>
+                <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.care}</p>
+                <p className="text-[13px] leading-relaxed text-stone">{product.careTips}</p>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Related */}
         {related.length > 0 && (
           <div className="mt-20 border-t border-stone-light pt-12">

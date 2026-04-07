@@ -78,6 +78,8 @@ export const translations = {
       soldOut: 'Sold',
       requestSimilar: 'Commission something similar',
       commissionLink: 'Want your own version? Commission one →',
+      details: 'Details',
+      care: 'Care',
       relatedEyebrow: '※ You might also like',
       badges: {
         new: 'New',
@@ -297,6 +299,8 @@ export const translations = {
       soldOut: 'Vendido',
       requestSimilar: 'Encomendar algo semelhante',
       commissionLink: 'Queres a tua versão? Faz uma encomenda →',
+      details: 'Detalhes',
+      care: 'Cuidados',
       relatedEyebrow: '※ Também podes gostar',
       badges: {
         new: 'Novo',

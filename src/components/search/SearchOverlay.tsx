@@ -26,8 +26,6 @@ export default function SearchOverlay({ onClose }: { onClose: () => void }) {
   const CATEGORIES = [
     { value: 'all', label: s.filters.all },
     { value: 'amigurumis', label: s.filters.amigurumis },
-    { value: 'acessorios', label: s.filters.accessories },
-    { value: 'roupa', label: s.filters.clothing },
   ]
 
   useEffect(() => {

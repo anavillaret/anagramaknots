@@ -5,13 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { Paperclip, X } from 'lucide-react'
 
-const PRODUCT_TYPES = [
-  { value: '', label: 'Select a type…' },
-  { value: 'Amigurumi', label: 'Amigurumi (animal character)' },
-  { value: 'Accessory', label: 'Accessory (bag, bookmark, beanie…)' },
-  { value: 'Clothing', label: 'Clothing (crop top, wearable…)' },
-  { value: 'Other', label: 'Other / Not sure yet' },
-]
+// All commissions are animal amigurumis — no other types for now
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
@@ -24,7 +18,7 @@ function CommissionFormInner() {
   const [status, setStatus] = useState<Status>('idle')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [productType, setProductType] = useState(refType)
+  const [productType] = useState('Amigurumi')
   const [description, setDescription] = useState(
     refProduct ? `Something similar to the ${refProduct}` : ''
   )
@@ -116,17 +110,8 @@ function CommissionFormInner() {
         </Field>
       </div>
 
-      {/* Product type */}
-      <Field label="What would you like made?" required>
-        <select value={productType} onChange={e => setProductType(e.target.value)} required className="field-input">
-          {PRODUCT_TYPES.map(o => (
-            <option key={o.value} value={o.value}>{o.label}</option>
-          ))}
-        </select>
-      </Field>
-
       {/* Description */}
-      <Field label="Describe your idea" required hint="Animal, colours, size, who it's for, any personalisation — the more detail, the better.">
+      <Field label="Describe your idea" required hint="Which animal, colours, size, who it's for, any personalisation — the more detail, the better.">
         <textarea
           value={description}
           onChange={e => setDescription(e.target.value)}

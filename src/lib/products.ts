@@ -4,10 +4,12 @@ export type Product = {
   species: string
   fact: string
   price: number
-  category: 'amigurumis' | 'acessorios' | 'roupa'
+  category: 'amigurumis'
   image: string
   badge?: 'new' | 'bestseller' | 'soldout' | 'sale'
   slug: string
+  details?: string      // Materials, size, weight
+  careTips?: string     // How to care for the piece
 }
 
 export const PRODUCTS: Product[] = [
@@ -21,6 +23,8 @@ export const PRODUCTS: Product[] = [
     image: '/images/cockatoo.jpeg',
     badge: 'soldout',
     slug: 'cockatoo',
+    details: 'Handcrocheted in 100% natural cotton yarn. Approx. 20cm tall. Polyfill stuffed. Safety eyes. Made entirely by hand in Portugal.',
+    careTips: 'Spot clean with a damp cloth. Do not machine wash. Keep away from direct sunlight to preserve colours. Not suitable for children under 3.',
   },
   {
     id: '2',
@@ -32,6 +36,8 @@ export const PRODUCTS: Product[] = [
     image: '/images/penguin.jpeg',
     badge: 'soldout',
     slug: 'penguin',
+    details: 'Handcrocheted in 100% natural cotton yarn. Approx. 18cm tall. Polyfill stuffed. Safety eyes. Made entirely by hand in Portugal.',
+    careTips: 'Spot clean with a damp cloth. Do not machine wash. Keep away from direct sunlight to preserve colours. Not suitable for children under 3.',
   },
   {
     id: '3',
@@ -43,6 +49,8 @@ export const PRODUCTS: Product[] = [
     image: '/images/bumblebee.jpeg',
     badge: 'soldout',
     slug: 'patagonian-bumblebee',
+    details: 'Handcrocheted in 100% natural cotton yarn. Approx. 15cm long. Polyfill stuffed. Safety eyes. Wire-reinforced wings. Made entirely by hand in Portugal.',
+    careTips: 'Spot clean with a damp cloth. Do not machine wash. Handle wings with care. Not suitable for children under 3.',
   },
   {
     id: '4',
@@ -54,31 +62,11 @@ export const PRODUCTS: Product[] = [
     image: '/images/bear.jpeg',
     badge: 'soldout',
     slug: 'grizzly-bear',
-  },
-  {
-    id: '5',
-    name: 'Rainbow Beanie',
-    species: '',
-    fact: '',
-    price: 35,
-    category: 'acessorios',
-    image: '/images/beanie.jpeg',
-    badge: 'soldout',
-    slug: 'rainbow-beanie',
-  },
-  {
-    id: '6',
-    name: 'Cat Bookmarks',
-    species: '',
-    fact: '',
-    price: 18,
-    category: 'acessorios',
-    image: '/images/bookmarks.jpeg',
-    badge: 'soldout',
-    slug: 'cat-bookmarks',
+    details: 'Handcrocheted in 100% natural cotton yarn. Approx. 22cm tall. Polyfill stuffed. Safety eyes. Made entirely by hand in Portugal.',
+    careTips: 'Spot clean with a damp cloth. Do not machine wash. Keep away from direct sunlight to preserve colours. Not suitable for children under 3.',
   },
 ]
 
 export const FEATURED_PRODUCTS = PRODUCTS.filter(p =>
-  ['1', '2', '4', '5'].includes(p.id)
+  ['1', '2', '4'].includes(p.id)
 )

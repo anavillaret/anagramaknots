@@ -10,37 +10,10 @@ import { useLang } from '@/lib/i18n/context'
 
 export default function ProductsClient() {
   const { t } = useLang()
-  const f = t.products.filters
-  const FILTERS = [
-    { value: 'all', label: f.all },
-    { value: 'amigurumis', label: f.amigurumis },
-    { value: 'acessorios', label: f.accessories },
-    { value: 'roupa', label: f.clothing },
-  ]
-  const [active, setActive] = useState('all')
-
-  const filtered = active === 'all'
-    ? PRODUCTS
-    : PRODUCTS.filter(p => p.category === active)
+  const filtered = PRODUCTS
 
   return (
     <>
-      {/* Filter tabs */}
-      <div className="flex items-center gap-2 flex-wrap mb-8">
-        {FILTERS.map(f => (
-          <button
-            key={f.value}
-            onClick={() => setActive(f.value)}
-            className={`text-[10px] tracking-[0.18em] uppercase px-4 py-2 rounded-full border transition-colors ${
-              active === f.value
-                ? 'bg-teal text-white border-teal'
-                : 'border-stone-light text-stone hover:border-ink hover:text-ink'
-            }`}
-          >
-            {f.label}
-          </button>
-        ))}
-      </div>
 
       {/* Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
