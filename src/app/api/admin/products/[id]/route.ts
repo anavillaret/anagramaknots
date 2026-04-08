@@ -34,3 +34,20 @@ export async function POST(request: NextRequest) {
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json(data)
 }
+
+// DELETE /api/admin/products/:id — permanently delete a product (hidden only)
+export async function DELETE(
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params
+  const db = supabaseAdmin()
+  // Safety check: only allow deleting hidden products
+  const { data: product } = await db.from('products').select('active').eq('id', id).single()
+  if (!product || product.active !== false) {
+    return NextResponse.json({ error: 'Can only delete hidden products' }, { status: 403 })
+  }
+  const { error } = await db.from('products').delete().eq('id', id)
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json({ ok: true })
+}

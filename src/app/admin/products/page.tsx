@@ -23,6 +23,7 @@ export default function AdminProducts() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState<string | null>(null)
   const [filter, setFilter] = useState<Filter>('all')
+  const [confirmDelete, setConfirmDelete] = useState<string | null>(null)
 
   async function load() {
     setLoading(true)
@@ -59,6 +60,14 @@ export default function AdminProducts() {
 
   async function hideProduct(p: DbProduct) {
     await patch(p.id, { active: false })
+  }
+
+  async function deleteProduct(id: string) {
+    setSaving(id)
+    await fetch(`/api/admin/products/${id}`, { method: 'DELETE' })
+    setConfirmDelete(null)
+    await load()
+    setSaving(null)
   }
 
   async function publishProduct(p: DbProduct) {
@@ -200,6 +209,27 @@ export default function AdminProducts() {
                               className="text-[10px] px-2 py-1 border border-gray-200 text-stone hover:border-ink hover:text-ink transition-colors">
                               Edit
                             </a>
+                            {confirmDelete === p.id ? (
+                              <span className="flex items-center gap-1.5">
+                                <span className="text-[10px] text-red-500">Delete forever?</span>
+                                <button
+                                  onClick={() => deleteProduct(p.id)}
+                                  className="text-[10px] px-2 py-1 bg-red-500 text-white border border-red-500 hover:bg-red-600 transition-colors">
+                                  Yes, delete
+                                </button>
+                                <button
+                                  onClick={() => setConfirmDelete(null)}
+                                  className="text-[10px] px-2 py-1 border border-gray-200 text-stone hover:border-ink transition-colors">
+                                  Cancel
+                                </button>
+                              </span>
+                            ) : (
+                              <button
+                                onClick={() => setConfirmDelete(p.id)}
+                                className="text-[10px] px-2 py-1 border border-gray-200 text-stone hover:border-red-400 hover:text-red-500 transition-colors">
+                                Delete
+                              </button>
+                            )}
                           </>
                         ) : (
                           /* Live product actions */
