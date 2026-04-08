@@ -34,22 +34,27 @@ export function dbProductToProduct(row: DbProduct): Product {
   }
 }
 
-/** Fetch active products from Supabase, filtering out placeholders.
+/** Fetch live products from Supabase for the public store.
+ *  Uses the service-role key (server-only) to bypass RLS.
  *  Falls back to static PRODUCTS if the DB is unreachable or empty. */
 export async function getProducts(): Promise<Product[]> {
   try {
-    // Import here to avoid circular dep and to keep this server-only
     const { createClient } = await import('@supabase/supabase-js')
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    if (!url || !key) throw new Error('Missing Supabase env vars')
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+    if (!url || !serviceKey) throw new Error('Missing Supabase env vars')
 
-    const supabase = createClient(url, key)
+    // Service-role key bypasses RLS entirely — safe here because this runs
+    // server-side only (called from server components, never from the browser)
+    const supabase = createClient(url, serviceKey, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    })
+
     const { data, error } = await supabase
       .from('products')
       .select('*')
-      .or('active.eq.true,active.is.null')  // show if active=true OR active not yet set (NULL)
-      .not('image', 'ilike', '%placeholder%')
+      .not('active', 'eq', false)          // exclude explicitly hidden (active=false)
+      .not('image', 'ilike', '%placeholder%') // exclude products without a real photo
       .order('sort_order', { ascending: true })
 
     if (error) throw error
