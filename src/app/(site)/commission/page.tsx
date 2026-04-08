@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function CommissionPage() {
   return (
-    <main className="pt-24 pb-24">
+    <main className="pt-32 pb-24">
       <div className="max-w-2xl mx-auto px-6">
 
         {/* Header */}

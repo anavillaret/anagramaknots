@@ -8,7 +8,7 @@ export default function CancelContent() {
   const c = t.cancel
 
   return (
-    <main className="pt-28 pb-24 min-h-[70vh] flex flex-col items-center justify-center text-center px-6">
+    <main className="pt-36 pb-24 min-h-[70vh] flex flex-col items-center justify-center text-center px-6">
       <p className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{c.eyebrow}</p>
       <h1 className="text-4xl font-semibold text-ink tracking-tight">
         {c.heading[0]}<br />

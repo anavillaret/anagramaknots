@@ -22,7 +22,13 @@ export default function Nav() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-stone-light">
+      <header className="fixed top-0 left-0 right-0 z-50">
+        <div style={{ backgroundColor: '#111', color: '#fff', padding: '8px 16px', textAlign: 'center', fontSize: '11px', letterSpacing: '0.12em' }}>
+          ※ The shop is coming soon — browse freely and{' '}
+          <a href="/commission" style={{ textDecoration: 'underline', color: 'inherit' }}>commission a piece</a>
+          . Purchases will open shortly.
+        </div>
+        <div className="bg-white/95 backdrop-blur-sm border-b border-stone-light">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
           {/* Mobile menu button */}
@@ -145,6 +151,7 @@ export default function Nav() {
             </div>
           </nav>
         )}
+        </div>{/* end bg-white div */}
       </header>
 
       {searchOpen && <SearchOverlay onClose={() => setSearchOpen(false)} />}

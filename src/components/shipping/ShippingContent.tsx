@@ -15,7 +15,7 @@ export default function ShippingContent() {
   const s = t.shipping
 
   return (
-    <main className="pt-24 pb-24">
+    <main className="pt-32 pb-24">
 
       {/* Header */}
       <section className="max-w-3xl mx-auto px-6 mb-20 text-center">

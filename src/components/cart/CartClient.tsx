@@ -55,7 +55,7 @@ export default function CartClient() {
 
   if (items.length === 0) {
     return (
-      <main className="pt-28 pb-24 min-h-[60vh] flex flex-col items-center justify-center text-center px-6">
+      <main className="pt-36 pb-24 min-h-[60vh] flex flex-col items-center justify-center text-center px-6">
         <p className="text-[12px] tracking-[0.3em] uppercase text-teal mb-4">{c.eyebrow}</p>
         <h1 className="text-3xl font-semibold text-ink">{c.empty.heading}</h1>
         <p className="mt-3 text-[14px] text-stone">{c.empty.sub}</p>
@@ -70,7 +70,7 @@ export default function CartClient() {
   }
 
   return (
-    <main className="pt-28 pb-24">
+    <main className="pt-36 pb-24">
       <div className="max-w-3xl mx-auto px-6">
         <p className="text-[12px] tracking-[0.3em] uppercase text-teal mb-3">{c.eyebrow}</p>
         <h1 className="text-3xl font-semibold text-ink mb-10">

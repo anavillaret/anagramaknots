@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function ProductsPage() {
   return (
-    <main className="pt-28 pb-24">
+    <main className="pt-36 pb-24">
       <div className="max-w-7xl mx-auto px-6">
         <ProductsHeader />
         <div className="mt-10">

@@ -33,7 +33,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
   )}&image=${encodeURIComponent(product.image)}`
 
   return (
-    <main className="pt-24 pb-24">
+    <main className="pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Breadcrumb */}

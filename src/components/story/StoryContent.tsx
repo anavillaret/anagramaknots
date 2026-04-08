@@ -10,7 +10,7 @@ export default function StoryContent() {
   const s = t.story
 
   return (
-    <main className="pt-24 pb-24">
+    <main className="pt-32 pb-24">
 
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-6 mb-24">
