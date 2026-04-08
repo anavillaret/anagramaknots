@@ -48,7 +48,7 @@ export async function getProducts(): Promise<Product[]> {
     const { data, error } = await supabase
       .from('products')
       .select('*')
-      .neq('active', false)           // includes NULL (unset) and TRUE, excludes only explicit FALSE
+      .not('active', 'eq', false)     // includes NULL (unset) and TRUE, excludes only explicit FALSE
       .not('image', 'ilike', '%placeholder%')
       .order('sort_order', { ascending: true })
 
