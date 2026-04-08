@@ -41,7 +41,9 @@ export default function AdminProducts() {
   }
 
   async function toggleActive(p: DbProduct) {
-    await patchProduct(p.id, { active: !p.active })
+    // null and true both mean visible — treat null as true when toggling
+    const isVisible = p.active !== false
+    await patchProduct(p.id, { active: !isVisible })
   }
 
   // Mark as sold → also auto-enables commission so the CTA shows on the live site
@@ -99,7 +101,7 @@ export default function AdminProducts() {
           </thead>
           <tbody className="divide-y divide-gray-50">
             {filtered.map(p => (
-              <tr key={p.id} className={`hover:bg-gray-50 transition-colors ${!p.active ? 'opacity-40' : ''}`}>
+              <tr key={p.id} className={`hover:bg-gray-50 transition-colors ${p.active === false ? 'opacity-40' : ''}`}>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-linen relative overflow-hidden shrink-0">
@@ -141,7 +143,7 @@ export default function AdminProducts() {
                         </a>
                         <button onClick={() => toggleActive(p)}
                           className="text-[10px] px-2 py-1 border border-gray-200 text-stone hover:border-red-300 hover:text-red-500 transition-colors">
-                          {p.active ? 'Hide' : 'Show'}
+                          {p.active === false ? 'Show' : 'Hide'}
                         </button>
                       </>
                     )}
