@@ -112,13 +112,13 @@ export default function SearchOverlay({ onClose }: { onClose: () => void }) {
                 onClick={onClose}
                 className="group flex flex-col gap-2"
               >
-                <div className="relative overflow-hidden">
+                <div className="relative overflow-hidden aspect-[3/4]">
                   <Image
                     src={product.image}
                     alt={product.name}
-                    width={400}
-                    height={500}
-                    className="w-full h-auto group-hover:scale-105 transition-transform duration-300"
+                    fill
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />
                 </div>
                 <div>

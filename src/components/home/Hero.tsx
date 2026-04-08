@@ -48,7 +48,7 @@ export default function Hero() {
 
         {/* Image — top on mobile/tablet, right on desktop */}
         <div
-          className="relative overflow-hidden order-1 lg:order-2 h-[60vw] lg:h-full"
+          className="relative overflow-hidden order-1 lg:order-2 h-[55vw] md:h-[45vw] lg:h-full"
           style={{ backgroundColor: '#F7E7DD' }}
         >
           <Image
@@ -57,6 +57,7 @@ export default function Hero() {
             fill
             className="object-cover object-center"
             style={{ opacity: fading ? 0 : 1, transition: 'opacity 0.4s ease' }}
+            sizes="(max-width: 1024px) 100vw, 50vw"
             priority={current === 0}
           />
           <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/10 to-transparent" />

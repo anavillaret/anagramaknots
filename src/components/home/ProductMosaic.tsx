@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import ProductCard from '@/components/ui/ProductCard'
 import Watermark from '@/components/ui/Watermark'
@@ -43,10 +44,12 @@ export default function ProductMosaic({ products }: { products: Product[] }) {
         {/* Large card — col-span-2 */}
         <div className="col-span-2 row-span-1">
           <div className="relative overflow-hidden bg-linen aspect-[4/3] group">
-            <img
+            <Image
               src={hero.image}
               alt={hero.name}
-              className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+              fill
+              className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
             <Watermark />
