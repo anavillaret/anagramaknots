@@ -86,13 +86,13 @@ export default function Nav() {
             <div className="flex items-center border border-stone-light text-[10px] tracking-[0.1em] uppercase overflow-hidden">
               <button
                 onClick={() => setLang('en')}
-                className={`px-2 py-1 transition-colors ${lang === 'en' ? 'bg-ink text-white' : 'text-stone hover:text-ink'}`}
+                className={`px-2 py-1 transition-colors ${lang === 'en' ? 'bg-teal text-white' : 'text-stone hover:text-ink'}`}
               >
                 EN
               </button>
               <button
                 onClick={() => setLang('pt')}
-                className={`px-2 py-1 border-l border-stone-light transition-colors ${lang === 'pt' ? 'bg-ink text-white' : 'text-stone hover:text-ink'}`}
+                className={`px-2 py-1 border-l border-stone-light transition-colors ${lang === 'pt' ? 'bg-teal text-white' : 'text-stone hover:text-ink'}`}
               >
                 PT
               </button>
@@ -138,13 +138,13 @@ export default function Nav() {
             <div className="flex items-center border border-stone-light text-[10px] tracking-[0.1em] uppercase overflow-hidden w-fit mt-2">
               <button
                 onClick={() => setLang('en')}
-                className={`px-2.5 py-1.5 transition-colors ${lang === 'en' ? 'bg-ink text-white' : 'text-stone'}`}
+                className={`px-2.5 py-1.5 transition-colors ${lang === 'en' ? 'bg-teal text-white' : 'text-stone'}`}
               >
                 EN
               </button>
               <button
                 onClick={() => setLang('pt')}
-                className={`px-2.5 py-1.5 border-l border-stone-light transition-colors ${lang === 'pt' ? 'bg-ink text-white' : 'text-stone'}`}
+                className={`px-2.5 py-1.5 border-l border-stone-light transition-colors ${lang === 'pt' ? 'bg-teal text-white' : 'text-stone'}`}
               >
                 PT
               </button>
