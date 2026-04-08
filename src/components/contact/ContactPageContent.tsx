@@ -27,10 +27,10 @@ export default function ContactPageContent() {
               <div>
                 <p className="text-[11px] tracking-[0.15em] uppercase text-stone mb-1">{c.emailLabel}</p>
                 <a
-                  href="mailto:hello@anagramaknots.com"
+                  href="mailto:anagramaknots@gmail.com"
                   className="text-[14px] text-ink hover:text-teal transition-colors border-b border-ink/20 pb-0.5"
                 >
-                  hello@anagramaknots.com
+                  anagramaknots@gmail.com
                 </a>
               </div>
               <div>

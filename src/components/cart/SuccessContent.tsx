@@ -20,7 +20,7 @@ export default function SuccessContent() {
         {s.sub}
       </p>
       <p className="mt-3 text-[13px] text-stone">
-        {s.contact} <span className="text-ink">hello@anagramaknots.com</span>
+        {s.contact} <span className="text-ink">anagramaknots@gmail.com</span>
       </p>
       <div className="mt-10 flex items-center gap-6">
         <Link
