@@ -48,8 +48,8 @@ export default function ProductDetail({ product, related }: { product: Product; 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
 
           {/* Image */}
-          <div className="relative overflow-hidden">
-            <Image src={product.image} alt={product.name} width={800} height={1000} className="w-full h-auto" priority />
+          <div className="relative overflow-hidden aspect-[3/4]">
+            <Image src={product.image} alt={product.name} fill className="object-cover object-center" priority />
             {product.badge && (
               <div className="absolute top-3 left-3">
                 <Badge type={product.badge} />
@@ -91,7 +91,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
                 <p className="text-[13px] text-stone leading-relaxed">{p.soldMessage}</p>
                 <Link
                   href={commissionHref}
-                  className="flex items-center justify-center gap-3 py-4 bg-ink text-white text-[11px] tracking-[0.2em] uppercase hover:bg-stone transition-colors duration-200"
+                  className="flex items-center justify-center gap-3 py-4 bg-teal text-white text-[11px] tracking-[0.2em] uppercase hover:bg-teal-dark transition-colors duration-200"
                 >
                   {p.requestSimilar}
                 </Link>
