@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { X, Loader2 } from 'lucide-react'
 import { useCart } from '@/lib/cart'
 import { useLang } from '@/lib/i18n/context'
+import { SHOP_OPEN } from '@/lib/siteConfig'
 
 const CURRENCIES = [
   { code: 'eur', label: 'EUR €', symbol: '€' },
@@ -162,17 +163,27 @@ export default function CartClient() {
             <p className="text-[12px] text-rose text-right">{error}</p>
           )}
 
-          <button
-            onClick={handleCheckout}
-            disabled={loading}
-            className="w-full md:w-auto flex items-center justify-center gap-2 bg-teal text-white text-[11px] tracking-[0.2em] uppercase px-14 py-4 hover:bg-teal-dark transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
-          >
-            {loading ? (
-              <><Loader2 size={14} className="animate-spin" /> {t.cart.checkout}…</>
-            ) : (
-              c.checkout
-            )}
-          </button>
+          {SHOP_OPEN ? (
+            <button
+              onClick={handleCheckout}
+              disabled={loading}
+              className="w-full md:w-auto flex items-center justify-center gap-2 bg-teal text-white text-[11px] tracking-[0.2em] uppercase px-14 py-4 hover:bg-teal-dark transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {loading ? (
+                <><Loader2 size={14} className="animate-spin" /> {t.cart.checkout}…</>
+              ) : (
+                c.checkout
+              )}
+            </button>
+          ) : (
+            <div className="w-full md:w-auto text-center border border-stone-light px-14 py-4">
+              <p className="text-[11px] tracking-[0.15em] uppercase text-stone">Shop opening soon</p>
+              <p className="text-[11px] text-stone mt-1">
+                Want this piece?{' '}
+                <a href="/commission" className="text-teal underline underline-offset-2 hover:text-teal-dark">Commission it →</a>
+              </p>
+            </div>
+          )}
 
           <Link
             href="/products"
