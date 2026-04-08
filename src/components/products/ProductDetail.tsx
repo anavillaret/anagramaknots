@@ -9,6 +9,7 @@ import { useCart } from '@/lib/cart'
 import Badge from '@/components/ui/Badge'
 import Watermark from '@/components/ui/Watermark'
 import { useLang } from '@/lib/i18n/context'
+import { SHOP_OPEN } from '@/lib/siteConfig'
 
 export default function ProductDetail({ product, related }: { product: Product; related: Product[] }) {
   const { addItem, hasItem } = useCart()
@@ -116,23 +117,35 @@ export default function ProductDetail({ product, related }: { product: Product; 
             ) : (
               /* Available state */
               <>
-                <button
-                  onClick={handleAdd}
-                  disabled={inCart}
-                  className={`mt-8 flex items-center justify-center gap-3 py-4 text-[11px] tracking-[0.2em] uppercase transition-colors duration-200 ${
-                    inCart || justAdded
-                      ? 'bg-teal/40 text-white cursor-default'
-                      : 'bg-teal text-white hover:bg-teal-dark'
-                  }`}
-                >
-                  {inCart ? (
-                    <><Check size={16} strokeWidth={2} /> {p.inCart}</>
-                  ) : justAdded ? (
-                    <><Check size={16} strokeWidth={2} /> {p.inCart}</>
-                  ) : (
-                    <><ShoppingBag size={16} strokeWidth={1.5} /> {p.addToCart}</>
-                  )}
-                </button>
+                {SHOP_OPEN ? (
+                  <button
+                    onClick={handleAdd}
+                    disabled={inCart}
+                    className={`mt-8 flex items-center justify-center gap-3 py-4 text-[11px] tracking-[0.2em] uppercase transition-colors duration-200 ${
+                      inCart || justAdded
+                        ? 'bg-teal/40 text-white cursor-default'
+                        : 'bg-teal text-white hover:bg-teal-dark'
+                    }`}
+                  >
+                    {inCart ? (
+                      <><Check size={16} strokeWidth={2} /> {p.inCart}</>
+                    ) : justAdded ? (
+                      <><Check size={16} strokeWidth={2} /> {p.inCart}</>
+                    ) : (
+                      <><ShoppingBag size={16} strokeWidth={1.5} /> {p.addToCart}</>
+                    )}
+                  </button>
+                ) : (
+                  <div className="mt-8 border border-stone-light py-4 text-center">
+                    <p className="text-[11px] tracking-[0.15em] uppercase text-stone">Shop opening soon</p>
+                    <p className="text-[11px] text-stone mt-1">
+                      Want this piece?{' '}
+                      <Link href={commissionHref} className="text-teal underline underline-offset-2 hover:text-teal-dark">
+                        Commission it →
+                      </Link>
+                    </p>
+                  </div>
+                )}
 
                 <p className="mt-4 text-[11px] text-stone text-center">
                   <Link href={commissionHref} className="text-teal underline underline-offset-2 hover:text-teal-dark">

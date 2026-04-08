@@ -8,6 +8,7 @@ import Badge from './Badge'
 import Watermark from './Watermark'
 import type { Product } from '@/lib/products'
 import { useLang } from '@/lib/i18n/context'
+import { SHOP_OPEN } from '@/lib/siteConfig'
 
 export default function ProductCard({ product }: { product: Product }) {
   const { t } = useLang()
@@ -40,8 +41,8 @@ export default function ProductCard({ product }: { product: Product }) {
 
         <Watermark />
 
-        {/* Quick add — appears on hover, only if not sold */}
-        {product.badge !== 'soldout' && (
+        {/* Quick add — appears on hover, only if not sold and shop is open */}
+        {SHOP_OPEN && product.badge !== 'soldout' && (
           <div
             className={`absolute inset-x-0 bottom-0 bg-white/95 backdrop-blur-sm px-4 py-3 flex items-center justify-between transition-all duration-300 ${
               hovered ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
