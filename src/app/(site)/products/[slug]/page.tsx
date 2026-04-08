@@ -46,9 +46,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const product = products.find(p => p.slug === slug)
   if (!product) notFound()
 
-  const related = products
-    .filter(p => p.id !== product.id && p.category === product.category)
-    .slice(0, 3)
+  // Prioritise available-for-purchase pieces in the "You might also like" section
+  const sameCategory = products.filter(p => p.id !== product.id && p.category === product.category)
+  const availableFirst = sameCategory.filter(p => p.badge !== 'soldout' && !p.availableOnRequest)
+  const others = sameCategory.filter(p => p.badge === 'soldout' || p.availableOnRequest)
+  const related = [...availableFirst, ...others].slice(0, 3)
 
   return <ProductDetail product={product} related={related} />
 }

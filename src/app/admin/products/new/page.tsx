@@ -48,7 +48,7 @@ export default function NewProduct() {
         available_on_request: form.available_on_request,
         details: form.details,
         care_tips: form.care_tips,
-        active: true,
+        active: false,  // starts as draft — publish from the products list when ready
       }),
     })
     if (!res.ok) {
@@ -149,7 +149,7 @@ export default function NewProduct() {
         <div className="flex gap-3 pt-2">
           <button type="submit" disabled={saving}
             className="bg-teal text-white text-[11px] tracking-[0.15em] uppercase px-6 py-3 hover:bg-teal-dark transition-colors disabled:opacity-50">
-            {saving ? 'Saving…' : 'Save Product'}
+            {saving ? 'Saving…' : 'Save as Draft'}
           </button>
           <button type="button" onClick={() => router.back()}
             className="border border-gray-200 text-stone text-[11px] tracking-[0.15em] uppercase px-6 py-3 hover:border-ink hover:text-ink transition-colors">
