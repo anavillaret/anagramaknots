@@ -23,7 +23,7 @@ export default function Nav() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50">
-        <div style={{ backgroundColor: '#FFCA99', color: '#1a1a1a', padding: '8px 16px', textAlign: 'center', fontSize: '11px', letterSpacing: '0.12em' }}>
+        <div style={{ backgroundColor: '#FEDCBE', color: '#1a1a1a', padding: '8px 16px', textAlign: 'center', fontSize: '11px', letterSpacing: '0.12em' }}>
           {t.banner.message}{' '}
           <a href="/commission" style={{ textDecoration: 'underline', color: 'inherit' }}>{t.banner.link}</a>
           . {t.banner.suffix}
