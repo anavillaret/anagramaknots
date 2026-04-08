@@ -72,8 +72,9 @@ export default function ProductDetail({ product, related }: { product: Product; 
                 {product.species}
               </p>
             )}
-            <h1 className="text-3xl md:text-4xl font-semibold text-ink tracking-tight">
-              ※ {product.name}
+            <h1 className="text-3xl md:text-4xl font-semibold tracking-tight flex items-center gap-2">
+              <span className="text-teal">※</span>
+              <span className="text-ink">{product.name}</span>
             </h1>
             {product.badge !== 'soldout' && !product.availableOnRequest && (
               <p className="mt-4 text-2xl font-medium text-ink">€{product.price}</p>
