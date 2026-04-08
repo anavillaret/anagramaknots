@@ -232,8 +232,8 @@ export const translations = {
     story: {
       eyebrow: '※ The Story',
       heading: ['The name was', 'always hers.'],
-      p1: 'Hidden inside "Anagrama" is a secret. In Portuguese, gramar means to fall in love with something. Ana + Grama. The name wrote itself — before the first stitch was cast, before the first loop pulled tight.',
-      p2: "Ana has been crocheting since she was a child. What started as a grandmother's lesson became a lifelong language — a way of making meaning with her hands.",
+      p1: 'In Portuguese, \'gramar\' means to be fond of something. Ana + Grama. The name wrote itself — before the first stitch was cast, before the first loop pulled tight.',
+      p2: "What began as knowledge passed down among female relatives and friends, whispered in order to preserve tradition, evolved into a lifelong language — a way of making meaning with her hands.",
       missionEyebrow: '※ The Mission',
       missionHeading: ['Art born from', 'love of nature.'],
       missionP1: "Every amigurumi Ana creates carries the story of a real animal — where it lives, how it loves, what it faces. The cockatoo losing its forest. The penguin who brings a pebble as a proposal. The bumblebee three centimetres long, vanishing from a world it built.",
@@ -242,7 +242,7 @@ export const translations = {
       processHeading: ['Every piece is made', 'by a single pair of hands.'],
       processSub: "Ana works alone, in Portugal, with no shortcuts. Each amigurumi is crocheted from scratch — the body, the limbs, the expression — stuffed, assembled, and finished by hand. A single piece can take anywhere from eight to thirty hours.",
       steps: [
-        { number: '01', title: 'Research', body: 'Ana studies the animal — its colours, posture, story. Every detail is intentional.' },
+        { number: '01', title: 'Research', body: 'Careful choice of materials favouring low-impact yarns and small independent businesses. The colour selection is where imagination takes over, guided by atmospheres, memories and visual references.' },
         { number: '02', title: 'Craft', body: 'Crocheted loop by loop, in natural cotton yarns. No machines. No mass production.' },
         { number: '03', title: 'Story', body: 'Each piece ships with a card about the real animal — where it lives and what it faces.' },
       ],
