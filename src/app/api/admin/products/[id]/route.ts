@@ -1,6 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
 
+// GET /api/admin/products/:id — fetch a single product (bypasses RLS, works for hidden products)
+export async function GET(
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params
+  const db = supabaseAdmin()
+  const { data, error } = await db.from('products').select('*').eq('id', id).single()
+  if (error) return NextResponse.json({ error: error.message }, { status: 404 })
+  return NextResponse.json(data)
+}
+
 // PATCH /api/admin/products/:id  — update any fields on a product
 export async function PATCH(
   request: NextRequest,

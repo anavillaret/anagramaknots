@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic'
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import Image from 'next/image'
-import { supabase, type DbProduct } from '@/lib/supabase'
+import type { DbProduct } from '@/lib/supabase'
 
 export default function EditProduct() {
   const router = useRouter()
@@ -17,8 +17,11 @@ export default function EditProduct() {
 
   useEffect(() => {
     async function load() {
-      const { data } = await supabase.from('products').select('*').eq('id', id).single()
-      if (data) setForm(data)
+      const res = await fetch(`/api/admin/products/${id}`)
+      if (res.ok) {
+        const data = await res.json()
+        setForm(data)
+      }
       setLoading(false)
     }
     load()
@@ -74,7 +77,7 @@ export default function EditProduct() {
     <div className="max-w-2xl">
       <div className="flex items-center gap-4 mb-8">
         <button onClick={() => router.back()} className="text-[11px] text-stone hover:text-ink transition-colors">← Back</button>
-        <h1 className="text-2xl font-semibold text-ink">Edit — {form.name}</h1>
+        <h1 className="text-2xl font-semibold text-ink">Edit — {form.name || '…'}</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="bg-white border border-gray-100 p-8 space-y-6">
