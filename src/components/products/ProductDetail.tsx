@@ -88,9 +88,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
             {isSold ? (
               /* Sold state */
               <div className="mt-8 flex flex-col gap-4">
-                <p className="text-[13px] text-stone leading-relaxed">
-                  This piece has found its home. Every piece is unique — but Ana can create something inspired by it, entirely your own.
-                </p>
+                <p className="text-[13px] text-stone leading-relaxed">{p.soldMessage}</p>
                 <Link
                   href={commissionHref}
                   className="flex items-center justify-center gap-3 py-4 bg-ink text-white text-[11px] tracking-[0.2em] uppercase hover:bg-stone transition-colors duration-200"
@@ -101,18 +99,14 @@ export default function ProductDetail({ product, related }: { product: Product; 
             ) : isOnRequest ? (
               /* Available on request state */
               <div className="mt-8 flex flex-col gap-4">
-                <p className="text-[13px] text-stone leading-relaxed">
-                  This piece is made to order. Tell Ana what you have in mind and she will bring it to life — just for you.
-                </p>
+                <p className="text-[13px] text-stone leading-relaxed">{p.onRequestMessage}</p>
                 <Link
                   href={commissionHref}
                   className="flex items-center justify-center gap-3 py-4 bg-teal text-white text-[11px] tracking-[0.2em] uppercase hover:bg-teal-dark transition-colors duration-200"
                 >
-                  Commission this piece
+                  {p.commissionThis}
                 </Link>
-                <p className="text-[11px] text-stone text-center">
-                  3–5 working days to reply · No commitment required
-                </p>
+                <p className="text-[11px] text-stone text-center">{p.commissionNote}</p>
               </div>
             ) : (
               /* Available state */
@@ -137,11 +131,11 @@ export default function ProductDetail({ product, related }: { product: Product; 
                   </button>
                 ) : (
                   <div className="mt-8 border border-stone-light py-4 text-center">
-                    <p className="text-[11px] tracking-[0.15em] uppercase text-stone">Shop opening soon</p>
+                    <p className="text-[11px] tracking-[0.15em] uppercase text-stone">{p.shopSoon}</p>
                     <p className="text-[11px] text-stone mt-1">
-                      Want this piece?{' '}
+                      {p.wantThis}{' '}
                       <Link href={commissionHref} className="text-teal underline underline-offset-2 hover:text-teal-dark">
-                        Commission it →
+                        {p.commissionIt}
                       </Link>
                     </p>
                   </div>

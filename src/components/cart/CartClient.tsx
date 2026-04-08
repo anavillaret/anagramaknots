@@ -177,10 +177,10 @@ export default function CartClient() {
             </button>
           ) : (
             <div className="w-full md:w-auto text-center border border-stone-light px-14 py-4">
-              <p className="text-[11px] tracking-[0.15em] uppercase text-stone">Shop opening soon</p>
+              <p className="text-[11px] tracking-[0.15em] uppercase text-stone">{t.product.shopSoon}</p>
               <p className="text-[11px] text-stone mt-1">
-                Want this piece?{' '}
-                <a href="/commission" className="text-teal underline underline-offset-2 hover:text-teal-dark">Commission it →</a>
+                {t.product.wantThis}{' '}
+                <a href="/commission" className="text-teal underline underline-offset-2 hover:text-teal-dark">{t.product.commissionIt}</a>
               </p>
             </div>
           )}
