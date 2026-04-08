@@ -167,6 +167,9 @@ export const translations = {
       successHeading: 'Thank you.',
       successSub: 'Ana will be in touch within 3–5 working days with a price and timeline estimate.',
       error: 'Something went wrong. Please try again or email us at anagramaknots@gmail.com.',
+      upsellEyebrow: '※ Available Now',
+      upsellHeading: 'Or take one home today',
+      upsellSub: 'These pieces are ready to ship — no wait, no commission needed.',
     },
     contact: {
       eyebrow: '※ Contact',
@@ -416,6 +419,9 @@ export const translations = {
       successHeading: 'Obrigada.',
       successSub: 'A Ana vai contactar-te em 3–5 dias úteis com uma estimativa de preço e prazo.',
       error: 'Algo correu mal. Por favor tenta novamente ou envia-nos um email para anagramaknots@gmail.com.',
+      upsellEyebrow: '※ Disponível Agora',
+      upsellHeading: 'Ou leva uma para casa hoje',
+      upsellSub: 'Estas peças estão prontas para envio — sem espera, sem encomenda.',
     },
     contact: {
       eyebrow: '※ Contacto',

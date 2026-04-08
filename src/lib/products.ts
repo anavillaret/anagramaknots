@@ -1,3 +1,5 @@
+import type { DbProduct } from '@/lib/supabase'
+
 export type Product = {
   id: string
   name: string
@@ -11,6 +13,53 @@ export type Product = {
   details?: string
   careTips?: string
   availableOnRequest?: boolean  // true = commission only, no stock
+}
+
+/** Map a Supabase row to the frontend Product shape */
+
+export function dbProductToProduct(row: DbProduct): Product {
+  return {
+    id: row.id,
+    name: row.name,
+    species: row.species ?? '',
+    fact: row.fact ?? '',
+    price: row.price,
+    category: 'amigurumis',
+    image: row.image,
+    badge: row.badge ?? undefined,
+    slug: row.slug,
+    details: row.details ?? undefined,
+    careTips: row.care_tips ?? undefined,
+    availableOnRequest: row.available_on_request ?? false,
+  }
+}
+
+/** Fetch active products from Supabase, filtering out placeholders.
+ *  Falls back to static PRODUCTS if the DB is unreachable or empty. */
+export async function getProducts(): Promise<Product[]> {
+  try {
+    // Import here to avoid circular dep and to keep this server-only
+    const { createClient } = await import('@supabase/supabase-js')
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    if (!url || !key) throw new Error('Missing Supabase env vars')
+
+    const supabase = createClient(url, key)
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .neq('active', false)           // includes NULL (unset) and TRUE, excludes only explicit FALSE
+      .not('image', 'ilike', '%placeholder%')
+      .order('sort_order', { ascending: true })
+
+    if (error) throw error
+    if (!data || data.length === 0) throw new Error('No products in DB')
+
+    return (data as DbProduct[]).map(dbProductToProduct)
+  } catch {
+    // Graceful fallback to static data
+    return PRODUCTS.filter(p => !p.image.includes('placeholder'))
+  }
 }
 
 export const PRODUCTS: Product[] = [

@@ -1,9 +1,12 @@
 'use client'
 
+import Link from 'next/link'
+import Image from 'next/image'
 import CommissionForm from './CommissionForm'
 import { useLang } from '@/lib/i18n/context'
+import type { Product } from '@/lib/products'
 
-export default function CommissionPageContent() {
+export default function CommissionPageContent({ availableProducts }: { availableProducts: Product[] }) {
   const { t } = useLang()
   const c = t.commission
 
@@ -23,6 +26,43 @@ export default function CommissionPageContent() {
           <CommissionForm />
         </div>
       </div>
+
+      {/* Available now upsell */}
+      {availableProducts.length > 0 && (
+        <div className="max-w-7xl mx-auto px-6 mt-24 pt-16 border-t border-stone-light">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <p className="text-[12px] tracking-[0.3em] uppercase text-teal mb-2">{c.upsellEyebrow}</p>
+              <h2 className="text-2xl font-semibold text-ink tracking-tight">{c.upsellHeading}</h2>
+              <p className="mt-2 text-[13px] text-stone max-w-sm leading-relaxed">{c.upsellSub}</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-8">
+            {availableProducts.map(product => (
+              <Link key={product.id} href={`/products/${product.slug}`} className="group flex flex-col">
+                <div className="relative overflow-hidden aspect-[3/4]">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  />
+                </div>
+                <div className="mt-2.5 flex items-start justify-between gap-2">
+                  <p className="text-[12px] font-medium text-ink group-hover:text-teal transition-colors">
+                    ※ {product.name}
+                  </p>
+                  <p className="text-[12px] font-medium text-ink shrink-0">€{product.price}</p>
+                </div>
+                {product.species && (
+                  <p className="text-[10px] text-stone italic mt-0.5">{product.species}</p>
+                )}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </main>
   )
 }

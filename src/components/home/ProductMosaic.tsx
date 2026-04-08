@@ -24,7 +24,7 @@ export default function ProductMosaic() {
         </div>
         <Link
           href="/products"
-          className="hidden md:inline-flex text-[11px] tracking-[0.15em] uppercase text-stone hover:text-ink transition-colors border-b border-stone-light pb-0.5"
+          className="hidden lg:inline-flex text-[11px] tracking-[0.15em] uppercase text-stone hover:text-ink transition-colors border-b border-stone-light pb-0.5"
         >
           {m.cta}
         </Link>
@@ -67,8 +67,8 @@ export default function ProductMosaic() {
         ))}
       </div>
 
-      {/* Mobile "View All" */}
-      <div className="mt-10 flex justify-center md:hidden">
+      {/* Mobile/tablet "View All" */}
+      <div className="mt-10 flex justify-center lg:hidden">
         <Link
           href="/products"
           className="text-[11px] tracking-[0.15em] uppercase text-stone hover:text-ink transition-colors border-b border-stone-light pb-0.5"

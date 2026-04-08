@@ -22,13 +22,12 @@ export default function ProductCard({ product }: { product: Product }) {
       onMouseLeave={() => setHovered(false)}
     >
       {/* Image container */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden aspect-[3/4]">
         <Image
           src={product.image}
           alt={product.name}
-          width={600}
-          height={750}
-          className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
+          fill
+          className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 50vw, 33vw"
         />
 

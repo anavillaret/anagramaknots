@@ -1,14 +1,13 @@
 import { notFound } from 'next/navigation'
-import { PRODUCTS } from '@/lib/products'
+import { getProducts } from '@/lib/products'
 import ProductDetail from '@/components/products/ProductDetail'
 
-export function generateStaticParams() {
-  return PRODUCTS.map(p => ({ slug: p.slug }))
-}
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const product = PRODUCTS.find(p => p.slug === slug)
+  const products = await getProducts()
+  const product = products.find(p => p.slug === slug)
   if (!product) return {}
 
   const title = product.name
@@ -43,10 +42,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const product = PRODUCTS.find(p => p.slug === slug)
+  const products = await getProducts()
+  const product = products.find(p => p.slug === slug)
   if (!product) notFound()
 
-  const related = PRODUCTS.filter(p => p.id !== product.id && p.category === product.category).slice(0, 3)
+  const related = products
+    .filter(p => p.id !== product.id && p.category === product.category)
+    .slice(0, 3)
 
   return <ProductDetail product={product} related={related} />
 }

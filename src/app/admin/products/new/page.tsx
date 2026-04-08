@@ -46,6 +46,7 @@ export default function NewProduct() {
       available_on_request: form.available_on_request,
       details: form.details,
       care_tips: form.care_tips,
+      active: true,
     })
     if (err) { setError(err.message); setSaving(false); return }
     router.push('/admin/products')

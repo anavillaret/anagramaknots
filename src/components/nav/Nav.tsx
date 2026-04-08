@@ -33,7 +33,7 @@ export default function Nav() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden text-ink"
+            className="lg:hidden text-ink"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Menu"
           >
@@ -58,7 +58,7 @@ export default function Nav() {
           </Link>
 
           {/* Desktop nav — left */}
-          <nav className="hidden md:flex items-center gap-7">
+          <nav className="hidden lg:flex items-center gap-7">
             {navLinks.slice(0, 2).map(link => (
               <Link
                 key={link.href}
@@ -71,7 +71,7 @@ export default function Nav() {
           </nav>
 
           {/* Desktop nav — right */}
-          <div className="hidden md:flex items-center gap-5">
+          <div className="hidden lg:flex items-center gap-5">
             {navLinks.slice(2).map(link => (
               <Link
                 key={link.href}
@@ -109,7 +109,7 @@ export default function Nav() {
           </div>
 
           {/* Mobile: search + cart only */}
-          <div className="md:hidden flex items-center gap-4">
+          <div className="lg:hidden flex items-center gap-4">
             <button
               onClick={() => setSearchOpen(true)}
               className="text-ink hover:text-teal transition-colors"
@@ -123,7 +123,7 @@ export default function Nav() {
 
         {/* Mobile nav drawer */}
         {mobileOpen && (
-          <nav className="md:hidden border-t border-stone-light bg-white px-6 py-6 flex flex-col gap-5">
+          <nav className="lg:hidden border-t border-stone-light bg-white px-6 py-6 flex flex-col gap-5">
             {navLinks.map(link => (
               <Link
                 key={link.href}

@@ -3,18 +3,18 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { PRODUCTS } from '@/lib/products'
+import type { Product } from '@/lib/products'
 import Watermark from '@/components/ui/Watermark'
 import { useLang } from '@/lib/i18n/context'
 
-export default function ProductsClient() {
+export default function ProductsClient({ products }: { products: Product[] }) {
   const { t } = useLang()
   const p = t.products
   const [filter, setFilter] = useState<'all' | 'available'>('all')
 
   const filtered = filter === 'available'
-    ? PRODUCTS.filter(prod => prod.badge !== 'soldout' && !prod.availableOnRequest)
-    : PRODUCTS
+    ? products.filter(prod => prod.badge !== 'soldout' && !prod.availableOnRequest)
+    : products
 
   return (
     <>
@@ -47,13 +47,13 @@ export default function ProductsClient() {
             <div key={product.id} className="flex flex-col">
               {/* Image + name → product page */}
               <Link href={`/products/${product.slug}`} className="group flex flex-col">
-                <div className="relative overflow-hidden">
+                <div className="relative overflow-hidden aspect-[3/4]">
                   <Image
                     src={product.image}
                     alt={product.name}
-                    width={600}
-                    height={750}
-                    className="w-full h-auto group-hover:scale-105 transition-transform duration-500"
+                    fill
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />
                   {/* Status tag */}
                   {isUnavailable && (
