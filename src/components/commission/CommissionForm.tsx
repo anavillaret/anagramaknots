@@ -19,9 +19,7 @@ function CommissionFormInner() {
   const [status, setStatus] = useState<Status>('idle')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [description, setDescription] = useState(
-    refProduct ? `${t.product.requestSimilar.replace('Commission something similar', 'Something similar to the')} ${refProduct}` : ''
-  )
+  const [description, setDescription] = useState('')
   const [files, setFiles] = useState<File[]>([])
   const [dragOver, setDragOver] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -39,9 +37,9 @@ function CommissionFormInner() {
 
   useEffect(() => {
     if (refProduct) {
-      setDescription(`Something similar to the ${refProduct}`)
+      setDescription(`${f.descriptionRefPrefix} ${refProduct}`)
     }
-  }, [refProduct])
+  }, [refProduct, f.descriptionRefPrefix])
 
   const addFiles = (incoming: FileList | null) => {
     if (!incoming) return
