@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import ProductCard from '@/components/ui/ProductCard'
 import Watermark from '@/components/ui/Watermark'
+import BrandSymbol from '@/components/ui/BrandSymbol'
 import { FEATURED_PRODUCTS } from '@/lib/products'
 import { useLang } from '@/lib/i18n/context'
 
@@ -43,8 +44,9 @@ export default function ProductMosaic() {
             <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
             <Watermark />
             <div className="absolute bottom-5 left-5 right-5">
-              <p className="text-[11px] tracking-[0.2em] uppercase text-white/80 mb-1">
-                ※ {FEATURED_PRODUCTS[0].name}
+              <p className="text-[11px] tracking-[0.2em] uppercase text-white/80 mb-1 flex items-center gap-1.5">
+                <BrandSymbol size={10} className="opacity-80" />
+                {FEATURED_PRODUCTS[0].name}
               </p>
               <p className="text-white text-sm leading-snug line-clamp-2 max-w-xs">
                 {FEATURED_PRODUCTS[0].fact}

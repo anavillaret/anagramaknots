@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import CommissionForm from './CommissionForm'
+import BrandSymbol from '@/components/ui/BrandSymbol'
 import { useLang } from '@/lib/i18n/context'
 import type { Product } from '@/lib/products'
 
@@ -50,8 +51,9 @@ export default function CommissionPageContent({ availableProducts }: { available
                   />
                 </div>
                 <div className="mt-2.5 flex items-start justify-between gap-2">
-                  <p className="text-[12px] font-medium text-ink group-hover:text-teal transition-colors">
-                    ※ {product.name}
+                  <p className="text-[12px] font-medium text-teal flex items-center gap-1.5">
+                    <BrandSymbol size={10} />
+                    {product.name}
                   </p>
                   <p className="text-[12px] font-medium text-ink shrink-0">€{product.price}</p>
                 </div>

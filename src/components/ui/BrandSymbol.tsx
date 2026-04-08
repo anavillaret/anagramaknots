@@ -1,0 +1,20 @@
+// The Anagrama knot symbol — replaces ※ everywhere on the site
+export default function BrandSymbol({ size = 14, className = '' }: { size?: number; className?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 250 250"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={`inline-block shrink-0 ${className}`}
+      aria-hidden="true"
+    >
+      <rect width="158.819" height="33.651" rx="16.8255" transform="matrix(0.913287 0.407317 -0.410227 0.911983 27.0323 25.7495)" fill="#0F7A75"/>
+      <rect width="128.728" height="33.651" rx="16.8255" transform="matrix(0.913287 0.407317 -0.410227 0.911983 54.5153 89.7727)" fill="#0F7A75"/>
+      <rect width="159.853" height="33.651" rx="16.8255" transform="matrix(0.913287 0.407317 -0.410227 0.911983 54.5153 142.045)" fill="#0F7A75"/>
+      <rect width="106.805" height="33.6515" rx="16.8257" transform="matrix(0.911548 -0.411193 0.414119 0.910223 138.706 43.9177)" fill="#0F7A75"/>
+      <rect width="68.7584" height="33.6515" rx="16.8257" transform="matrix(0.911548 -0.411193 0.414119 0.910223 0 219.37)" fill="#0F7A75"/>
+    </svg>
+  )
+}

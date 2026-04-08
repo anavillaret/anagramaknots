@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { ShoppingBag } from 'lucide-react'
 import Badge from './Badge'
 import Watermark from './Watermark'
+import BrandSymbol from './BrandSymbol'
 import type { Product } from '@/lib/products'
 import { useLang } from '@/lib/i18n/context'
 import { SHOP_OPEN } from '@/lib/siteConfig'
@@ -59,8 +60,9 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="mt-3 flex flex-col gap-0.5">
         <div className="flex items-start justify-between gap-2">
           <div>
-            <p className="text-[12px] font-semibold tracking-wide text-ink group-hover:text-teal transition-colors">
-              ※ {product.name}
+            <p className="text-[12px] font-semibold tracking-wide text-teal transition-colors flex items-center gap-1.5">
+              <BrandSymbol size={11} />
+              {product.name}
             </p>
             {product.species && (
               <p className="text-[10px] tracking-wide text-stone italic mt-0.5">

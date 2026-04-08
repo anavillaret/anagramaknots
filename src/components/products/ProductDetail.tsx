@@ -4,6 +4,7 @@ import { useState } from 'react' // eslint-disable-line
 import Image from 'next/image'
 import Link from 'next/link'
 import { ShoppingBag, Check } from 'lucide-react'
+import BrandSymbol from '@/components/ui/BrandSymbol'
 import { Product } from '@/lib/products'
 import { useCart } from '@/lib/cart'
 import Badge from '@/components/ui/Badge'
@@ -72,9 +73,9 @@ export default function ProductDetail({ product, related }: { product: Product; 
                 {product.species}
               </p>
             )}
-            <h1 className="text-3xl md:text-4xl font-semibold tracking-tight flex items-center gap-2">
-              <span className="text-teal">※</span>
-              <span className="text-ink">{product.name}</span>
+            <h1 className="text-3xl md:text-4xl font-semibold tracking-tight flex items-center gap-3">
+              <BrandSymbol size={28} className="shrink-0 mt-0.5" />
+              <span className="text-teal">{product.name}</span>
             </h1>
             {product.badge !== 'soldout' && !product.availableOnRequest && (
               <p className="mt-4 text-2xl font-medium text-ink">€{product.price}</p>
@@ -187,7 +188,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
                     <Watermark />
                   </div>
                   <div className="mt-2 flex items-start justify-between gap-2">
-                    <p className="text-[12px] font-medium text-ink group-hover:text-teal transition-colors">※ {r.name}</p>
+                    <p className="text-[12px] font-medium text-teal flex items-center gap-1.5"><BrandSymbol size={10} />{r.name}</p>
                     {r.badge !== 'soldout' && (
                       <p className="text-[12px] text-ink shrink-0">€{r.price}</p>
                     )}

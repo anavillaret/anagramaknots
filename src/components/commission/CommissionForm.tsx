@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { Paperclip, X } from 'lucide-react'
 import { useLang } from '@/lib/i18n/context'
+import BrandSymbol from '@/components/ui/BrandSymbol'
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
@@ -91,7 +92,7 @@ function CommissionFormInner() {
           </div>
           <div>
             <p className="text-[10px] tracking-[0.2em] uppercase text-stone mb-0.5">{c.refBanner}</p>
-            <p className="text-[13px] font-medium text-ink">※ {refProduct}</p>
+            <p className="text-[13px] font-medium text-teal flex items-center gap-1.5"><BrandSymbol size={11} />{refProduct}</p>
           </div>
         </div>
       )}

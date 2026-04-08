@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import BrandSymbol from '@/components/ui/BrandSymbol'
 import { X, Search } from 'lucide-react'
 import { PRODUCTS, Product } from '@/lib/products'
 import { useLang } from '@/lib/i18n/context'
@@ -112,8 +113,8 @@ export default function SearchOverlay({ onClose }: { onClose: () => void }) {
                   />
                 </div>
                 <div>
-                  <p className="text-[12px] font-medium text-ink group-hover:text-teal transition-colors">
-                    ※ {product.name}
+                  <p className="text-[12px] font-medium text-teal flex items-center gap-1.5">
+                    <BrandSymbol size={11} />{product.name}
                   </p>
                   {product.species && (
                     <p className="text-[10px] text-stone italic">{product.species}</p>

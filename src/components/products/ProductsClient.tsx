@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import type { Product } from '@/lib/products'
 import Watermark from '@/components/ui/Watermark'
+import BrandSymbol from '@/components/ui/BrandSymbol'
 import { useLang } from '@/lib/i18n/context'
 
 export default function ProductsClient({ products }: { products: Product[] }) {
@@ -71,8 +72,9 @@ export default function ProductsClient({ products }: { products: Product[] }) {
                 </div>
 
                 <div className="mt-3 flex items-start justify-between gap-2">
-                  <p className="text-[13px] font-medium text-ink group-hover:text-teal transition-colors">
-                    ※ {product.name}
+                  <p className="text-[13px] font-medium text-teal transition-colors flex items-center gap-1.5">
+                    <BrandSymbol size={12} />
+                    {product.name}
                   </p>
                   {!isUnavailable && (
                     <p className="text-[13px] font-medium text-ink shrink-0">€{product.price}</p>

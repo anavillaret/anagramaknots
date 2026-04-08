@@ -7,6 +7,7 @@ import { X, Loader2 } from 'lucide-react'
 import { useCart } from '@/lib/cart'
 import { useLang } from '@/lib/i18n/context'
 import { SHOP_OPEN } from '@/lib/siteConfig'
+import BrandSymbol from '@/components/ui/BrandSymbol'
 
 const CURRENCIES = [
   { code: 'eur', label: 'EUR €', symbol: '€' },
@@ -95,7 +96,7 @@ export default function CartClient() {
               <div className="flex-1 flex flex-col gap-1">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="text-[13px] font-medium text-ink">※ {product.name}</p>
+                    <p className="text-[13px] font-medium text-teal flex items-center gap-1.5"><BrandSymbol size={12} />{product.name}</p>
                     {product.species && (
                       <p className="text-[11px] text-stone italic">{product.species}</p>
                     )}
