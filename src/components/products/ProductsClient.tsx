@@ -19,12 +19,13 @@ export default function ProductsClient() {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
         {filtered.map(product => (
           <Link key={product.id} href={`/products/${product.slug}`} className="group flex flex-col">
-            <div className="relative aspect-square overflow-hidden bg-linen">
+            <div className="relative overflow-hidden">
               <Image
                 src={product.image}
                 alt={product.name}
-                fill
-                className="object-contain group-hover:scale-105 transition-transform duration-500"
+                width={600}
+                height={750}
+                className="w-full h-auto group-hover:scale-105 transition-transform duration-500"
               />
               {product.badge && (
                 <div className="absolute top-2 left-2">

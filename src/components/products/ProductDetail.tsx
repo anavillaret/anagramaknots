@@ -47,8 +47,8 @@ export default function ProductDetail({ product, related }: { product: Product; 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
 
           {/* Image */}
-          <div className="relative aspect-square overflow-hidden bg-linen">
-            <Image src={product.image} alt={product.name} fill className="object-contain" priority />
+          <div className="relative overflow-hidden">
+            <Image src={product.image} alt={product.name} width={800} height={1000} className="w-full h-auto" priority />
             {product.badge && (
               <div className="absolute top-3 left-3">
                 <Badge type={product.badge} />
@@ -169,8 +169,8 @@ export default function ProductDetail({ product, related }: { product: Product; 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
               {related.map(r => (
                 <Link key={r.id} href={`/products/${r.slug}`} className="group flex flex-col">
-                  <div className="relative aspect-square overflow-hidden bg-linen">
-                    <Image src={r.image} alt={r.name} fill className="object-contain group-hover:scale-105 transition-transform duration-500" />
+                  <div className="relative overflow-hidden">
+                    <Image src={r.image} alt={r.name} width={400} height={500} className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
                     {r.badge === 'soldout' && (
                       <div className="absolute inset-0 bg-white/50 flex items-center justify-center">
                         <span className="text-[9px] tracking-[0.3em] uppercase text-ink border border-ink px-3 py-1">{p.soldOut}</span>
