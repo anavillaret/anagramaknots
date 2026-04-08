@@ -1,14 +1,18 @@
 'use client'
 
 import AdminGuard from './AdminGuard'
+import { LogoSymbol } from '@/components/ui/Logo'
 
 export default function AdminShell({ children }: { children: React.ReactNode }) {
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 flex flex-col">
         <header className="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <span className="text-[13px] font-semibold tracking-widest uppercase text-ink">※ Anagrama</span>
+            <a href="/admin" className="flex items-center gap-2.5">
+              <LogoSymbol size={22} />
+              <span className="text-[13px] font-semibold tracking-widest uppercase text-ink">Anagrama</span>
+            </a>
             <nav className="flex items-center gap-4">
               <a href="/admin" className="text-[12px] text-stone hover:text-ink transition-colors">Dashboard</a>
               <a href="/admin/products" className="text-[12px] text-stone hover:text-ink transition-colors">Products</a>
@@ -25,7 +29,13 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
             </button>
           </div>
         </header>
-        <main className="max-w-7xl mx-auto px-6 py-10">{children}</main>
+
+        <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-10">{children}</main>
+
+        <footer className="border-t border-gray-200 bg-white px-6 py-4 flex items-center justify-between">
+          <p className="text-[11px] text-stone">© {new Date().getFullYear()} Anagrama Art in Knots. All rights reserved.</p>
+          <p className="text-[11px] text-stone italic">Handmade with care, one knot at a time.</p>
+        </footer>
       </div>
     </AdminGuard>
   )
