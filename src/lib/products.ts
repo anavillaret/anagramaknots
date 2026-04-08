@@ -61,8 +61,8 @@ export async function getProducts(): Promise<Product[]> {
     if (!data || data.length === 0) throw new Error('No products in DB')
 
     return (data as DbProduct[]).map(dbProductToProduct)
-  } catch {
-    // Graceful fallback to static data
+  } catch (err) {
+    console.error('[getProducts] Supabase fetch failed, falling back to static data:', err)
     return PRODUCTS.filter(p => !p.image.includes('placeholder'))
   }
 }

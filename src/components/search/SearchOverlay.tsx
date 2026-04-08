@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import BrandSymbol from '@/components/ui/BrandSymbol'
 import { X, Search } from 'lucide-react'
-import { PRODUCTS, Product } from '@/lib/products'
+import { Product } from '@/lib/products'
 import { useLang } from '@/lib/i18n/context'
 
 function matchesQuery(product: Product, query: string): boolean {
@@ -22,6 +22,7 @@ export default function SearchOverlay({ onClose }: { onClose: () => void }) {
   const s = t.search
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('all')
+  const [products, setProducts] = useState<Product[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
 
   const CATEGORIES = [
@@ -36,7 +37,15 @@ export default function SearchOverlay({ onClose }: { onClose: () => void }) {
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose])
 
-  const results = PRODUCTS.filter(p => {
+  // Fetch live products from the API
+  useEffect(() => {
+    fetch('/api/products')
+      .then(r => r.json())
+      .then(data => setProducts(data))
+      .catch(() => {})
+  }, [])
+
+  const results = products.filter(p => {
     const categoryMatch = category === 'all' || p.category === category
     const queryMatch = query.trim() === '' || matchesQuery(p, query)
     return categoryMatch && queryMatch
