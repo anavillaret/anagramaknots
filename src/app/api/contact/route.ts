@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { EMAIL } from '@/lib/tokens'
 
 export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY)
@@ -12,7 +13,7 @@ export async function POST(req: NextRequest) {
 
     await resend.emails.send({
       from: 'Anagrama Contact <noreply@anagramaknots.com>',
-      to: 'hello@anagramaknots.com',
+      to: EMAIL,
       replyTo: email,
       subject: `[Contact] ${subject}`,
       html: `
