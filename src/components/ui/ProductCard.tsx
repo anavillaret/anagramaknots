@@ -68,7 +68,7 @@ export default function ProductCard({ product }: { product: Product }) {
               </p>
             )}
           </div>
-          {product.badge !== 'soldout' && (
+          {product.badge !== 'soldout' && !product.availableOnRequest && (
             <p className="text-[12px] font-semibold text-ink shrink-0">
               €{product.price}
             </p>

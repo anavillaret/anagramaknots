@@ -53,7 +53,7 @@ export default function ProductMosaic() {
                 href={`/products/${FEATURED_PRODUCTS[0].slug}`}
                 className="inline-block mt-4 text-[10px] tracking-[0.2em] uppercase text-white border border-white/60 px-4 py-2 hover:bg-white hover:text-ink transition-all duration-200"
               >
-                {FEATURED_PRODUCTS[0].badge === 'soldout' ? 'View · Sold' : `Shop Now — €${FEATURED_PRODUCTS[0].price}`}
+                {FEATURED_PRODUCTS[0].badge === 'soldout' ? 'View · Sold' : FEATURED_PRODUCTS[0].availableOnRequest ? 'Commission this piece' : `Shop Now — €${FEATURED_PRODUCTS[0].price}`}
               </Link>
             </div>
           </div>
