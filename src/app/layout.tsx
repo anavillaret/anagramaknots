@@ -69,6 +69,13 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <body className={inter.className}>
         <LanguageProvider>
+          <div style={{ backgroundColor: '#111', color: '#fff', padding: '10px 16px', textAlign: 'center', fontSize: '11px', letterSpacing: '0.12em' }}>
+            ※ The shop is coming soon — browse freely and{' '}
+            <a href="/commission" style={{ textDecoration: 'underline', color: 'inherit' }}>
+              commission a piece
+            </a>
+            . Purchases will open shortly.
+          </div>
           {children}
         </LanguageProvider>
       </body>
