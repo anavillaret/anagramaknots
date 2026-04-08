@@ -49,7 +49,7 @@ export default function Hero() {
         {/* Image — top on mobile/tablet, right on desktop */}
         <div
           className="relative overflow-hidden order-1 lg:order-2 h-[60vw] lg:h-full"
-          style={{ backgroundColor: '#e6f3f3' }}
+          style={{ backgroundColor: '#F7E7DD' }}
         >
           <Image
             src={slideMeta.image}

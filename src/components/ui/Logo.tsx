@@ -1,5 +1,5 @@
 // Symbol only — the knot icon
-export function LogoSymbol({ size = 32, color = '#6FC3A8' }: { size?: number; color?: string }) {
+export function LogoSymbol({ size = 32, color = '#0F7A75' }: { size?: number; color?: string }) {
   return (
     <svg
       width={size}
@@ -20,7 +20,7 @@ export function LogoSymbol({ size = 32, color = '#6FC3A8' }: { size?: number; co
 // Full logo — symbol + ANAGRAMA + Art in Knots (no background)
 export function LogoFull({
   width = 120,
-  symbolColor = '#6FC3A8',
+  symbolColor = '#0F7A75',
   textColor = '#1a1a1a',
 }: {
   width?: number

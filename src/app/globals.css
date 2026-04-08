@@ -1,12 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand Colors */
-  --color-teal: #6FC3A8;
-  --color-teal-dark: #4da88a;
-  --color-teal-light: #eaf6f1;
-  --color-teal-deep: #008080;
-  --color-linen: #F5EFE0;
+  /* Brand Colors — updated palette */
+  --color-teal: #0F7A75;
+  --color-teal-dark: #0a5e5a;
+  --color-teal-light: #e4f0ef;
+  --color-teal-deep: #0F7A75;
+  --color-linen: #F7E7DD;
+  --color-peach: #FFCA99;
+  --color-peach-soft: #FEDCBE;
   --color-rose: #C8897A;
   --color-stone: #8A837C;
   --color-stone-light: #d4cfc9;
@@ -36,7 +38,7 @@
   }
 
   ::selection {
-    background-color: var(--color-teal-deep);
+    background-color: var(--color-teal);
     color: white;
   }
 }
@@ -63,6 +65,6 @@
     color: var(--color-stone-light);
   }
   .field-input:focus {
-    border-color: var(--color-teal-deep);
+    border-color: var(--color-teal);
   }
 }
