@@ -107,7 +107,7 @@ export default function SearchOverlay({ onClose }: { onClose: () => void }) {
                     src={product.image}
                     alt={product.name}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="object-contain group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div>

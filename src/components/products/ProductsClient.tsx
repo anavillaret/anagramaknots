@@ -24,7 +24,7 @@ export default function ProductsClient() {
                 src={product.image}
                 alt={product.name}
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                className="object-contain group-hover:scale-105 transition-transform duration-500"
               />
               {product.badge && (
                 <div className="absolute top-2 left-2">

@@ -48,7 +48,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
 
           {/* Image */}
           <div className="relative aspect-square overflow-hidden bg-linen">
-            <Image src={product.image} alt={product.name} fill className="object-cover" priority />
+            <Image src={product.image} alt={product.name} fill className="object-contain" priority />
             {product.badge && (
               <div className="absolute top-3 left-3">
                 <Badge type={product.badge} />
@@ -170,7 +170,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
               {related.map(r => (
                 <Link key={r.id} href={`/products/${r.slug}`} className="group flex flex-col">
                   <div className="relative aspect-square overflow-hidden bg-linen">
-                    <Image src={r.image} alt={r.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <Image src={r.image} alt={r.name} fill className="object-contain group-hover:scale-105 transition-transform duration-500" />
                     {r.badge === 'soldout' && (
                       <div className="absolute inset-0 bg-white/50 flex items-center justify-center">
                         <span className="text-[9px] tracking-[0.3em] uppercase text-ink border border-ink px-3 py-1">{p.soldOut}</span>
