@@ -29,20 +29,35 @@ export default function AdminProducts() {
 
   useEffect(() => { load() }, [])
 
-  async function updateField(id: string, field: string, value: unknown) {
+  async function patchProduct(id: string, fields: Record<string, unknown>) {
     setSaving(id)
     await fetch(`/api/admin/products/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ [field]: value }),
+      body: JSON.stringify(fields),
     })
     await load()
     setSaving(null)
   }
 
-  async function toggleActive(p: DbProduct) { await updateField(p.id, 'active', !p.active) }
-  async function markSold(p: DbProduct) { await updateField(p.id, 'badge', p.badge === 'soldout' ? null : 'soldout') }
-  async function toggleRequest(p: DbProduct) { await updateField(p.id, 'available_on_request', !p.available_on_request) }
+  async function toggleActive(p: DbProduct) {
+    await patchProduct(p.id, { active: !p.active })
+  }
+
+  // Mark as sold → also auto-enables commission so the CTA shows on the live site
+  async function markSold(p: DbProduct) {
+    if (p.badge === 'soldout') {
+      // Unmark sold — restore to commission-only
+      await patchProduct(p.id, { badge: null, available_on_request: true })
+    } else {
+      // Mark sold — sold pieces are always commissionable
+      await patchProduct(p.id, { badge: 'soldout', available_on_request: true })
+    }
+  }
+
+  async function toggleRequest(p: DbProduct) {
+    await patchProduct(p.id, { available_on_request: !p.available_on_request })
+  }
 
   const filtered = products.filter(p => {
     if (filter === 'available') return !p.available_on_request && p.badge !== 'soldout' && p.active
