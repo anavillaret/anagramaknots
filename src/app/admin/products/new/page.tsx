@@ -4,7 +4,6 @@ export const dynamic = 'force-dynamic'
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
 
 export default function NewProduct() {
   const router = useRouter()
@@ -34,21 +33,30 @@ export default function NewProduct() {
     e.preventDefault()
     setSaving(true)
     setError('')
-    const { error: err } = await supabase.from('products').insert({
-      name: form.name,
-      slug: form.slug,
-      species: form.species,
-      fact: form.fact,
-      price: parseFloat(form.price) || 0,
-      category: 'amigurumis',
-      image: form.image || '/images/products/placeholder.jpeg',
-      badge: form.badge || null,
-      available_on_request: form.available_on_request,
-      details: form.details,
-      care_tips: form.care_tips,
-      active: true,
+    const res = await fetch('/api/admin/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: form.name,
+        slug: form.slug,
+        species: form.species,
+        fact: form.fact,
+        price: parseFloat(form.price) || 0,
+        category: 'amigurumis',
+        image: form.image || '/images/products/placeholder.jpeg',
+        badge: form.badge || null,
+        available_on_request: form.available_on_request,
+        details: form.details,
+        care_tips: form.care_tips,
+        active: true,
+      }),
     })
-    if (err) { setError(err.message); setSaving(false); return }
+    if (!res.ok) {
+      const { error: msg } = await res.json()
+      setError(msg ?? 'Save failed')
+      setSaving(false)
+      return
+    }
     router.push('/admin/products')
   }
 

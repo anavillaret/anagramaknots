@@ -31,7 +31,11 @@ export default function AdminProducts() {
 
   async function updateField(id: string, field: string, value: unknown) {
     setSaving(id)
-    await supabase.from('products').update({ [field]: value }).eq('id', id)
+    await fetch(`/api/admin/products/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ [field]: value }),
+    })
     await load()
     setSaving(null)
   }

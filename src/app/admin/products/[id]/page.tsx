@@ -32,20 +32,29 @@ export default function EditProduct() {
     e.preventDefault()
     setSaving(true)
     setError('')
-    const { error: err } = await supabase.from('products').update({
-      name: form.name,
-      slug: form.slug,
-      species: form.species,
-      fact: form.fact,
-      price: form.price,
-      image: form.image,
-      badge: form.badge ?? null,
-      available_on_request: form.available_on_request,
-      details: form.details,
-      care_tips: form.care_tips,
-      active: form.active,
-    }).eq('id', id)
-    if (err) { setError(err.message); setSaving(false); return }
+    const res = await fetch(`/api/admin/products/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: form.name,
+        slug: form.slug,
+        species: form.species,
+        fact: form.fact,
+        price: form.price,
+        image: form.image,
+        badge: form.badge ?? null,
+        available_on_request: form.available_on_request,
+        details: form.details,
+        care_tips: form.care_tips,
+        active: form.active,
+      }),
+    })
+    if (!res.ok) {
+      const { error: msg } = await res.json()
+      setError(msg ?? 'Save failed')
+      setSaving(false)
+      return
+    }
     router.push('/admin/products')
   }
 
