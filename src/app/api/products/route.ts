@@ -6,5 +6,7 @@ export const dynamic = 'force-dynamic'
 // GET /api/products — public endpoint returning all live products
 export async function GET() {
   const products = await getProducts()
-  return NextResponse.json(products)
+  return NextResponse.json(products, {
+    headers: { 'Cache-Control': 'no-store' },
+  })
 }

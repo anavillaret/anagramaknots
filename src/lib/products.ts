@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from 'next/cache'
 import type { DbProduct } from '@/lib/supabase'
 
 export type Product = {
@@ -38,6 +39,7 @@ export function dbProductToProduct(row: DbProduct): Product {
  *  Uses the service-role key (server-only) to bypass RLS.
  *  Falls back to static PRODUCTS if the DB is unreachable or empty. */
 export async function getProducts(): Promise<Product[]> {
+  noStore() // Opt out of Next.js data cache — always fetch fresh from Supabase
   try {
     const { createClient } = await import('@supabase/supabase-js')
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL
