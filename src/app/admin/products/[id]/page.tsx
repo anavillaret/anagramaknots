@@ -4,8 +4,8 @@ export const dynamic = 'force-dynamic'
 
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
-import Image from 'next/image'
 import type { DbProduct } from '@/lib/supabase'
+import ImageUpload from '@/components/admin/ImageUpload'
 
 export default function EditProduct() {
   const router = useRouter()
@@ -18,16 +18,13 @@ export default function EditProduct() {
   useEffect(() => {
     async function load() {
       const res = await fetch(`/api/admin/products/${id}`)
-      if (res.ok) {
-        const data = await res.json()
-        setForm(data)
-      }
+      if (res.ok) setForm(await res.json())
       setLoading(false)
     }
     load()
   }, [id])
 
-  function set(field: string, value: string | boolean | null) {
+  function set(field: string, value: string | boolean | null | number) {
     setForm(f => ({ ...f, [field]: value }))
   }
 
@@ -82,23 +79,11 @@ export default function EditProduct() {
 
       <form onSubmit={handleSubmit} className="bg-white border border-gray-100 p-8 space-y-6">
 
-        {/* Image preview */}
-        {form.image && (
-          <div className="flex items-start gap-4">
-            <div className="w-20 h-20 bg-linen relative overflow-hidden shrink-0">
-              <Image src={form.image} alt={form.name ?? ''} fill className="object-contain" />
-            </div>
-            <div className="flex-1">
-              <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Image path</label>
-              <input
-                type="text"
-                value={form.image ?? ''}
-                onChange={e => set('image', e.target.value)}
-                className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors"
-              />
-            </div>
-          </div>
-        )}
+        {/* Photo upload */}
+        <div>
+          <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Photo</label>
+          <ImageUpload value={form.image ?? ''} onChange={url => set('image', url)} />
+        </div>
 
         {/* Name + Slug */}
         <div className="grid grid-cols-2 gap-4">
@@ -124,7 +109,7 @@ export default function EditProduct() {
           </div>
           <div>
             <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Price (€)</label>
-            <input type="number" required value={form.price ?? ''} onChange={e => set('price', e.target.value)}
+            <input type="number" required value={form.price ?? ''} onChange={e => set('price', parseFloat(e.target.value) || 0)}
               className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors" />
           </div>
         </div>
@@ -133,6 +118,7 @@ export default function EditProduct() {
         <div>
           <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Fact / Story</label>
           <textarea value={form.fact ?? ''} onChange={e => set('fact', e.target.value)} rows={3}
+            placeholder="The animal's story — shown on the product page."
             className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
         </div>
 
@@ -140,12 +126,14 @@ export default function EditProduct() {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Details</label>
-            <textarea value={form.details ?? ''} onChange={e => set('details', e.target.value)} rows={2}
+            <textarea value={form.details ?? ''} onChange={e => set('details', e.target.value)} rows={3}
+              placeholder="Materials: 100% cotton, hypoallergenic fiber stuffing. Size: XX cm."
               className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
           </div>
           <div>
             <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Care Tips</label>
-            <textarea value={form.care_tips ?? ''} onChange={e => set('care_tips', e.target.value)} rows={2}
+            <textarea value={form.care_tips ?? ''} onChange={e => set('care_tips', e.target.value)} rows={3}
+              placeholder="Hand wash with care and let air dry."
               className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
           </div>
         </div>
@@ -153,7 +141,7 @@ export default function EditProduct() {
         {/* Status */}
         <div>
           <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-3">Status</label>
-          <div className="flex gap-4">
+          <div className="flex gap-3 flex-wrap">
             {[
               { value: 'available', label: '✓ Available (in stock)' },
               { value: 'request', label: '◎ Commission only' },
@@ -168,10 +156,13 @@ export default function EditProduct() {
         </div>
 
         {/* Visibility */}
-        <div className="flex items-center gap-3">
-          <input type="checkbox" id="active" checked={form.active ?? true} onChange={e => set('active', e.target.checked)}
+        <div className="flex items-center gap-3 py-1">
+          <input type="checkbox" id="active" checked={form.active !== false} onChange={e => set('active', e.target.checked)}
             className="w-4 h-4 accent-teal" />
           <label htmlFor="active" className="text-[12px] text-ink cursor-pointer">Visible on site</label>
+          {form.active === false && (
+            <span className="text-[10px] text-orange-500 ml-1">— currently hidden (draft)</span>
+          )}
         </div>
 
         {error && <p className="text-[12px] text-red-500">{error}</p>}
