@@ -3,13 +3,6 @@
 import Link from 'next/link'
 import { useLang } from '@/lib/i18n/context'
 
-const regions = [
-  { name: 'Portugal & Spain', standard: '2–4 business days', express: '1–2 business days' },
-  { name: 'Rest of Europe', standard: '5–8 business days', express: '2–4 business days' },
-  { name: 'USA & Canada', standard: '8–12 business days', express: '4–6 business days' },
-  { name: 'Rest of World', standard: '10–18 business days', express: '5–8 business days' },
-]
-
 export default function ShippingContent() {
   const { t } = useLang()
   const s = t.shipping
@@ -53,9 +46,9 @@ export default function ShippingContent() {
             <span className="text-[11px] tracking-[0.15em] uppercase text-stone font-medium">{s.colStandard}</span>
             <span className="text-[11px] tracking-[0.15em] uppercase text-stone font-medium">{s.colExpress}</span>
           </div>
-          {regions.map(r => (
-            <div key={r.name} className="grid grid-cols-3 px-6 py-4">
-              <span className="text-[14px] font-medium text-ink">{r.name}</span>
+          {s.rows.map(r => (
+            <div key={r.region} className="grid grid-cols-3 px-6 py-4">
+              <span className="text-[14px] font-medium text-ink">{r.region}</span>
               <span className="text-[14px] text-stone">{r.standard}</span>
               <span className="text-[14px] text-stone">{r.express}</span>
             </div>

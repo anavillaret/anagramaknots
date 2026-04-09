@@ -228,12 +228,18 @@ export const translations = {
       colRegion: 'Region',
       colStandard: 'Standard — €5',
       colExpress: 'Express — €12',
+      rows: [
+        { region: 'Portugal & Spain', standard: '3–5 business days', express: '1–2 business days' },
+        { region: 'Rest of Europe', standard: '6–10 business days', express: '3–5 business days' },
+        { region: 'USA & Canada', standard: '10–15 business days', express: '5–8 business days' },
+        { region: 'Rest of World', standard: '12–21 business days', express: '7–10 business days' },
+      ],
       disclaimer: '* Delivery times are estimates and may vary during peak periods.',
       faqHeading: 'Common questions',
       faqs: [
         { q: 'Do you ship worldwide?', a: 'Yes — Anagrama ships to over 30 countries. If you are unsure whether we ship to your country, send us a message.' },
         { q: 'Will I receive a tracking number?', a: 'Yes. Once your order ships you will receive an email with a tracking link so you can follow your piece every step of the way.' },
-        { q: 'How is each piece packed?', a: 'Every order is wrapped in tissue paper, placed in a branded box, and protected with natural padding. No plastic. Your piece arrives as a gift.' },
+        { q: 'How is each piece packed?', a: 'Every order is wrapped in recyclable packaging, placed in a branded box, and protected with natural padding. No plastic. Your piece arrives as a gift.' },
         { q: 'What if my order arrives damaged?', a: 'This has never happened — but if it does, contact us within 48 hours with a photo and we will make it right.' },
         { q: 'Can I change my shipping address after ordering?', a: 'If the order has not shipped yet, yes. Email us as soon as possible at anagramaknots@gmail.com.' },
         { q: 'Are customs duties included?', a: 'Orders within the EU are duties-free. For orders outside the EU, customs duties may apply depending on your country — these are the responsibility of the buyer.' },
@@ -492,6 +498,12 @@ export const translations = {
       colRegion: 'Região',
       colStandard: 'Standard — €5',
       colExpress: 'Express — €12',
+      rows: [
+        { region: 'Portugal & Espanha', standard: '3–5 dias úteis', express: '1–2 dias úteis' },
+        { region: 'Resto da Europa', standard: '6–10 dias úteis', express: '3–5 dias úteis' },
+        { region: 'EUA & Canadá', standard: '10–15 dias úteis', express: '5–8 dias úteis' },
+        { region: 'Resto do Mundo', standard: '12–21 dias úteis', express: '7–10 dias úteis' },
+      ],
       disclaimer: '* Os prazos são estimativas e podem variar em períodos de maior procura.',
       faqHeading: 'Perguntas frequentes',
       faqs: [
