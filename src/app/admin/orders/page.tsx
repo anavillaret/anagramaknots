@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react'
 import { supabase, type DbOrder } from '@/lib/supabase'
 
 const STATUS_COLORS: Record<string, string> = {
-  pending: 'bg-yellow-50 text-yellow-700',
-  paid: 'bg-blue-50 text-blue-700',
-  shipped: 'bg-green-50 text-green-700',
+  paid:      'bg-blue-50 text-blue-700',
+  stitching: 'bg-amber-50 text-amber-700',
+  shipped:   'bg-teal-50 text-teal-700',
+  delivered: 'bg-green-50 text-green-700',
   cancelled: 'bg-red-50 text-red-500',
 }
 
-const STATUS_OPTIONS = ['pending', 'paid', 'shipped', 'cancelled']
+const STATUS_OPTIONS = ['paid', 'stitching', 'shipped', 'delivered', 'cancelled']
 
 export default function AdminOrders() {
   const [orders, setOrders] = useState<DbOrder[]>([])
