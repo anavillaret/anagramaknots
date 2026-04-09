@@ -32,7 +32,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
         <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-10">{children}</main>
 
-        <footer className="border-t border-gray-200 bg-white px-6 py-4 flex items-center justify-between">
+        <footer className="sticky bottom-0 border-t border-gray-200 bg-white px-6 py-4 flex items-center justify-between">
           <p className="text-[11px] text-stone">© {new Date().getFullYear()} Anagrama Art in Knots. All rights reserved.</p>
           <p className="text-[11px] text-stone italic">Handmade with care, one knot at a time.</p>
         </footer>

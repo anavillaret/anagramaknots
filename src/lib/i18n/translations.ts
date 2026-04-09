@@ -484,8 +484,8 @@ export const translations = {
     story: {
       eyebrow: '※ A História',
       heading: ['O nome sempre', 'foi dela.'],
-      p1: 'Escondido em "Anagrama" há um segredo. Em português, gramar significa apaixonar-se por algo. Ana + Grama. O nome escreveu-se sozinho — antes do primeiro ponto, antes do primeiro nó.',
-      p2: 'A Ana crocheta desde criança. O que começou como uma lição da avó tornou-se uma linguagem para toda a vida — uma forma de dar sentido às coisas com as mãos.',
+      p1: 'Em português, \'gramar\' significa gostar muito de algo. Ana + Grama. O nome escreveu-se sozinho — antes do primeiro ponto, antes do primeiro nó.',
+      p2: 'O que começou como um conhecimento passado entre familiares e amigas, sussurrado para preservar a tradição, tornou-se uma linguagem para toda a vida — uma forma de dar sentido às coisas com as mãos.',
       missionEyebrow: '※ A Missão',
       missionHeading: ['Arte nascida do', 'amor pela natureza.'],
       missionP1: 'Cada amigurumi que a Ana cria carrega a história de um animal real — onde vive, como ama, o que enfrenta. A cacatua a perder a sua floresta. O pinguim que traz uma pedra como pedido de casamento. O abelhão de três centímetros, a desaparecer de um mundo que ele próprio construiu.',
@@ -494,7 +494,7 @@ export const translations = {
       processHeading: ['Cada peça é feita', 'por um único par de mãos.'],
       processSub: 'A Ana trabalha sozinha, em Portugal, sem atalhos. Cada amigurumi é crochetado do zero — o corpo, os membros, a expressão — recheado, montado e acabado à mão. Uma peça pode demorar entre oito a trinta horas.',
       steps: [
-        { number: '01', title: 'Pesquisa', body: 'A Ana estuda o animal — as suas cores, postura, história. Cada detalhe é intencional.' },
+        { number: '01', title: 'Pesquisa', body: 'Escolha cuidadosa de materiais, privilegiando fios de baixo impacto e pequenos negócios independentes. A seleção de cores é onde a imaginação toma conta, guiada por atmosferas, memórias e referências visuais.' },
         { number: '02', title: 'Criação', body: 'Crochetado laço a laço, em fios de algodão natural. Sem máquinas. Sem produção em série.' },
         { number: '03', title: 'História', body: 'Cada peça é enviada com um cartão sobre o animal real — onde vive e o que enfrenta.' },
       ],
