@@ -154,22 +154,49 @@ export default function ProductDetail({ product, related }: { product: Product; 
         </div>
 
         {/* Details & Care */}
-        {(product.details || product.careTips) && (
-          <div className="mt-16 border-t border-stone-light pt-12 flex flex-col gap-8 max-w-xl">
-            {product.details && (
-              <div>
-                <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.details}</p>
-                <p className="text-[13px] leading-relaxed text-stone">{product.details}</p>
+        {(product.details || product.careTips) && (() => {
+          // Split "Materials: … Size: X cm / Y inches tall." into two parts
+          const sizeMatch = product.details?.match(/Size:\s*([^.]+\.?)/)
+          const sizeText = sizeMatch ? sizeMatch[1].replace(/\.$/, '').trim() : null
+          const materialsText = product.details
+            ? product.details.replace(/\s*Size:[^.]+\.?/, '').replace(/,\s*$/, '').trim()
+            : null
+
+          return (
+            <div className="mt-16 border-t border-stone-light pt-12">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl">
+
+                {/* Materials */}
+                {materialsText && (
+                  <div>
+                    <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.details}</p>
+                    <p className="text-[13px] leading-relaxed text-stone">{materialsText}</p>
+                  </div>
+                )}
+
+                {/* Size — callout block */}
+                {sizeText && (
+                  <div>
+                    <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.size ?? 'Size'}</p>
+                    <div className="inline-flex items-center gap-2 bg-linen px-4 py-3">
+                      <span className="text-[20px] leading-none">📐</span>
+                      <span className="text-[14px] font-medium text-ink tracking-tight">{sizeText}</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Care */}
+                {product.careTips && (
+                  <div>
+                    <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.care}</p>
+                    <p className="text-[13px] leading-relaxed text-stone">{product.careTips}</p>
+                  </div>
+                )}
+
               </div>
-            )}
-            {product.careTips && (
-              <div>
-                <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.care}</p>
-                <p className="text-[13px] leading-relaxed text-stone">{product.careTips}</p>
-              </div>
-            )}
-          </div>
-        )}
+            </div>
+          )
+        })()}
 
         {/* Related */}
         {related.length > 0 && (

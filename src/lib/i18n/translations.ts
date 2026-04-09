@@ -105,6 +105,7 @@ export const translations = {
       commissionThis: 'Commission this piece',
       commissionNote: '3–5 working days to reply · No commitment required',
       details: 'Details',
+      size: 'Size',
       care: 'Care',
       relatedEyebrow: '※ You might also like',
       badges: {
@@ -382,6 +383,7 @@ export const translations = {
       commissionThis: 'Encomendar esta peça',
       commissionNote: '3–5 dias úteis para responder · Sem compromisso',
       details: 'Detalhes',
+      size: 'Tamanho',
       care: 'Cuidados',
       relatedEyebrow: '※ Também podes gostar',
       badges: {
