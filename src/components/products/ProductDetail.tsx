@@ -178,10 +178,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
                 {sizeText && (
                   <div>
                     <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.size ?? 'Size'}</p>
-                    <div className="inline-flex items-center gap-2 bg-linen px-4 py-3">
-                      <span className="text-[20px] leading-none">📐</span>
-                      <span className="text-[14px] font-medium text-ink tracking-tight">{sizeText}</span>
-                    </div>
+                    <p className="text-[13px] leading-relaxed text-stone">{sizeText}</p>
                   </div>
                 )}
 
