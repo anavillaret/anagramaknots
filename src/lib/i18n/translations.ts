@@ -237,6 +237,7 @@ export const translations = {
       disclaimer: '* Delivery times are estimates and may vary during peak periods.',
       faqHeading: 'Common questions',
       faqs: [
+        { q: 'Do the delivery times include making time?', a: 'No — these times refer only to postal delivery once your order has been dispatched. For in-stock pieces, Ana packs and ships within 1–2 business days. For commission or made-to-order pieces, production time is agreed separately before you place the order.' },
         { q: 'Do you ship worldwide?', a: 'Yes — Anagrama ships to over 30 countries. If you are unsure whether we ship to your country, send us a message.' },
         { q: 'Will I receive a tracking number?', a: 'Yes. Once your order ships you will receive an email with a tracking link so you can follow your piece every step of the way.' },
         { q: 'How is each piece packed?', a: 'Every order is wrapped in recyclable packaging, placed in a branded box, and protected with natural padding. No plastic. Your piece arrives as a gift.' },
@@ -507,6 +508,7 @@ export const translations = {
       disclaimer: '* Os prazos são estimativas e podem variar em períodos de maior procura.',
       faqHeading: 'Perguntas frequentes',
       faqs: [
+        { q: 'Os prazos incluem o tempo de confeção?', a: 'Não — estes prazos referem-se apenas à entrega postal após o envio da encomenda. Para peças em stock, a Ana embala e envia em 1–2 dias úteis. Para peças de encomenda ou feitas a pedido, o prazo de confeção é acordado separadamente antes de fazeres a encomenda.' },
         { q: 'Enviam para todo o mundo?', a: 'Sim — a Anagrama envia para mais de 30 países. Se tiveres dúvidas sobre o teu país, envia-nos uma mensagem.' },
         { q: 'Recebo número de rastreamento?', a: 'Sim. Quando a encomenda for enviada receberás um email com o link de rastreamento para acompanhares a tua peça.' },
         { q: 'Como é embalada cada peça?', a: 'Cada encomenda é embrulhada em papel de seda, colocada numa caixa com a marca e protegida com enchimento natural. Sem plástico. A tua peça chega como um presente.' },
