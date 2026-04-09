@@ -220,7 +220,7 @@ export const translations = {
       heading: ['Made with care.', 'Sent with love.'],
       sub: 'Every Anagrama piece is carefully packed by hand and shipped from Portugal to wherever you are in the world.',
       features: [
-        { title: 'Gift-ready packaging', body: 'Tissue paper, a branded box, and a handwritten animal story card. Ready to give.' },
+        { title: 'Gift-ready packaging', body: '100% recyclable packaging, a branded box, and a handwritten animal story card. Ready to give.' },
         { title: 'No plastic', body: 'All packaging is paper-based and recyclable. Because the animals deserve better.' },
         { title: 'Tracked worldwide', body: 'Every shipment includes a tracking number. You always know where your piece is.' },
       ],
@@ -484,7 +484,7 @@ export const translations = {
       heading: ['Feito com cuidado.', 'Enviado com amor.'],
       sub: 'Cada peça Anagrama é cuidadosamente embalada à mão e enviada de Portugal para onde quer que estejas no mundo.',
       features: [
-        { title: 'Embalagem pronta a oferecer', body: 'Papel de seda, uma caixa com a marca e um cartão escrito à mão com a história do animal. Pronto para dar.' },
+        { title: 'Embalagem pronta a oferecer', body: '100% embalagem reciclável, uma caixa com a marca e um cartão escrito à mão com a história do animal. Pronto para dar.' },
         { title: 'Sem plástico', body: 'Toda a embalagem é em papel e reciclável. Porque os animais merecem melhor.' },
         { title: 'Rastreamento mundial', body: 'Cada envio inclui número de rastreamento. Sabes sempre onde está a tua peça.' },
       ],
