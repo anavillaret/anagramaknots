@@ -54,12 +54,12 @@ export default function ProductMosaic({ products }: { products: Product[] }) {
         {/* Hero card — spans 2 cols */}
         <div className="col-span-2">
           <Link href={`/products/${hero.slug}`} className="block group">
-            <div className="relative overflow-hidden bg-linen aspect-[4/3]">
+            <div className="relative overflow-hidden bg-linen aspect-square">
               <Image
                 src={hero.image}
                 alt={hero.name}
                 fill
-                className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                className="object-contain transition-transform duration-500 group-hover:scale-105 p-4"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
