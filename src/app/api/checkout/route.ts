@@ -63,13 +63,13 @@ export async function POST(req: NextRequest) {
           shipping_rate_data: {
             type: 'fixed_amount',
             fixed_amount: {
-              amount: Math.round(5 * rate * 100),
+              amount: Math.round(6 * rate * 100),
               currency: cur,
             },
             display_name: 'Standard Shipping',
             delivery_estimate: {
-              minimum: { unit: 'business_day', value: 5 },
-              maximum: { unit: 'business_day', value: 12 },
+              minimum: { unit: 'business_day', value: 3 },
+              maximum: { unit: 'business_day', value: 21 },
             },
           },
         },
@@ -77,13 +77,13 @@ export async function POST(req: NextRequest) {
           shipping_rate_data: {
             type: 'fixed_amount',
             fixed_amount: {
-              amount: Math.round(12 * rate * 100),
+              amount: Math.round(13 * rate * 100),
               currency: cur,
             },
             display_name: 'Express Shipping',
             delivery_estimate: {
-              minimum: { unit: 'business_day', value: 2 },
-              maximum: { unit: 'business_day', value: 5 },
+              minimum: { unit: 'business_day', value: 1 },
+              maximum: { unit: 'business_day', value: 10 },
             },
           },
         },
