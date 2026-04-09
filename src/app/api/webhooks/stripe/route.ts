@@ -30,7 +30,7 @@ function formatLineItems(session: Stripe.Checkout.Session) {
 async function sendOrderNotificationToAna(session: Stripe.Checkout.Session, resend: Resend) {
   const customerName = session.shipping_details?.name ?? session.customer_details?.name ?? 'Unknown'
   const customerEmail = session.customer_details?.email ?? 'Unknown'
-  const shipping = session.shipping_details?.address
+  const shipping = session.shipping_details?.address ?? session.customer_details?.address
   const shippingAddress = shipping
     ? [shipping.line1, shipping.line2, shipping.city, shipping.postal_code, shipping.country].filter(Boolean).join(', ')
     : 'Not provided'
@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
       const db = supabaseAdmin()
       const customerName = session.shipping_details?.name ?? session.customer_details?.name ?? ''
       const customerEmail = session.customer_details?.email ?? ''
-      const shipping = session.shipping_details?.address
+      const shipping = session.shipping_details?.address ?? session.customer_details?.address
       const shippingAddress = shipping
         ? { line1: shipping.line1, line2: shipping.line2, city: shipping.city, postal_code: shipping.postal_code, country: shipping.country }
         : {}
