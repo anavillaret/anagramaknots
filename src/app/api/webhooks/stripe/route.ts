@@ -3,6 +3,7 @@ import Stripe from 'stripe'
 import { Resend } from 'resend'
 import { EMAIL } from '@/lib/tokens'
 import { brandedEmail, infoTable, divider, TEAL, STONE } from '@/lib/emailTemplate'
+import { supabaseAdmin } from '@/lib/supabase'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
@@ -108,8 +109,37 @@ export async function POST(req: NextRequest) {
 
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as Stripe.Checkout.Session
-    const resend = getResend()
 
+    // Save order to Supabase
+    try {
+      const db = supabaseAdmin()
+      const customerName = session.shipping_details?.name ?? session.customer_details?.name ?? ''
+      const customerEmail = session.customer_details?.email ?? ''
+      const shipping = session.shipping_details?.address
+      const shippingAddress = shipping
+        ? { line1: shipping.line1, line2: shipping.line2, city: shipping.city, postal_code: shipping.postal_code, country: shipping.country }
+        : {}
+
+      let lineItems: Array<{ name: string; quantity: number; price: number }> = []
+      try { lineItems = JSON.parse(session.metadata?.items ?? '[]') } catch { /* ignore */ }
+
+      await db.from('orders').insert({
+        stripe_session_id: session.id,
+        customer_email: customerEmail,
+        customer_name: customerName,
+        status: 'paid',
+        currency: session.currency?.toUpperCase() ?? 'EUR',
+        total_amount: session.amount_total ?? 0,
+        line_items: lineItems,
+        shipping_address: shippingAddress,
+        notes: '',
+      })
+    } catch (err) {
+      console.error('Failed to save order to Supabase:', err)
+    }
+
+    // Send emails
+    const resend = getResend()
     if (resend) {
       await Promise.allSettled([
         sendOrderNotificationToAna(session, resend),
