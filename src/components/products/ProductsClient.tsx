@@ -27,8 +27,8 @@ export default function ProductsClient({ products }: { products: Product[] }) {
             onClick={() => setFilter(f)}
             className={`text-[10px] tracking-[0.18em] uppercase px-4 py-1.5 border transition-colors ${
               filter === f
-                ? 'bg-ink text-white border-ink'
-                : 'border-stone-light text-stone hover:border-ink hover:text-ink'
+                ? 'bg-teal text-white border-teal'
+                : 'border-stone-light text-stone hover:border-teal hover:text-teal'
             }`}
           >
             {f === 'all' ? p.filterAll : p.filterAvailable}
