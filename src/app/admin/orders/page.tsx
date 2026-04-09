@@ -88,7 +88,7 @@ export default function AdminOrders() {
                     )) : '—'}
                   </td>
                   <td className="px-4 py-3 text-ink font-medium">
-                    {o.total_amount ? `€${Number(o.total_amount).toFixed(2)}` : '—'}
+                    {o.total_amount ? `€${(Number(o.total_amount) / 100).toFixed(2)}` : '—'}
                   </td>
                   <td className="px-4 py-3">
                     <span className={`text-[10px] tracking-[0.12em] uppercase px-2 py-0.5 ${STATUS_COLORS[o.status] ?? ''}`}>
