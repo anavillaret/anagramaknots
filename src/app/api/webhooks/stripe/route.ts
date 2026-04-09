@@ -28,9 +28,10 @@ function formatLineItems(session: Stripe.Checkout.Session) {
 }
 
 async function sendOrderNotificationToAna(session: Stripe.Checkout.Session, resend: Resend) {
-  const customerName = session.shipping_details?.name ?? session.customer_details?.name ?? 'Unknown'
+  const collectedShipping = (session as Record<string, unknown> & { collected_information?: { shipping_details?: { address?: Stripe.Address; name?: string } } }).collected_information?.shipping_details
+  const customerName = collectedShipping?.name ?? session.shipping_details?.name ?? session.customer_details?.name ?? 'Unknown'
   const customerEmail = session.customer_details?.email ?? 'Unknown'
-  const shipping = session.shipping_details?.address ?? session.customer_details?.address
+  const shipping = collectedShipping?.address ?? session.shipping_details?.address ?? session.customer_details?.address
   const shippingAddress = shipping
     ? [shipping.line1, shipping.line2, shipping.city, shipping.postal_code, shipping.country].filter(Boolean).join(', ')
     : 'Not provided'
@@ -63,7 +64,8 @@ async function sendConfirmationToCustomer(session: Stripe.Checkout.Session, rese
   const customerEmail = session.customer_details?.email
   if (!customerEmail) return
 
-  const customerName = session.shipping_details?.name ?? session.customer_details?.name ?? 'there'
+  const collectedShipping2 = (session as Record<string, unknown> & { collected_information?: { shipping_details?: { name?: string } } }).collected_information?.shipping_details
+  const customerName = collectedShipping2?.name ?? session.shipping_details?.name ?? session.customer_details?.name ?? 'there'
   const amountTotal = session.amount_total ? `€${(session.amount_total / 100).toFixed(2)}` : 'N/A'
 
   await resend.emails.send({
@@ -108,17 +110,16 @@ export async function POST(req: NextRequest) {
   }
 
   if (event.type === 'checkout.session.completed') {
-    // Retrieve the full session from Stripe to ensure all fields are populated
-    const session = await stripe.checkout.sessions.retrieve(
-      (event.data.object as Stripe.Checkout.Session).id
-    )
+    const session = event.data.object as Stripe.Checkout.Session
 
     // Save order to Supabase
     try {
       const db = supabaseAdmin()
-      const customerName = session.shipping_details?.name ?? session.customer_details?.name ?? ''
+      // In newer Stripe API versions the address lives in collected_information or customer_details
+      const collectedShipping = (session as Record<string, unknown> & { collected_information?: { shipping_details?: { address?: Stripe.Address; name?: string } } }).collected_information?.shipping_details
+      const customerName = collectedShipping?.name ?? session.shipping_details?.name ?? session.customer_details?.name ?? ''
       const customerEmail = session.customer_details?.email ?? ''
-      const shipping = session.shipping_details?.address ?? session.customer_details?.address
+      const shipping = collectedShipping?.address ?? session.shipping_details?.address ?? session.customer_details?.address
       const shippingAddress = shipping
         ? { line1: shipping.line1, line2: shipping.line2, city: shipping.city, postal_code: shipping.postal_code, country: shipping.country }
         : {}
