@@ -20,6 +20,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
               <a href="/admin/products" className="text-[12px] text-stone hover:text-ink transition-colors">Products</a>
               <a href="/admin/orders" className="text-[12px] text-stone hover:text-ink transition-colors">Orders</a>
               <a href="/admin/events" className="text-[12px] text-stone hover:text-ink transition-colors">Events</a>
+              <a href="/admin/hero" className="text-[12px] text-stone hover:text-ink transition-colors">Hero</a>
             </nav>
           </div>
           <div className="flex items-center gap-4">
