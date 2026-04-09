@@ -156,7 +156,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
         {/* Details & Care */}
         {(product.details || product.size || product.careTips) && (
           <div className="mt-16 border-t border-stone-light pt-12">
-            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-stone-light">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
 
               {product.details && (
                 <div className="py-6 md:py-0 md:pr-12">

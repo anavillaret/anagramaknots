@@ -521,7 +521,7 @@ export const translations = {
         { q: 'Os prazos incluem o tempo de confeção?', a: 'Não — estes prazos referem-se apenas à entrega postal após o envio da encomenda. Para peças em stock, a Ana embala e envia em 1–2 dias úteis. Para peças de encomenda ou feitas a pedido, o prazo de confeção é acordado separadamente antes de fazeres a encomenda.' },
         { q: 'Enviam para todo o mundo?', a: 'Sim — a Anagrama envia para mais de 30 países. Se tiveres dúvidas sobre o teu país, envia-nos uma mensagem.' },
         { q: 'Recebo número de rastreamento?', a: 'Sim. Quando a encomenda for enviada receberás um email com o link de rastreamento para acompanhares a tua peça.' },
-        { q: 'Como é embalada cada peça?', a: 'Cada encomenda é embrulhada em papel de seda, colocada numa caixa com a marca e protegida com enchimento natural. Sem plástico. A tua peça chega como um presente.' },
+        { q: 'Como é embalada cada peça?', a: 'Cada encomenda é embrulhada em embalagem reciclável, colocada numa caixa com a marca e protegida com enchimento natural. Sem plástico. A tua peça chega como um presente.' },
         { q: 'E se a encomenda chegar danificada?', a: 'Nunca aconteceu — mas se acontecer, contacta-nos em 48 horas com uma fotografia e resolveremos.' },
         { q: 'Posso alterar a morada após a encomenda?', a: 'Se a encomenda ainda não foi enviada, sim. Envia-nos um email o mais rápido possível para anagramaknots@gmail.com.' },
         { q: 'As taxas alfandegárias estão incluídas?', a: 'Encomendas dentro da UE estão isentas. Fora da UE, podem aplicar-se taxas alfandegárias conforme o país — são da responsabilidade do comprador.' },
