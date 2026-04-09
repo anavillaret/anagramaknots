@@ -66,6 +66,7 @@ export default function AdminOrders() {
               <tr>
                 <th className="text-left px-4 py-3 text-stone font-medium">Date</th>
                 <th className="text-left px-4 py-3 text-stone font-medium">Customer</th>
+                <th className="text-left px-4 py-3 text-stone font-medium">Address</th>
                 <th className="text-left px-4 py-3 text-stone font-medium">Items</th>
                 <th className="text-left px-4 py-3 text-stone font-medium">Total</th>
                 <th className="text-left px-4 py-3 text-stone font-medium">Status</th>
@@ -81,6 +82,20 @@ export default function AdminOrders() {
                   <td className="px-4 py-3">
                     <p className="text-ink font-medium">{o.customer_name ?? '—'}</p>
                     <p className="text-stone text-[11px]">{o.customer_email ?? '—'}</p>
+                  </td>
+                  <td className="px-4 py-3 text-stone text-[11px] leading-relaxed">
+                    {(() => {
+                      const a = o.shipping_address as { line1?: string; line2?: string; city?: string; postal_code?: string; country?: string } | null
+                      if (!a || !a.line1) return <span className="text-gray-300">—</span>
+                      return (
+                        <div>
+                          {a.line1 && <span className="block">{a.line1}</span>}
+                          {a.line2 && <span className="block">{a.line2}</span>}
+                          {(a.city || a.postal_code) && <span className="block">{[a.postal_code, a.city].filter(Boolean).join(' ')}</span>}
+                          {a.country && <span className="block uppercase tracking-wider text-[10px]">{a.country}</span>}
+                        </div>
+                      )
+                    })()}
                   </td>
                   <td className="px-4 py-3 text-stone">
                     {Array.isArray(o.line_items) ? o.line_items.map((li: { name: string; quantity: number }) => (
