@@ -72,7 +72,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
                 </div>
 
                 <div className="mt-3 flex items-start justify-between gap-2">
-                  <p className="text-[13px] font-medium text-teal transition-colors flex items-center gap-1.5">
+                  <p className="text-[13px] font-medium text-teal transition-colors flex items-center gap-1.5 uppercase">
                     <BrandSymbol size={12} />
                     {product.name}
                   </p>
