@@ -1,10 +1,13 @@
 import { MetadataRoute } from 'next'
-import { PRODUCTS } from '@/lib/products'
+import { getProducts } from '@/lib/products'
 
 const BASE_URL = 'https://anagramaknots.com'
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const productUrls = PRODUCTS.map(product => ({
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Fetch live products from Supabase so new products appear automatically
+  const products = await getProducts().catch(() => [])
+
+  const productUrls = products.map(product => ({
     url: `${BASE_URL}/products/${product.slug}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
@@ -32,16 +35,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${BASE_URL}/shipping`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
-    {
       url: `${BASE_URL}/commission`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6,
+    },
+    {
+      url: `${BASE_URL}/shipping`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.5,
     },
     {
       url: `${BASE_URL}/contact`,
