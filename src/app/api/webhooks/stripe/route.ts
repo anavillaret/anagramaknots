@@ -108,7 +108,11 @@ export async function POST(req: NextRequest) {
   }
 
   if (event.type === 'checkout.session.completed') {
-    const session = event.data.object as Stripe.Checkout.Session
+    // Retrieve the full session from Stripe to ensure all fields are populated
+    const session = await stripe.checkout.sessions.retrieve(
+      (event.data.object as Stripe.Checkout.Session).id,
+      { expand: ['shipping_details', 'customer_details'] }
+    )
 
     // Save order to Supabase
     try {
