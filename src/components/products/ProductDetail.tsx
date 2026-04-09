@@ -93,7 +93,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
                 <p className="text-[13px] text-stone leading-relaxed">{p.soldMessage}</p>
                 <Link
                   href={commissionHref}
-                  className="flex items-center justify-center gap-3 py-4 bg-teal text-white text-[11px] tracking-[0.2em] uppercase hover:bg-teal-dark transition-colors duration-200"
+                  className="flex items-center justify-center gap-3 py-4 bg-rose text-white text-[11px] tracking-[0.2em] uppercase hover:bg-rose-dark transition-colors duration-200"
                 >
                   {p.requestSimilar}
                 </Link>
@@ -104,7 +104,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
                 <p className="text-[13px] text-stone leading-relaxed">{p.onRequestMessage}</p>
                 <Link
                   href={commissionHref}
-                  className="flex items-center justify-center gap-3 py-4 bg-teal text-white text-[11px] tracking-[0.2em] uppercase hover:bg-teal-dark transition-colors duration-200"
+                  className="flex items-center justify-center gap-3 py-4 bg-rose text-white text-[11px] tracking-[0.2em] uppercase hover:bg-rose-dark transition-colors duration-200"
                 >
                   {p.commissionThis}
                 </Link>
@@ -136,7 +136,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
                     <p className="text-[11px] tracking-[0.15em] uppercase text-stone">{p.shopSoon}</p>
                     <p className="text-[11px] text-stone mt-1">
                       {p.wantThis}{' '}
-                      <Link href={commissionHref} className="text-teal underline underline-offset-2 hover:text-teal-dark">
+                      <Link href={commissionHref} className="text-rose underline underline-offset-2 hover:text-rose-dark">
                         {p.commissionIt}
                       </Link>
                     </p>
@@ -144,7 +144,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
                 )}
 
                 <p className="mt-4 text-[11px] text-stone text-center">
-                  <Link href={commissionHref} className="text-teal underline underline-offset-2 hover:text-teal-dark">
+                  <Link href={commissionHref} className="text-rose underline underline-offset-2 hover:text-rose-dark">
                     {p.commissionLink}
                   </Link>
                 </p>
