@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Watermark from '@/components/ui/Watermark'
 import { useLang } from '@/lib/i18n/context'
+import EventsSection from '@/components/story/EventsSection'
 
 export default function StoryContent() {
   const { t } = useLang()
@@ -98,6 +99,9 @@ export default function StoryContent() {
           ))}
         </div>
       </section>
+
+      {/* Events & Workshops */}
+      <EventsSection />
 
       {/* CTA */}
       <section className="bg-ink py-20">

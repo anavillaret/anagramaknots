@@ -248,6 +248,12 @@ export const translations = {
       stillQuestions: 'Still have a question?',
       contactCta: 'Contact Us',
     },
+    events: {
+      eyebrow: '※ Events & Workshops',
+      heading: 'Ana in the world.',
+      sub: 'Workshops, fairs and events where you can find Anagrama in real life.',
+      empty: 'No events yet — check back soon.',
+    },
     story: {
       eyebrow: '※ The Story',
       heading: ['The name was', 'always hers.'],
@@ -518,6 +524,12 @@ export const translations = {
       ],
       stillQuestions: 'Ainda tens dúvidas?',
       contactCta: 'Fala Connosco',
+    },
+    events: {
+      eyebrow: '※ Eventos & Workshops',
+      heading: 'Ana pelo mundo.',
+      sub: 'Workshops, feiras e eventos onde podes encontrar a Anagrama ao vivo.',
+      empty: 'Ainda sem eventos — em breve.',
     },
     story: {
       eyebrow: '※ A História',
