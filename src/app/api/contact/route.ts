@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { EMAIL } from '@/lib/tokens'
+import { brandedEmail, infoTable, divider, linedBlock } from '@/lib/emailTemplate'
 
 export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY)
@@ -16,12 +17,16 @@ export async function POST(req: NextRequest) {
       to: EMAIL,
       replyTo: email,
       subject: `[Contact] ${subject}`,
-      html: `
-        <p><strong>From:</strong> ${name} (${email})</p>
-        <p><strong>Subject:</strong> ${subject}</p>
-        <hr />
-        <p>${message.replace(/\n/g, '<br />')}</p>
-      `,
+      html: brandedEmail(`
+        <p style="font-size:18px;font-weight:600;color:#0F7A75;margin:0 0 20px;">New Message</p>
+        ${infoTable([
+          { label: 'From', value: `${name}` },
+          { label: 'Email', value: `<a href="mailto:${email}" style="color:#0F7A75;">${email}</a>` },
+          { label: 'Subject', value: subject },
+        ])}
+        ${divider()}
+        ${linedBlock(message)}
+      `),
     })
 
     return NextResponse.json({ ok: true })

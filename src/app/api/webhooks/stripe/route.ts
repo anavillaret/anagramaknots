@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { Resend } from 'resend'
 import { EMAIL } from '@/lib/tokens'
+import { brandedEmail, infoTable, divider, TEAL, STONE } from '@/lib/emailTemplate'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
@@ -39,20 +40,21 @@ async function sendOrderNotificationToAna(session: Stripe.Checkout.Session, rese
     from: 'Anagrama Orders <orders@anagramaknots.com>',
     to: EMAIL,
     subject: `New order from ${customerName}`,
-    html: `
-      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a;">
-        <h2 style="color:#0F7A75;">New Order Received</h2>
-        <p><strong>Customer:</strong> ${customerName}</p>
-        <p><strong>Email:</strong> ${customerEmail}</p>
-        <p><strong>Ship to:</strong> ${shippingAddress}</p>
-        <p><strong>Total:</strong> ${amountTotal}</p>
-        <h3 style="margin-top:24px;">Items</h3>
-        <table style="width:100%;border-collapse:collapse;">
-          ${formatLineItems(session)}
-        </table>
-        <p style="margin-top:24px;font-size:12px;color:#888;">Order ID: ${session.id}</p>
-      </div>
-    `,
+    html: brandedEmail(`
+      <p style="font-size:18px;font-weight:600;color:${TEAL};margin:0 0 20px;">New Order Received 🎉</p>
+      ${infoTable([
+        { label: 'Customer', value: customerName },
+        { label: 'Email', value: `<a href="mailto:${customerEmail}" style="color:${TEAL};">${customerEmail}</a>` },
+        { label: 'Ship to', value: shippingAddress },
+        { label: 'Total', value: `<strong>${amountTotal}</strong>` },
+      ])}
+      ${divider()}
+      <p style="font-size:12px;color:${STONE};margin:0 0 8px;text-transform:uppercase;letter-spacing:0.1em;">Items</p>
+      <table style="width:100%;border-collapse:collapse;">
+        ${formatLineItems(session)}
+      </table>
+      <p style="margin-top:20px;font-size:11px;color:#bbb;">Order ID: ${session.id}</p>
+    `),
   })
 }
 
@@ -66,22 +68,24 @@ async function sendConfirmationToCustomer(session: Stripe.Checkout.Session, rese
   await resend.emails.send({
     from: 'Anagrama <hello@anagramaknots.com>',
     to: customerEmail,
-    subject: 'Your Anagrama order is confirmed ✦',
-    html: `
-      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#1a1a1a;">
-        <h2 style="color:#0F7A75;">Thank you, ${customerName}.</h2>
-        <p>Your order has been confirmed and Ana will start preparing it with care.</p>
-        <h3 style="margin-top:24px;">Order Summary</h3>
-        <table style="width:100%;border-collapse:collapse;">
-          ${formatLineItems(session)}
-        </table>
-        <p style="margin-top:16px;"><strong>Total paid:</strong> ${amountTotal}</p>
-        <p style="margin-top:24px;">You'll receive a shipping notification with a tracking number once your piece is on its way.</p>
-        <p>Questions? Reply to this email or reach us at <a href="mailto:${EMAIL}" style="color:#0F7A75;">${EMAIL}</a>.</p>
-        <hr style="margin:32px 0;border:none;border-top:1px solid #eee;" />
-        <p style="font-size:11px;color:#999;">Anagrama Art in Knots · Handmade in Portugal</p>
-      </div>
-    `,
+    subject: 'Your Anagrama order is confirmed ※',
+    html: brandedEmail(`
+      <p style="font-size:22px;font-weight:600;color:#1a1a1a;margin:0 0 8px;">Thank you, ${customerName}.</p>
+      <p style="font-size:14px;color:${STONE};line-height:1.7;margin:0 0 24px;">
+        Your order has been confirmed. Ana will prepare it by hand, with care — just for you.
+      </p>
+      <p style="font-size:12px;color:${STONE};margin:0 0 8px;text-transform:uppercase;letter-spacing:0.1em;">Order Summary</p>
+      <table style="width:100%;border-collapse:collapse;">
+        ${formatLineItems(session)}
+      </table>
+      <p style="margin-top:12px;font-size:13px;"><strong>Total paid: ${amountTotal}</strong></p>
+      ${divider()}
+      <p style="font-size:14px;color:${STONE};line-height:1.7;margin:0 0 12px;">
+        You'll receive a shipping notification once your piece is on its way.
+        Questions? Reply to this email or write to
+        <a href="mailto:${EMAIL}" style="color:${TEAL};">${EMAIL}</a>.
+      </p>
+    `),
   })
 }
 
