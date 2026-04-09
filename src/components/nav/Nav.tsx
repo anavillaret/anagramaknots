@@ -24,14 +24,7 @@ export default function Nav() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50">
-        {/* Announcement banner */}
-        <div style={{ backgroundColor: '#FEDCBE', color: '#1a1a1a', padding: '8px 16px', textAlign: 'center', fontSize: '11px', letterSpacing: '0.12em' }}>
-          {t.banner.message}{' '}
-          <a href="/commission" style={{ textDecoration: 'underline', color: 'inherit' }}>{t.banner.link}</a>
-          . {t.banner.suffix}
-        </div>
-
-        <div className="bg-white/95 backdrop-blur-sm border-b border-stone-light">
+<div className="bg-white/95 backdrop-blur-sm border-b border-stone-light">
           <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
             {/* Mobile menu button */}
