@@ -102,13 +102,16 @@ export default function AdminProducts() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-semibold text-ink">Products</h1>
         <a href="/admin/products/new"
           className="bg-teal text-white text-[11px] tracking-[0.15em] uppercase px-4 py-2 hover:bg-teal-dark transition-colors">
           + Add Product
         </a>
       </div>
+      <p className="text-[12px] text-stone bg-amber-50 border border-amber-200 px-4 py-2.5 mb-6 rounded-sm">
+        📐 <strong>Featured spot tip:</strong> The first available product appears as the large card on the homepage. For best results, use a <strong>portrait photo (3:4 ratio, e.g. 900×1200px)</strong> — the animal centred, minimal background.
+      </p>
 
       {/* Filter tabs */}
       <div className="flex flex-wrap gap-2 mb-6">
