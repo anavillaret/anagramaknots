@@ -86,14 +86,14 @@ export default function Hero({ heroProducts }: { heroProducts?: Product[] }) {
 
         {/* Image */}
         <div
-          className="relative overflow-hidden order-1 lg:order-2 h-[75vw] md:h-[50vw] lg:h-full"
+          className="relative overflow-hidden order-1 lg:order-2 aspect-[4/5] md:aspect-auto md:h-[55vw] lg:h-full lg:aspect-auto"
           style={{ backgroundColor: '#F7E7DD' }}
         >
           <Image
             src={slide.image}
             alt={slide.alt}
             fill
-            className="object-cover object-top"
+            className="object-cover object-center"
             style={{ opacity: fading ? 0 : 1, transition: 'opacity 0.4s ease' }}
             sizes="(max-width: 1024px) 100vw, 50vw"
             priority={current === 0}
