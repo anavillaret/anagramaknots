@@ -11,6 +11,14 @@ const STATUS_COLORS: Record<string, string> = {
   cancelled: 'bg-red-50 text-red-500',
 }
 
+const ROW_COLORS: Record<string, string> = {
+  delivered: 'bg-green-50/60',
+  cancelled: 'bg-red-50/60',
+  paid:      'bg-amber-50/40',
+  stitching: 'bg-amber-50/40',
+  shipped:   'bg-amber-50/40',
+}
+
 const STATUS_OPTIONS = ['paid', 'stitching', 'shipped', 'delivered', 'cancelled']
 
 export default function AdminOrders() {
@@ -76,7 +84,7 @@ export default function AdminOrders() {
             </thead>
             <tbody className="divide-y divide-gray-50">
               {filtered.map(o => (
-                <tr key={o.id} className="hover:bg-gray-50 transition-colors">
+                <tr key={o.id} className={`transition-colors ${ROW_COLORS[o.status] ?? ''} hover:brightness-95`}>
                   <td className="px-4 py-3 text-stone">
                     {new Date(o.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
                   </td>
