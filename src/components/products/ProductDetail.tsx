@@ -156,24 +156,24 @@ export default function ProductDetail({ product, related }: { product: Product; 
         {/* Details & Care */}
         {(product.details || product.size || product.careTips) && (
           <div className="mt-16 border-t border-stone-light pt-12">
-            <div className="flex flex-col md:flex-row justify-center gap-12 md:gap-20 lg:gap-32">
+            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-stone-light">
 
               {product.details && (
-                <div className="max-w-[200px]">
+                <div className="py-6 md:py-0 md:pr-12">
                   <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.materials}</p>
                   <p className="text-[13px] leading-relaxed text-stone">{product.details}</p>
                 </div>
               )}
 
               {product.size && (
-                <div className="max-w-[200px]">
+                <div className="py-6 md:py-0 md:px-12">
                   <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.size}</p>
                   <p className="text-[13px] leading-relaxed text-stone">{product.size}</p>
                 </div>
               )}
 
               {product.careTips && (
-                <div className="max-w-[200px]">
+                <div className="py-6 md:py-0 md:pl-12">
                   <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.care}</p>
                   <p className="text-[13px] leading-relaxed text-stone">{product.careTips}</p>
                 </div>
