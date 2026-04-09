@@ -43,6 +43,7 @@ export default function EditProduct() {
         badge: form.badge ?? null,
         available_on_request: form.available_on_request,
         details: form.details,
+        size: form.size,
         care_tips: form.care_tips,
         active: form.active,
       }),
@@ -120,13 +121,19 @@ export default function EditProduct() {
             className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
         </div>
 
-        {/* Details + Care */}
-        <div className="grid grid-cols-2 gap-4">
+        {/* Details + Size + Care */}
+        <div className="grid grid-cols-3 gap-4">
           <div>
             <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Details</label>
             <textarea value={form.details ?? ''} onChange={e => set('details', e.target.value)} rows={3}
-              placeholder="Materials: 100% cotton, hypoallergenic fiber stuffing. Size: XX cm."
+              placeholder="Materials: 100% cotton, hypoallergenic fiber stuffing and eyes locked for safety."
               className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
+          </div>
+          <div>
+            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Size</label>
+            <input type="text" value={(form as { size?: string }).size ?? ''} onChange={e => set('size', e.target.value)}
+              placeholder="e.g. 48 cm / 19 inches long"
+              className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors" />
           </div>
           <div>
             <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Care Tips</label>

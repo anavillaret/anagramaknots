@@ -154,46 +154,34 @@ export default function ProductDetail({ product, related }: { product: Product; 
         </div>
 
         {/* Details & Care */}
-        {(product.details || product.careTips) && (() => {
-          // Split "Materials: … Size: X cm / Y inches tall." into two parts
-          const sizeMatch = product.details?.match(/Size:\s*([^.]+\.?)/)
-          const sizeText = sizeMatch ? sizeMatch[1].replace(/\.$/, '').trim() : null
-          const materialsText = product.details
-            ? product.details.replace(/\s*Size:[^.]+\.?/, '').replace(/,\s*$/, '').trim()
-            : null
+        {(product.details || product.size || product.careTips) && (
+          <div className="mt-16 border-t border-stone-light pt-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl">
 
-          return (
-            <div className="mt-16 border-t border-stone-light pt-12">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl">
+              {product.details && (
+                <div>
+                  <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.details}</p>
+                  <p className="text-[13px] leading-relaxed text-stone">{product.details}</p>
+                </div>
+              )}
 
-                {/* Materials */}
-                {materialsText && (
-                  <div>
-                    <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.details}</p>
-                    <p className="text-[13px] leading-relaxed text-stone">{materialsText}</p>
-                  </div>
-                )}
+              {product.size && (
+                <div>
+                  <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.size}</p>
+                  <p className="text-[13px] leading-relaxed text-stone">{product.size}</p>
+                </div>
+              )}
 
-                {/* Size — callout block */}
-                {sizeText && (
-                  <div>
-                    <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.size ?? 'Size'}</p>
-                    <p className="text-[13px] leading-relaxed text-stone">{sizeText}</p>
-                  </div>
-                )}
+              {product.careTips && (
+                <div>
+                  <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.care}</p>
+                  <p className="text-[13px] leading-relaxed text-stone">{product.careTips}</p>
+                </div>
+              )}
 
-                {/* Care */}
-                {product.careTips && (
-                  <div>
-                    <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.care}</p>
-                    <p className="text-[13px] leading-relaxed text-stone">{product.careTips}</p>
-                  </div>
-                )}
-
-              </div>
             </div>
-          )
-        })()}
+          </div>
+        )}
 
         {/* Related */}
         {related.length > 0 && (

@@ -12,6 +12,7 @@ export type Product = {
   badge?: 'new' | 'bestseller' | 'soldout' | 'sale'
   slug: string
   details?: string
+  size?: string
   careTips?: string
   availableOnRequest?: boolean  // true = commission only, no stock
 }
@@ -30,6 +31,7 @@ export function dbProductToProduct(row: DbProduct): Product {
     badge: row.badge ?? undefined,
     slug: row.slug,
     details: row.details ?? undefined,
+    size: row.size ?? undefined,
     careTips: row.care_tips ?? undefined,
     availableOnRequest: row.available_on_request ?? false,
   }

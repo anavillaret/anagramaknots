@@ -24,6 +24,7 @@ export type DbProduct = {
   badge: 'new' | 'bestseller' | 'soldout' | 'sale' | null
   available_on_request: boolean
   details: string
+  size: string
   care_tips: string
   active: boolean
   sort_order: number
