@@ -87,8 +87,25 @@ export default function AdminOrders() {
                       <span key={li.name} className="block">{li.name} ×{li.quantity}</span>
                     )) : '—'}
                   </td>
-                  <td className="px-4 py-3 text-ink font-medium">
-                    {o.total_amount ? `€${(Number(o.total_amount) / 100).toFixed(2)}` : '—'}
+                  <td className="px-4 py-3">
+                    {(() => {
+                      const items = Array.isArray(o.line_items) ? o.line_items as Array<{ name: string; quantity: number; price: number }> : []
+                      const itemsTotal = items.reduce((sum, li) => sum + (li.price ?? 0), 0)
+                      const shipping = o.total_amount ? Number(o.total_amount) - itemsTotal : 0
+                      return (
+                        <div className="flex flex-col gap-0.5">
+                          {items.map(li => (
+                            <span key={li.name} className="text-ink text-[12px]">€{(li.price / 100).toFixed(2)}</span>
+                          ))}
+                          {shipping > 0 && (
+                            <span className="text-stone text-[11px]">+ €{(shipping / 100).toFixed(2)} shipping</span>
+                          )}
+                          <span className="text-ink font-semibold text-[12px] border-t border-gray-100 pt-0.5 mt-0.5">
+                            €{(Number(o.total_amount) / 100).toFixed(2)}
+                          </span>
+                        </div>
+                      )
+                    })()}
                   </td>
                   <td className="px-4 py-3">
                     <span className={`text-[10px] tracking-[0.12em] uppercase px-2 py-0.5 ${STATUS_COLORS[o.status] ?? ''}`}>
