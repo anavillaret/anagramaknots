@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
+import { FX } from '@/lib/fx'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
@@ -12,13 +13,6 @@ type CartItem = {
     species?: string
   }
   personalisation?: string
-}
-
-// Static FX rates relative to EUR
-const FX: Record<string, number> = {
-  eur: 1,
-  usd: 1.09,
-  gbp: 0.86,
 }
 
 export async function POST(req: NextRequest) {

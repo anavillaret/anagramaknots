@@ -21,8 +21,6 @@ export async function POST(req: NextRequest) {
   }
 
   if (event.type === 'checkout.session.completed') {
-    const session = event.data.object as Stripe.Checkout.Session
-    console.log('Order completed:', session.id, session.customer_details?.email)
     // TODO: send order notification email to Ana via Resend
     // TODO: send confirmation email to customer
   }

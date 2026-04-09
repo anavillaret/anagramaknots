@@ -10,12 +10,6 @@ const nextConfig = {
       },
     ],
   },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   // Forces a new build ID on every deploy → new CSS bundle filenames → bypasses CDN/browser cache
   generateBuildId: async () => `build-${Date.now()}`,
 }

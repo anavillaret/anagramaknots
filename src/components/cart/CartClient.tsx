@@ -8,18 +8,7 @@ import { useCart } from '@/lib/cart'
 import { useLang } from '@/lib/i18n/context'
 import { SHOP_OPEN } from '@/lib/siteConfig'
 import BrandSymbol from '@/components/ui/BrandSymbol'
-
-const CURRENCIES = [
-  { code: 'eur', label: 'EUR €', symbol: '€' },
-  { code: 'usd', label: 'USD $', symbol: '$' },
-  { code: 'gbp', label: 'GBP £', symbol: '£' },
-]
-
-const FX: Record<string, number> = {
-  eur: 1,
-  usd: 1.09,
-  gbp: 0.86,
-}
+import { FX, CURRENCIES } from '@/lib/fx'
 
 export default function CartClient() {
   const { items, removeItem, total } = useCart()
