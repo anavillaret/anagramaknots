@@ -60,7 +60,7 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="mt-3 flex flex-col gap-0.5">
         <div className="flex items-start justify-between gap-2">
           <div>
-            <p className="text-[12px] font-semibold tracking-wide text-teal transition-colors flex items-center gap-1.5">
+            <p className="text-[12px] font-semibold tracking-wide text-teal transition-colors flex items-center gap-1.5 uppercase">
               <BrandSymbol size={11} />
               {product.name}
             </p>
