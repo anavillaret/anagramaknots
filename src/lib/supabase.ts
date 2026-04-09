@@ -37,7 +37,7 @@ export type DbOrder = {
   stripe_session_id: string | null
   customer_email: string | null
   customer_name: string | null
-  status: 'pending' | 'paid' | 'shipped' | 'cancelled'
+  status: 'paid' | 'stitching' | 'shipped' | 'delivered' | 'cancelled'
   currency: string
   total_amount: number | null
   line_items: Array<{ name: string; quantity: number; price: number }>

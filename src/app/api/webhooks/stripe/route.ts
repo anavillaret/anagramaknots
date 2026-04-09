@@ -134,6 +134,14 @@ export async function POST(req: NextRequest) {
         shipping_address: shippingAddress,
         notes: '',
       })
+
+      // Mark purchased products as sold out + available on commission
+      for (const item of lineItems) {
+        await db
+          .from('products')
+          .update({ badge: 'soldout', available_on_request: true })
+          .ilike('name', item.name)
+      }
     } catch (err) {
       console.error('Failed to save order to Supabase:', err)
     }
