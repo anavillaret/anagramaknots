@@ -11,6 +11,14 @@ export const translations = {
     footer: {
       rights: 'All rights reserved.',
       tagline: '※ Handmade with care, one knot at a time.',
+      privacy: 'Privacy Policy',
+      terms: 'Terms & Conditions',
+      returns: 'Returns',
+    },
+    cookie: {
+      message: 'We use essential cookies to keep the site working and Stripe cookies for secure payments.',
+      accept: 'Accept',
+      decline: 'Decline',
     },
     hero: {
       slides: [
@@ -120,6 +128,10 @@ export const translations = {
       shipping: 'Shipping calculated at checkout · Worldwide delivery',
       checkout: 'Proceed to Checkout',
       continueShopping: 'Continue Shopping',
+      agreePrefix: 'I have read and agree to the',
+      agreeTerms: 'Terms & Conditions',
+      agreeAnd: 'and',
+      agreePrivacy: 'Privacy Policy',
     },
     success: {
       eyebrow: '※ Order Confirmed',
@@ -263,6 +275,14 @@ export const translations = {
     footer: {
       rights: 'Todos os direitos reservados.',
       tagline: '※ Feito com carinho, nó a nó.',
+      privacy: 'Política de Privacidade',
+      terms: 'Termos e Condições',
+      returns: 'Devoluções',
+    },
+    cookie: {
+      message: 'Utilizamos cookies essenciais para o funcionamento do site e cookies do Stripe para pagamentos seguros.',
+      accept: 'Aceitar',
+      decline: 'Recusar',
     },
     hero: {
       slides: [
@@ -372,6 +392,10 @@ export const translations = {
       shipping: 'Envio calculado no checkout · Entrega mundial',
       checkout: 'Finalizar Compra',
       continueShopping: 'Continuar a Comprar',
+      agreePrefix: 'Li e aceito os',
+      agreeTerms: 'Termos e Condições',
+      agreeAnd: 'e a',
+      agreePrivacy: 'Política de Privacidade',
     },
     success: {
       eyebrow: '※ Encomenda Confirmada',

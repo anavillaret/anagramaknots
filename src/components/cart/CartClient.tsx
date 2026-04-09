@@ -17,6 +17,7 @@ export default function CartClient() {
   const [currency, setCurrency] = useState('eur')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [agreed, setAgreed] = useState(false)
 
   const rate = FX[currency] ?? 1
   const sym = CURRENCIES.find(cur => cur.code === currency)?.symbol ?? '€'
@@ -153,10 +154,26 @@ export default function CartClient() {
             <p className="text-[12px] text-rose text-right">{error}</p>
           )}
 
+          {/* T&C agreement */}
+          <label className="flex items-start gap-2.5 cursor-pointer group w-full md:w-auto">
+            <input
+              type="checkbox"
+              checked={agreed}
+              onChange={e => setAgreed(e.target.checked)}
+              className="mt-0.5 shrink-0 accent-teal w-4 h-4"
+            />
+            <span className="text-[11px] text-stone leading-relaxed">
+              {c.agreePrefix}{' '}
+              <Link href="/terms" className="text-teal underline underline-offset-2 hover:text-teal-dark transition-colors">{c.agreeTerms}</Link>
+              {' '}{c.agreeAnd}{' '}
+              <Link href="/privacy" className="text-teal underline underline-offset-2 hover:text-teal-dark transition-colors">{c.agreePrivacy}</Link>
+            </span>
+          </label>
+
           {SHOP_OPEN ? (
             <button
               onClick={handleCheckout}
-              disabled={loading}
+              disabled={loading || !agreed}
               className="w-full md:w-auto flex items-center justify-center gap-2 bg-teal text-white text-[11px] tracking-[0.2em] uppercase px-14 py-4 hover:bg-teal-dark transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {loading ? (

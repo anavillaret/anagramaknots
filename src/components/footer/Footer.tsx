@@ -71,13 +71,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 pt-6 border-t border-stone-light flex flex-col md:flex-row items-center justify-between gap-3">
+        <div className="mt-10 pt-6 border-t border-stone-light flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[10px] tracking-wide text-stone">
             © {new Date().getFullYear()} Anagrama Art in Knots. {t.footer.rights}
           </p>
-          <p className="text-[10px] tracking-wide text-stone italic">
-            {t.footer.tagline}
-          </p>
+          <nav className="flex items-center gap-5">
+            <Link href="/privacy" className="text-[10px] tracking-wide text-stone hover:text-ink transition-colors">{t.footer.privacy}</Link>
+            <Link href="/terms" className="text-[10px] tracking-wide text-stone hover:text-ink transition-colors">{t.footer.terms}</Link>
+            <Link href="/returns" className="text-[10px] tracking-wide text-stone hover:text-ink transition-colors">{t.footer.returns}</Link>
+          </nav>
         </div>
       </div>
     </footer>

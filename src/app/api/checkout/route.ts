@@ -90,6 +90,11 @@ export async function POST(req: NextRequest) {
       ],
       metadata: {
         product_ids: items.map(i => i.product.id).join(','),
+        items: JSON.stringify(items.map(({ product }) => ({
+          name: product.name,
+          quantity: 1,
+          price: Math.round(product.price * rate * 100),
+        }))),
       },
     })
 
