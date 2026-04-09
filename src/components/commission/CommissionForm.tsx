@@ -57,14 +57,26 @@ function CommissionFormInner() {
     e.preventDefault()
     setStatus('sending')
     try {
-      const data = new FormData()
-      data.append('name', name)
-      data.append('email', email)
-      data.append('productType', 'Amigurumi')
-      data.append('description', description)
-      if (refProduct) data.append('refProduct', refProduct)
-      files.forEach(file => data.append('files', file))
-      const res = await fetch('/api/commission', { method: 'POST', body: data })
+      // Upload each file individually to storage first, collect public URLs
+      const fileUrls: string[] = []
+      for (const file of files) {
+        const fd = new FormData()
+        fd.append('file', file)
+        const res = await fetch('/api/upload', { method: 'POST', body: fd })
+        if (res.ok) {
+          const json = await res.json()
+          fileUrls.push(json.url)
+        }
+        // If a file fails to upload, skip it silently — don't block the submission
+      }
+
+      // Submit form data as JSON (tiny payload, no binary)
+      const productType = params.get('type') || 'Amigurumi'
+      const res = await fetch('/api/commission', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, productType, description, fileUrls }),
+      })
       setStatus(res.ok ? 'success' : 'error')
     } catch {
       setStatus('error')
