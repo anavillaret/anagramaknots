@@ -156,25 +156,26 @@ export default function ProductDetail({ product, related }: { product: Product; 
         {/* Details & Care */}
         {(product.details || product.size || product.careTips) && (
           <div className="mt-16 border-t border-stone-light pt-12">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl">
+            <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-8">{p.details}</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
               {product.details && (
                 <div>
-                  <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.details}</p>
+                  <p className="text-[11px] tracking-[0.15em] uppercase text-stone font-medium mb-3">{p.materials}</p>
                   <p className="text-[13px] leading-relaxed text-stone">{product.details}</p>
                 </div>
               )}
 
               {product.size && (
                 <div>
-                  <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.size}</p>
+                  <p className="text-[11px] tracking-[0.15em] uppercase text-stone font-medium mb-3">{p.size}</p>
                   <p className="text-[13px] leading-relaxed text-stone">{product.size}</p>
                 </div>
               )}
 
               {product.careTips && (
                 <div>
-                  <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.care}</p>
+                  <p className="text-[11px] tracking-[0.15em] uppercase text-stone font-medium mb-3">{p.care}</p>
                   <p className="text-[13px] leading-relaxed text-stone">{product.careTips}</p>
                 </div>
               )}
