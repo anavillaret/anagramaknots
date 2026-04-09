@@ -28,7 +28,7 @@ function formatLineItems(session: Stripe.Checkout.Session) {
 }
 
 async function sendOrderNotificationToAna(session: Stripe.Checkout.Session, resend: Resend) {
-  const collectedShipping = (session as Record<string, unknown> & { collected_information?: { shipping_details?: { address?: Stripe.Address; name?: string } } }).collected_information?.shipping_details
+  const collectedShipping = (session as unknown as Record<string, unknown> & { collected_information?: { shipping_details?: { address?: Stripe.Address; name?: string } } }).collected_information?.shipping_details
   const customerName = collectedShipping?.name ?? session.shipping_details?.name ?? session.customer_details?.name ?? 'Unknown'
   const customerEmail = session.customer_details?.email ?? 'Unknown'
   const shipping = collectedShipping?.address ?? session.shipping_details?.address ?? session.customer_details?.address
@@ -64,7 +64,7 @@ async function sendConfirmationToCustomer(session: Stripe.Checkout.Session, rese
   const customerEmail = session.customer_details?.email
   if (!customerEmail) return
 
-  const collectedShipping2 = (session as Record<string, unknown> & { collected_information?: { shipping_details?: { name?: string } } }).collected_information?.shipping_details
+  const collectedShipping2 = (session as unknown as Record<string, unknown> & { collected_information?: { shipping_details?: { name?: string } } }).collected_information?.shipping_details
   const customerName = collectedShipping2?.name ?? session.shipping_details?.name ?? session.customer_details?.name ?? 'there'
   const amountTotal = session.amount_total ? `€${(session.amount_total / 100).toFixed(2)}` : 'N/A'
 
@@ -116,7 +116,7 @@ export async function POST(req: NextRequest) {
     try {
       const db = supabaseAdmin()
       // In newer Stripe API versions the address lives in collected_information or customer_details
-      const collectedShipping = (session as Record<string, unknown> & { collected_information?: { shipping_details?: { address?: Stripe.Address; name?: string } } }).collected_information?.shipping_details
+      const collectedShipping = (session as unknown as Record<string, unknown> & { collected_information?: { shipping_details?: { address?: Stripe.Address; name?: string } } }).collected_information?.shipping_details
       const customerName = collectedShipping?.name ?? session.shipping_details?.name ?? session.customer_details?.name ?? ''
       const customerEmail = session.customer_details?.email ?? ''
       const shipping = collectedShipping?.address ?? session.shipping_details?.address ?? session.customer_details?.address
