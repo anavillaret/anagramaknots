@@ -3,6 +3,7 @@ import ProductMosaic from '@/components/home/ProductMosaic'
 import StoryTeaser from '@/components/home/StoryTeaser'
 import MadeForYouTeaser from '@/components/home/MadeForYouTeaser'
 import InstagramStrip from '@/components/home/InstagramStrip'
+import PartnersStrip from '@/components/home/PartnersStrip'
 import { getProducts } from '@/lib/products'
 import { getHeroProducts } from '@/lib/heroConfig'
 
@@ -17,6 +18,7 @@ export default async function HomePage() {
       <ProductMosaic products={products} />
       <StoryTeaser />
       <MadeForYouTeaser />
+      <PartnersStrip />
       <InstagramStrip />
     </>
   )
