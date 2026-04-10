@@ -231,8 +231,8 @@ export const translations = {
       ],
       tableHeading: 'Delivery times',
       colRegion: 'Region',
-      colStandard: 'Standard — €6',
-      colExpress: 'Express — €13',
+      colStandard: 'Standard — €7',
+      colExpress: 'Express — €14',
       rows: [
         { region: 'Portugal & Spain', standard: '3–5 business days', express: '1–2 business days' },
         { region: 'Rest of Europe', standard: '6–10 business days', express: '3–5 business days' },
@@ -513,8 +513,8 @@ export const translations = {
       ],
       tableHeading: 'Prazos de entrega',
       colRegion: 'Região',
-      colStandard: 'Standard — €6',
-      colExpress: 'Express — €13',
+      colStandard: 'Standard — €7',
+      colExpress: 'Express — €14',
       rows: [
         { region: 'Portugal & Espanha', standard: '3–5 dias úteis', express: '1–2 dias úteis' },
         { region: 'Resto da Europa', standard: '6–10 dias úteis', express: '3–5 dias úteis' },

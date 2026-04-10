@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
           shipping_rate_data: {
             type: 'fixed_amount',
             fixed_amount: {
-              amount: Math.round(6 * rate * 100),
+              amount: Math.round(7 * rate * 100),
               currency: cur,
             },
             display_name: 'Standard Shipping',
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
           shipping_rate_data: {
             type: 'fixed_amount',
             fixed_amount: {
-              amount: Math.round(13 * rate * 100),
+              amount: Math.round(14 * rate * 100),
               currency: cur,
             },
             display_name: 'Express Shipping',
