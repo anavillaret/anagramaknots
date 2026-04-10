@@ -21,18 +21,19 @@ type Slide = {
 }
 
 export default function Hero({ heroProducts }: { heroProducts?: Product[] }) {
-  const { t } = useLang()
+  const { t, lang } = useLang()
 
-  // Use the curated translations texts per slot, but dynamic image/link from the selected product
+  // Headings stay curated (from translations). Label, description and CTA come from the product.
   const slides: Slide[] = t.hero.slides.map((text, i) => {
     const product = heroProducts?.[i]
+    const fact = lang === 'pt' && product?.factPt ? product.factPt : product?.fact
     return {
       image: product?.image ?? '/images/hero.jpeg',
       alt: product ? `${product.name} amigurumi` : 'Anagrama amigurumi',
       href: product ? `/products/${product.slug}` : '/products',
-      label: text.label,
+      label: product?.species || text.label,
       heading: text.heading as [string, string],
-      sub: text.sub,
+      sub: fact ?? text.sub,
       cta: text.cta,
       secondary: text.secondary,
     }
