@@ -51,6 +51,9 @@ export const translations = {
         heading: 'Each piece is one of a kind.',
         sub: 'When it\'s gone, it\'s gone. Every amigurumi is handmade once — never repeated, never mass produced.',
         cta: 'Explore All',
+        shopNow: 'Shop Now',
+        viewSold: 'View · Sold',
+        commissionPiece: 'Commission this piece',
       },
       story: {
         eyebrow: '※ The Story',
@@ -330,6 +333,9 @@ export const translations = {
         heading: 'Cada peça é única.',
         sub: 'Quando vai, vai. Cada amigurumi é feito uma só vez — nunca repetido, nunca produzido em série.',
         cta: 'Ver Tudo',
+        shopNow: 'Comprar',
+        viewSold: 'Ver · Vendido',
+        commissionPiece: 'Encomendar esta peça',
       },
       story: {
         eyebrow: '※ A História',

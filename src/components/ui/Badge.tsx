@@ -1,13 +1,9 @@
+'use client'
+
 import { clsx } from 'clsx'
+import { useLang } from '@/lib/i18n/context'
 
 type BadgeType = 'new' | 'bestseller' | 'soldout' | 'sale'
-
-const labels: Record<BadgeType, string> = {
-  new: 'New',
-  bestseller: 'Best Seller',
-  soldout: 'Sold',
-  sale: 'On Sale',
-}
 
 const styles: Record<BadgeType, string> = {
   new: 'bg-teal text-white',
@@ -17,6 +13,14 @@ const styles: Record<BadgeType, string> = {
 }
 
 export default function Badge({ type }: { type: BadgeType }) {
+  const { t } = useLang()
+  const labels: Record<BadgeType, string> = {
+    new: t.product.badges.new,
+    bestseller: t.product.badges.bestseller,
+    soldout: t.product.badges.soldout,
+    sale: t.product.badges.sale,
+  }
+
   return (
     <span
       className={clsx(

@@ -85,6 +85,21 @@ export default function AdminHero() {
                 <div className="absolute top-2 left-2 bg-white/90 text-[10px] tracking-[0.15em] uppercase text-teal px-2 py-0.5">
                   Slide {i + 1}
                 </div>
+                {i === 0 && (
+                  <div className="absolute bottom-2 left-2 right-2 bg-black/60 text-white text-[9px] px-2 py-1 leading-snug">
+                    Text: "Every knot tells a story." — generic brand slide, any animal works
+                  </div>
+                )}
+                {i === 1 && (
+                  <div className="absolute bottom-2 left-2 right-2 bg-black/60 text-white text-[9px] px-2 py-1 leading-snug">
+                    Text: "Art born from love of nature." — pick an animal with a nature/conservation story
+                  </div>
+                )}
+                {i === 2 && (
+                  <div className="absolute bottom-2 left-2 right-2 bg-black/60 text-white text-[9px] px-2 py-1 leading-snug">
+                    Text: "One knot, one creature." — pick any signature piece
+                  </div>
+                )}
               </div>
 
               {/* Selector */}

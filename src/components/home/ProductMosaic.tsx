@@ -73,7 +73,7 @@ export default function ProductMosaic({ products }: { products: Product[] }) {
                   {hero.fact}
                 </p>
                 <span className="inline-block mt-4 text-[10px] tracking-[0.2em] uppercase text-white border border-white/60 px-4 py-2 group-hover:bg-white group-hover:text-ink transition-all duration-200">
-                  {hero.badge === 'soldout' ? 'View · Sold' : hero.availableOnRequest ? 'Commission this piece' : `Shop Now — €${hero.price}`}
+                  {hero.badge === 'soldout' ? m.viewSold : hero.availableOnRequest ? m.commissionPiece : `${m.shopNow} — €${hero.price}`}
                 </span>
               </div>
             </div>
