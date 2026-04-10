@@ -24,9 +24,17 @@ export default function Hero({ heroProducts }: { heroProducts?: Product[] }) {
   const { t, lang } = useLang()
 
   // Headings stay curated (from translations). Label, description and CTA come from the product.
+  const meetLabel = lang === 'pt' ? 'Conhecer' : 'Meet'
   const slides: Slide[] = t.hero.slides.map((text, i) => {
     const product = heroProducts?.[i]
     const fact = lang === 'pt' && product?.factPt ? product.factPt : product?.fact
+    const cta = product
+      ? product.badge === 'soldout'
+        ? `${meetLabel} the ${product.name}`
+        : product.availableOnRequest
+        ? `${meetLabel} the ${product.name}`
+        : `${meetLabel} the ${product.name} — €${product.price}`
+      : text.cta
     return {
       image: product?.image ?? '/images/hero.jpeg',
       alt: product ? `${product.name} amigurumi` : 'Anagrama amigurumi',
@@ -34,7 +42,7 @@ export default function Hero({ heroProducts }: { heroProducts?: Product[] }) {
       label: product?.species || text.label,
       heading: text.heading as [string, string],
       sub: fact ?? text.sub,
-      cta: text.cta,
+      cta,
       secondary: text.secondary,
     }
   })

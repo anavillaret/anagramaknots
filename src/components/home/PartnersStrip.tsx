@@ -28,6 +28,11 @@ async function getPartners(): Promise<Partner[]> {
   }
 }
 
+function externalUrl(url: string) {
+  if (!url) return '#'
+  return /^https?:\/\//i.test(url) ? url : `https://${url}`
+}
+
 export default async function PartnersStrip() {
   const partners = await getPartners()
   if (partners.length === 0) return null
