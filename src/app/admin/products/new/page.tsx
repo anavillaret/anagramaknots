@@ -19,7 +19,11 @@ export default function NewProduct() {
     available_on_request: false,
     badge: '',
     details: '',
+    details_pt: '',
+    size: '',
+    size_pt: '',
     care_tips: '',
+    care_tips_pt: '',
   })
 
   function set(field: string, value: string | boolean) {
@@ -52,7 +56,11 @@ export default function NewProduct() {
         badge: form.badge || null,
         available_on_request: form.available_on_request,
         details: form.details,
+        details_pt: form.details_pt || '',
+        size: form.size,
+        size_pt: form.size_pt || '',
         care_tips: form.care_tips,
+        care_tips_pt: form.care_tips_pt || '',
         active: false, // starts as draft — publish from the products list when ready
       }),
     })
@@ -116,17 +124,46 @@ export default function NewProduct() {
             className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        {/* Details + Size + Care (EN) */}
+        <div className="grid grid-cols-3 gap-4">
           <div>
-            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Details</label>
-            <textarea value={form.details} onChange={e => set('details', e.target.value)} rows={2}
-              placeholder="Materials, size, etc."
+            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Details <span className="text-stone/50 normal-case">(EN)</span></label>
+            <textarea value={form.details} onChange={e => set('details', e.target.value)} rows={3}
+              placeholder="Materials: 100% cotton, hypoallergenic fiber stuffing and eyes locked for safety."
               className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
           </div>
           <div>
-            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Care Tips</label>
-            <textarea value={form.care_tips} onChange={e => set('care_tips', e.target.value)} rows={2}
+            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Size <span className="text-stone/50 normal-case">(EN)</span></label>
+            <input type="text" value={form.size} onChange={e => set('size', e.target.value)}
+              placeholder="e.g. 48 cm / 19 inches long"
+              className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors" />
+          </div>
+          <div>
+            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Care Tips <span className="text-stone/50 normal-case">(EN)</span></label>
+            <textarea value={form.care_tips} onChange={e => set('care_tips', e.target.value)} rows={3}
               placeholder="Hand wash with care and let air dry."
+              className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
+          </div>
+        </div>
+
+        {/* Details + Size + Care (PT) */}
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Details <span className="text-stone/50 normal-case">(PT)</span></label>
+            <textarea value={form.details_pt} onChange={e => set('details_pt', e.target.value)} rows={3}
+              placeholder="Materiais: 100% algodão, enchimento hipoalergénico e olhos fixos para segurança."
+              className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
+          </div>
+          <div>
+            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Size <span className="text-stone/50 normal-case">(PT)</span></label>
+            <input type="text" value={form.size_pt} onChange={e => set('size_pt', e.target.value)}
+              placeholder="ex. 48 cm de comprimento"
+              className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors" />
+          </div>
+          <div>
+            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Care Tips <span className="text-stone/50 normal-case">(PT)</span></label>
+            <textarea value={form.care_tips_pt} onChange={e => set('care_tips_pt', e.target.value)} rows={3}
+              placeholder="Lavar à mão com cuidado e deixar secar ao ar."
               className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
           </div>
         </div>
