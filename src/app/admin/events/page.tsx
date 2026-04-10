@@ -7,9 +7,11 @@ import MultiImageUpload from '@/components/admin/MultiImageUpload'
 type Event = {
   id: string
   title: string
+  title_pt: string
   date: string
   place: string
   description: string
+  description_pt: string
   photos: string[]
   active: boolean
   sort_order: number
@@ -17,12 +19,27 @@ type Event = {
 
 const EMPTY: Omit<Event, 'id'> = {
   title: '',
+  title_pt: '',
   date: '',
   place: '',
   description: '',
+  description_pt: '',
   photos: [],
   active: true,
   sort_order: 0,
+}
+
+const REQUIRED_TO_PUBLISH: { key: keyof typeof EMPTY; label: string }[] = [
+  { key: 'title',          label: 'Title (EN)' },
+  { key: 'title_pt',       label: 'Title (PT)' },
+  { key: 'date',           label: 'Date' },
+  { key: 'place',          label: 'Place' },
+  { key: 'description',    label: 'Description (EN)' },
+  { key: 'description_pt', label: 'Description (PT)' },
+]
+
+function missingFields(form: Omit<Event, 'id'>) {
+  return REQUIRED_TO_PUBLISH.filter(r => !String(form[r.key] ?? '').trim())
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
@@ -68,13 +85,15 @@ export default function EventsAdmin() {
   function openEdit(event: Event) {
     setEditing(event)
     setForm({
-      title: event.title,
-      date: event.date,
-      place: event.place,
-      description: event.description,
-      photos: event.photos ?? [],
-      active: event.active,
-      sort_order: event.sort_order,
+      title:          event.title,
+      title_pt:       event.title_pt ?? '',
+      date:           event.date,
+      place:          event.place,
+      description:    event.description,
+      description_pt: event.description_pt ?? '',
+      photos:         event.photos ?? [],
+      active:         event.active,
+      sort_order:     event.sort_order,
     })
     setError('')
     setShowForm(true)
@@ -88,6 +107,9 @@ export default function EventsAdmin() {
     setError('')
   }
 
+  const missing = missingFields(form)
+  const isComplete = missing.length === 0
+
   async function save() {
     if (!form.title || !form.date || !form.place) {
       setError('Title, date and place are required.')
@@ -95,12 +117,14 @@ export default function EventsAdmin() {
     }
     setSaving(true)
     setError('')
+    // Force draft if not complete
+    const payload = { ...form, active: isComplete ? form.active : false }
     const url = editing ? `/api/admin/events/${editing.id}` : '/api/admin/events'
     const method = editing ? 'PUT' : 'POST'
     const res = await fetch(url, {
       method,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
+      body: JSON.stringify(payload),
     })
     if (!res.ok) {
       const j = await res.json()
@@ -122,6 +146,10 @@ export default function EventsAdmin() {
   }
 
   async function toggleActive(event: Event) {
+    // Only allow activating if complete
+    const allFields = { ...event }
+    const eventMissing = REQUIRED_TO_PUBLISH.filter(r => !String((allFields as Record<string, unknown>)[r.key] ?? '').trim())
+    if (!event.active && eventMissing.length > 0) return // can't publish incomplete
     await fetch(`/api/admin/events/${event.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -151,38 +179,86 @@ export default function EventsAdmin() {
             {editing ? 'Edit Event' : 'New Event'}
           </h2>
 
+          {/* Date + Place (shared, no translation needed) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Field label="Title *">
-              <input type="text" value={form.title} onChange={e => set('title', e.target.value)}
-                placeholder="e.g. Craft Fair Porto" className={inputCls} />
-            </Field>
             <Field label="Date *">
               <input type="date" value={form.date} onChange={e => set('date', e.target.value)}
                 className={inputCls} />
             </Field>
+            <Field label="Place *">
+              <input type="text" value={form.place} onChange={e => set('place', e.target.value)}
+                placeholder="e.g. Porto, Portugal" className={inputCls} />
+            </Field>
           </div>
 
-          <Field label="Place *">
-            <input type="text" value={form.place} onChange={e => set('place', e.target.value)}
-              placeholder="e.g. Porto, Portugal" className={inputCls} />
-          </Field>
+          {/* Title EN + PT */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Field label="Title (EN) *">
+              <input type="text" value={form.title} onChange={e => set('title', e.target.value)}
+                placeholder="e.g. Craft Fair Porto" className={inputCls} />
+            </Field>
+            <Field label="Title (PT) *">
+              <input type="text" value={form.title_pt} onChange={e => set('title_pt', e.target.value)}
+                placeholder="ex. Feira de Artesanato Porto" className={inputCls} />
+            </Field>
+          </div>
 
-          <Field label="Description">
-            <textarea value={form.description} onChange={e => set('description', e.target.value)}
-              rows={4} placeholder="What happened, what was shown, any highlights…"
-              className={`${inputCls} resize-none`} />
-          </Field>
+          {/* Description EN + PT */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Field label="Description (EN)">
+              <textarea value={form.description} onChange={e => set('description', e.target.value)}
+                rows={4} placeholder="What happened, what was shown, any highlights…"
+                className={`${inputCls} resize-none`} />
+            </Field>
+            <Field label="Description (PT)">
+              <textarea value={form.description_pt} onChange={e => set('description_pt', e.target.value)}
+                rows={4} placeholder="O que aconteceu, o que foi mostrado, os destaques…"
+                className={`${inputCls} resize-none`} />
+            </Field>
+          </div>
 
           <Field label="Photos">
             <MultiImageUpload values={form.photos} onChange={urls => set('photos', urls)} />
           </Field>
 
-          <div className="flex items-center gap-3">
-            <label className="flex items-center gap-2 text-[13px] text-stone cursor-pointer">
-              <input type="checkbox" checked={form.active} onChange={e => set('active', e.target.checked)}
-                className="accent-teal w-4 h-4" />
-              Visible on the Story page
-            </label>
+          {/* Visibility + completeness */}
+          <div className="space-y-3">
+            <div className={`flex items-center gap-3 ${!isComplete ? 'opacity-50' : ''}`}>
+              <input
+                type="checkbox"
+                id="active"
+                checked={isComplete && form.active}
+                disabled={!isComplete}
+                onChange={e => set('active', e.target.checked)}
+                className="accent-teal w-4 h-4 disabled:cursor-not-allowed"
+              />
+              <label htmlFor="active" className={`text-[13px] text-stone ${!isComplete ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
+                Visible on the Story page
+              </label>
+            </div>
+
+            {!isComplete && (
+              <div className="bg-amber-50 border border-amber-200 rounded-sm px-4 py-3">
+                <p className="text-[11px] font-semibold text-amber-800 mb-2 tracking-wide uppercase">
+                  Will be saved as draft — fill in to publish:
+                </p>
+                <ul className="flex flex-wrap gap-x-4 gap-y-1">
+                  {missing.map(f => (
+                    <li key={f.key} className="text-[11px] text-amber-700 flex items-center gap-1">
+                      <span className="text-amber-400">○</span> {f.label}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {isComplete && (
+              <div className="bg-teal/5 border border-teal/20 rounded-sm px-4 py-3">
+                <p className="text-[11px] text-teal font-semibold tracking-wide uppercase">
+                  ✓ Event is complete — ready to publish.
+                </p>
+              </div>
+            )}
           </div>
 
           {error && <p className="text-[12px] text-red-500">{error}</p>}
@@ -213,62 +289,71 @@ export default function EventsAdmin() {
         </div>
       ) : (
         <div className="bg-white border border-gray-100 divide-y divide-gray-100">
-          {events.map(event => (
-            <div key={event.id} className="flex items-start gap-5 p-5">
-              {/* Main photo thumbnail */}
-              {event.photos?.[0] ? (
-                <div className="relative w-16 h-16 shrink-0 overflow-hidden bg-linen">
-                  <img src={event.photos[0]} alt={event.title} className="w-full h-full object-cover object-top" />
-                </div>
-              ) : (
-                <div className="w-16 h-16 shrink-0 bg-linen flex items-center justify-center">
-                  <span className="text-[20px]">📸</span>
-                </div>
-              )}
-
-              {/* Info */}
-              <div className="flex-1 min-w-0">
-                <p className="text-[14px] font-medium text-ink truncate">{event.title}</p>
-                <p className="text-[12px] text-stone mt-0.5">
-                  {new Date(event.date + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
-                  {' · '}{event.place}
-                </p>
-                {event.photos?.length > 0 && (
-                  <p className="text-[11px] text-stone mt-1">{event.photos.length} photo{event.photos.length !== 1 ? 's' : ''}</p>
-                )}
-              </div>
-
-              {/* Actions */}
-              <div className="flex items-center gap-3 shrink-0">
-                <button
-                  onClick={() => toggleActive(event)}
-                  className={`text-[10px] tracking-[0.12em] uppercase px-3 py-1 border transition-colors ${
-                    event.active
-                      ? 'border-teal text-teal'
-                      : 'border-gray-200 text-stone hover:border-ink'
-                  }`}
-                >
-                  {event.active ? 'Visible' : 'Hidden'}
-                </button>
-                <button onClick={() => openEdit(event)}
-                  className="text-stone hover:text-ink transition-colors p-1" title="Edit">
-                  <Pencil size={15} strokeWidth={1.5} />
-                </button>
-                {confirmDelete === event.id ? (
-                  <div className="flex items-center gap-2 text-[11px]">
-                    <span className="text-stone">Delete?</span>
-                    <button onClick={() => deleteEvent(event.id)} className="text-red-500 hover:text-red-700 font-medium">Yes</button>
-                    <button onClick={() => setConfirmDelete(null)} className="text-stone hover:text-ink">No</button>
+          {events.map(event => {
+            const eventMissing = REQUIRED_TO_PUBLISH.filter(r => !String((event as unknown as Record<string, unknown>)[r.key] ?? '').trim())
+            const eventComplete = eventMissing.length === 0
+            return (
+              <div key={event.id} className="flex items-start gap-5 p-5">
+                {event.photos?.[0] ? (
+                  <div className="relative w-16 h-16 shrink-0 overflow-hidden bg-linen">
+                    <img src={event.photos[0]} alt={event.title} className="w-full h-full object-cover object-top" />
                   </div>
                 ) : (
-                  <button onClick={() => setConfirmDelete(event.id)}
-                    className="text-stone hover:text-red-500 transition-colors p-1" title="Delete">
-                    <Trash2 size={15} strokeWidth={1.5} />
-                  </button>
+                  <div className="w-16 h-16 shrink-0 bg-linen flex items-center justify-center">
+                    <span className="text-[20px]">📸</span>
+                  </div>
                 )}
+
+                <div className="flex-1 min-w-0">
+                  <p className="text-[14px] font-medium text-ink truncate">{event.title}</p>
+                  <p className="text-[12px] text-stone mt-0.5">
+                    {new Date(event.date + 'T12:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    {' · '}{event.place}
+                  </p>
+                  {!eventComplete && (
+                    <p className="text-[10px] text-amber-600 mt-1">
+                      ○ Missing: {eventMissing.map(f => f.label).join(', ')}
+                    </p>
+                  )}
+                  {event.photos?.length > 0 && (
+                    <p className="text-[11px] text-stone mt-1">{event.photos.length} photo{event.photos.length !== 1 ? 's' : ''}</p>
+                  )}
+                </div>
+
+                <div className="flex items-center gap-3 shrink-0">
+                  <button
+                    onClick={() => toggleActive(event)}
+                    title={!eventComplete && !event.active ? 'Complete all fields to publish' : ''}
+                    className={`text-[10px] tracking-[0.12em] uppercase px-3 py-1 border transition-colors ${
+                      event.active
+                        ? 'border-teal text-teal'
+                        : !eventComplete
+                        ? 'border-gray-200 text-stone/40 cursor-not-allowed'
+                        : 'border-gray-200 text-stone hover:border-ink'
+                    }`}
+                  >
+                    {event.active ? 'Visible' : 'Hidden'}
+                  </button>
+                  <button onClick={() => openEdit(event)}
+                    className="text-stone hover:text-ink transition-colors p-1" title="Edit">
+                    <Pencil size={15} strokeWidth={1.5} />
+                  </button>
+                  {confirmDelete === event.id ? (
+                    <div className="flex items-center gap-2 text-[11px]">
+                      <span className="text-stone">Delete?</span>
+                      <button onClick={() => deleteEvent(event.id)} className="text-red-500 hover:text-red-700 font-medium">Yes</button>
+                      <button onClick={() => setConfirmDelete(null)} className="text-stone hover:text-ink">No</button>
+                    </div>
+                  ) : (
+                    <button onClick={() => setConfirmDelete(event.id)}
+                      className="text-stone hover:text-red-500 transition-colors p-1" title="Delete">
+                      <Trash2 size={15} strokeWidth={1.5} />
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       )}
     </div>

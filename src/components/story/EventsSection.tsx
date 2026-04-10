@@ -8,9 +8,11 @@ import { useLang } from '@/lib/i18n/context'
 type Event = {
   id: string
   title: string
+  title_pt: string
   date: string
   place: string
   description: string
+  description_pt: string
   photos: string[]
 }
 
@@ -101,7 +103,7 @@ export default function EventsSection() {
                   </span>
                 </div>
                 <h3 className="text-2xl md:text-3xl font-semibold text-ink tracking-tight leading-tight mb-3">
-                  {event.title}
+                  {lang === 'pt' && event.title_pt ? event.title_pt : event.title}
                 </h3>
                 <div className="flex items-center gap-1.5 text-stone mb-5">
                   <MapPin size={13} strokeWidth={1.5} />
@@ -109,7 +111,7 @@ export default function EventsSection() {
                 </div>
                 {event.description && (
                   <p className="text-[14px] leading-relaxed text-stone whitespace-pre-line">
-                    {event.description}
+                    {lang === 'pt' && event.description_pt ? event.description_pt : event.description}
                   </p>
                 )}
               </div>

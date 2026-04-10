@@ -17,13 +17,15 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     const { data, error } = await db
       .from('events')
       .update({
-        title: body.title,
-        date: body.date,
-        place: body.place,
-        description: body.description ?? '',
-        photos: body.photos ?? [],
-        active: body.active ?? true,
-        sort_order: body.sort_order ?? 0,
+        title:          body.title,
+        title_pt:       body.title_pt ?? '',
+        date:           body.date,
+        place:          body.place,
+        description:    body.description ?? '',
+        description_pt: body.description_pt ?? '',
+        photos:         body.photos ?? [],
+        active:         body.active ?? true,
+        sort_order:     body.sort_order ?? 0,
       })
       .eq('id', id)
       .select()
