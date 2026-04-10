@@ -9,7 +9,7 @@ import { Product } from '@/lib/products'
 import { useLang } from '@/lib/i18n/context'
 
 export default function ProductMosaic({ products }: { products: Product[] }) {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const m = t.home.mosaic
 
   // Available pieces first, then commission/on-request, then sold — so homepage shows what can be bought
@@ -70,7 +70,7 @@ export default function ProductMosaic({ products }: { products: Product[] }) {
                   {hero.name}
                 </p>
                 <p className="text-white text-sm leading-snug line-clamp-2 max-w-xs">
-                  {hero.fact}
+                  {lang === 'pt' && hero.factPt ? hero.factPt : hero.fact}
                 </p>
                 <span className="inline-block mt-4 text-[10px] tracking-[0.2em] uppercase text-white border border-white/60 px-4 py-2 group-hover:bg-white group-hover:text-ink transition-all duration-200">
                   {hero.badge === 'soldout' ? m.viewSold : hero.availableOnRequest ? m.commissionPiece : `${m.shopNow} — €${hero.price}`}

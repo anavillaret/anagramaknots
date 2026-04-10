@@ -12,7 +12,7 @@ import { useLang } from '@/lib/i18n/context'
 import { SHOP_OPEN } from '@/lib/siteConfig'
 
 export default function ProductCard({ product }: { product: Product }) {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const [hovered, setHovered] = useState(false)
 
   return (
@@ -79,7 +79,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
         {product.fact && (
           <p className="text-[10px] leading-relaxed text-stone mt-1 line-clamp-2">
-            {product.fact}
+            {lang === 'pt' && product.factPt ? product.factPt : product.fact}
           </p>
         )}
       </div>

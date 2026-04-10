@@ -14,7 +14,7 @@ import { SHOP_OPEN } from '@/lib/siteConfig'
 
 export default function ProductDetail({ product, related }: { product: Product; related: Product[] }) {
   const { addItem, hasItem } = useCart()
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const p = t.product
   const [justAdded, setJustAdded] = useState(false)
 
@@ -83,7 +83,9 @@ export default function ProductDetail({ product, related }: { product: Product; 
 
             {product.fact && (
               <div className="mt-6 border-l-2 border-teal pl-4">
-                <p className="text-[13px] leading-relaxed text-stone italic">{product.fact}</p>
+                <p className="text-[13px] leading-relaxed text-stone italic">
+                  {lang === 'pt' && product.factPt ? product.factPt : product.fact}
+                </p>
               </div>
             )}
 

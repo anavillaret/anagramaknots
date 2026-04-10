@@ -38,6 +38,7 @@ export default function EditProduct() {
         slug: form.slug,
         species: form.species,
         fact: form.fact,
+        fact_pt: form.fact_pt ?? null,
         price: form.price,
         image: form.image,
         badge: form.badge ?? null,
@@ -115,9 +116,17 @@ export default function EditProduct() {
 
         {/* Fact */}
         <div>
-          <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Fact / Story</label>
+          <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Fact / Story <span className="text-stone/50 normal-case">(EN)</span></label>
           <textarea value={form.fact ?? ''} onChange={e => set('fact', e.target.value)} rows={3}
             placeholder="The animal's story — shown on the product page."
+            className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
+        </div>
+
+        {/* Fact PT */}
+        <div>
+          <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Fact / Story <span className="text-stone/50 normal-case">(PT)</span></label>
+          <textarea value={form.fact_pt ?? ''} onChange={e => set('fact_pt', e.target.value)} rows={3}
+            placeholder="A história do animal em português — mostrada na versão PT do site."
             className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
         </div>
 
