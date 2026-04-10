@@ -19,7 +19,7 @@ export default function AdminDashboard() {
           sold: products.filter(p => p.badge === 'soldout').length,
           onRequest: products.filter(p => p.available_on_request).length,
           orders: orders?.filter(o => o.status !== 'cancelled').length ?? 0,
-          revenue: orders?.filter(o => o.status !== 'cancelled').reduce((s, o) => s + (o.total_amount ?? 0), 0) ?? 0,
+          revenue: (orders?.filter(o => o.status !== 'cancelled').reduce((s, o) => s + (o.total_amount ?? 0), 0) ?? 0) / 100,
         })
       }
     }
