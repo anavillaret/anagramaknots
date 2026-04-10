@@ -20,6 +20,9 @@ export type DbProduct = {
   fact: string
   fact_pt: string
   price: number
+  details_pt: string
+  size_pt: string
+  care_tips_pt: string
   category: string
   image: string
   badge: 'new' | 'bestseller' | 'soldout' | 'sale' | null

@@ -13,8 +13,11 @@ export type Product = {
   badge?: 'new' | 'bestseller' | 'soldout' | 'sale'
   slug: string
   details?: string
+  detailsPt?: string
   size?: string
+  sizePt?: string
   careTips?: string
+  careTipsPt?: string
   availableOnRequest?: boolean  // true = commission only, no stock
 }
 
@@ -33,8 +36,11 @@ export function dbProductToProduct(row: DbProduct): Product {
     badge: row.badge ?? undefined,
     slug: row.slug,
     details: row.details ?? undefined,
+    detailsPt: row.details_pt || undefined,
     size: row.size ?? undefined,
+    sizePt: row.size_pt || undefined,
     careTips: row.care_tips ?? undefined,
+    careTipsPt: row.care_tips_pt || undefined,
     availableOnRequest: row.available_on_request ?? false,
   }
 }

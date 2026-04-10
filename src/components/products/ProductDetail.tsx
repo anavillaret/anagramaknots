@@ -163,21 +163,27 @@ export default function ProductDetail({ product, related }: { product: Product; 
               {product.details && (
                 <div className="py-6 md:py-0 md:pr-12">
                   <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.materials}</p>
-                  <p className="text-[13px] leading-relaxed text-stone">{product.details}</p>
+                  <p className="text-[13px] leading-relaxed text-stone">
+                    {lang === 'pt' && product.detailsPt ? product.detailsPt : product.details}
+                  </p>
                 </div>
               )}
 
               {product.size && (
                 <div className="py-6 md:py-0 md:px-12">
                   <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.size}</p>
-                  <p className="text-[13px] leading-relaxed text-stone">{product.size}</p>
+                  <p className="text-[13px] leading-relaxed text-stone">
+                    {lang === 'pt' && product.sizePt ? product.sizePt : product.size}
+                  </p>
                 </div>
               )}
 
               {product.careTips && (
                 <div className="py-6 md:py-0 md:pl-12">
                   <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-semibold mb-3">{p.care}</p>
-                  <p className="text-[13px] leading-relaxed text-stone">{product.careTips}</p>
+                  <p className="text-[13px] leading-relaxed text-stone">
+                    {lang === 'pt' && product.careTipsPt ? product.careTipsPt : product.careTips}
+                  </p>
                 </div>
               )}
 
