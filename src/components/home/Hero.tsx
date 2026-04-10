@@ -20,40 +20,23 @@ type Slide = {
   secondary: string
 }
 
-function productToSlide(p: Product, secondary: string): Slide {
-  return {
-    image: p.image,
-    alt: `${p.name} amigurumi`,
-    href: `/products/${p.slug}`,
-    label: p.species ? `※ ${p.species}` : `※ ${p.name}`,
-    heading: [p.name, 'meet me.'],
-    sub: p.fact,
-    cta: `Meet ${p.name} — €${p.price}`,
-    secondary,
-  }
-}
-
-const FALLBACK_SLIDES: Slide[] = [
-  {
-    image: '/images/hero.jpeg',
-    alt: 'Anagrama teal bird amigurumi',
-    href: '/products',
-    label: 'Handmade in Portugal',
-    heading: ['Every knot', 'tells a story.'],
-    sub: 'Handcrafted amigurumis named after real animals — each one carrying the story of its species.',
-    cta: 'Explore the Collection',
-    secondary: 'Our Story',
-  },
-]
-
 export default function Hero({ heroProducts }: { heroProducts?: Product[] }) {
   const { t } = useLang()
-  const secondary = t.hero.slides[0]?.secondary ?? 'Our Story'
 
-  const slides: Slide[] =
-    heroProducts && heroProducts.length > 0
-      ? heroProducts.map(p => productToSlide(p, secondary))
-      : FALLBACK_SLIDES
+  // Use the curated translations texts per slot, but dynamic image/link from the selected product
+  const slides: Slide[] = t.hero.slides.map((text, i) => {
+    const product = heroProducts?.[i]
+    return {
+      image: product?.image ?? '/images/hero.jpeg',
+      alt: product ? `${product.name} amigurumi` : 'Anagrama amigurumi',
+      href: product ? `/products/${product.slug}` : '/products',
+      label: text.label,
+      heading: text.heading as [string, string],
+      sub: text.sub,
+      cta: text.cta,
+      secondary: text.secondary,
+    }
+  })
 
   const [current, setCurrent] = useState(0)
   const [fading, setFading] = useState(false)
