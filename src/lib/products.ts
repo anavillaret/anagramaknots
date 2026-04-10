@@ -6,6 +6,7 @@ export type Product = {
   name: string
   species: string
   fact: string
+  factPt?: string
   price: number
   category: 'amigurumis'
   image: string
@@ -25,6 +26,7 @@ export function dbProductToProduct(row: DbProduct): Product {
     name: row.name,
     species: row.species ?? '',
     fact: row.fact ?? '',
+    factPt: row.fact_pt ?? undefined,
     price: row.price,
     category: 'amigurumis',
     image: row.image,

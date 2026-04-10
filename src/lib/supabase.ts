@@ -18,6 +18,7 @@ export type DbProduct = {
   slug: string
   species: string
   fact: string
+  fact_pt: string
   price: number
   category: string
   image: string
