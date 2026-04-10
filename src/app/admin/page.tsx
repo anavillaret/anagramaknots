@@ -18,8 +18,8 @@ export default function AdminDashboard() {
           available: products.filter(p => !p.available_on_request && p.badge !== 'soldout').length,
           sold: products.filter(p => p.badge === 'soldout').length,
           onRequest: products.filter(p => p.available_on_request).length,
-          orders: orders?.filter(o => o.status === 'paid' || o.status === 'shipped').length ?? 0,
-          revenue: orders?.filter(o => o.status === 'paid' || o.status === 'shipped').reduce((s, o) => s + (o.total_amount ?? 0), 0) ?? 0,
+          orders: orders?.filter(o => o.status !== 'cancelled').length ?? 0,
+          revenue: orders?.filter(o => o.status !== 'cancelled').reduce((s, o) => s + (o.total_amount ?? 0), 0) ?? 0,
         })
       }
     }
