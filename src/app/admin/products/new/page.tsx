@@ -4,26 +4,48 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import ImageUpload from '@/components/admin/ImageUpload'
 
+type FormState = {
+  name: string; slug: string; species: string
+  fact: string; fact_pt: string; price: string; image: string
+  available_on_request: boolean; badge: string
+  details: string; details_pt: string
+  size: string; size_pt: string
+  care_tips: string; care_tips_pt: string
+}
+
+const REQUIRED: { key: keyof FormState; label: string }[] = [
+  { key: 'image',        label: 'Photo' },
+  { key: 'name',         label: 'Name' },
+  { key: 'price',        label: 'Price' },
+  { key: 'fact',         label: 'Fact (EN)' },
+  { key: 'fact_pt',      label: 'Fact (PT)' },
+  { key: 'details',      label: 'Details (EN)' },
+  { key: 'details_pt',   label: 'Details (PT)' },
+  { key: 'size',         label: 'Size (EN)' },
+  { key: 'size_pt',      label: 'Size (PT)' },
+  { key: 'care_tips',    label: 'Care Tips (EN)' },
+  { key: 'care_tips_pt', label: 'Care Tips (PT)' },
+]
+
+function missingFields(form: FormState) {
+  return REQUIRED.filter(r => {
+    const v = form[r.key]
+    if (r.key === 'price') return !v || String(v).trim() === '' || String(v) === '0'
+    return !v || String(v).trim() === '' || String(v).includes('placeholder')
+  })
+}
+
 export default function NewProduct() {
   const router = useRouter()
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
-  const [form, setForm] = useState({
-    name: '',
-    slug: '',
-    species: '',
-    fact: '',
-    fact_pt: '',
-    price: '',
-    image: '',
-    available_on_request: false,
-    badge: '',
-    details: '',
-    details_pt: '',
-    size: '',
-    size_pt: '',
-    care_tips: '',
-    care_tips_pt: '',
+  const [form, setForm] = useState<FormState>({
+    name: '', slug: '', species: '',
+    fact: '', fact_pt: '', price: '', image: '',
+    available_on_request: false, badge: '',
+    details: '', details_pt: '',
+    size: '', size_pt: '',
+    care_tips: '', care_tips_pt: '',
   })
 
   function set(field: string, value: string | boolean) {
@@ -36,6 +58,9 @@ export default function NewProduct() {
       }))
     }
   }
+
+  const missing = missingFields(form)
+  const isComplete = missing.length === 0
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -61,7 +86,7 @@ export default function NewProduct() {
         size_pt: form.size_pt || '',
         care_tips: form.care_tips,
         care_tips_pt: form.care_tips_pt || '',
-        active: false, // starts as draft — publish from the products list when ready
+        active: false, // always draft — publish from products list
       }),
     })
     if (!res.ok) {
@@ -129,7 +154,7 @@ export default function NewProduct() {
           <div>
             <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Details <span className="text-stone/50 normal-case">(EN)</span></label>
             <textarea value={form.details} onChange={e => set('details', e.target.value)} rows={3}
-              placeholder="Materials: 100% cotton, hypoallergenic fiber stuffing and eyes locked for safety."
+              placeholder="100% cotton, hypoallergenic fiber stuffing and eyes locked for safety."
               className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
           </div>
           <div>
@@ -151,7 +176,7 @@ export default function NewProduct() {
           <div>
             <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Details <span className="text-stone/50 normal-case">(PT)</span></label>
             <textarea value={form.details_pt} onChange={e => set('details_pt', e.target.value)} rows={3}
-              placeholder="Materiais: 100% algodão, enchimento hipoalergénico e olhos fixos para segurança."
+              placeholder="100% algodão, enchimento hipoalergénico e olhos fixos para segurança."
               className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
           </div>
           <div>
@@ -188,6 +213,30 @@ export default function NewProduct() {
             ))}
           </div>
         </div>
+
+        {/* Completeness checklist */}
+        {!isComplete && (
+          <div className="bg-amber-50 border border-amber-200 rounded-sm px-4 py-3">
+            <p className="text-[11px] font-semibold text-amber-800 mb-2 tracking-wide uppercase">
+              Will be saved as draft — fill in to be ready to publish:
+            </p>
+            <ul className="flex flex-wrap gap-x-4 gap-y-1">
+              {missing.map(f => (
+                <li key={f.key} className="text-[11px] text-amber-700 flex items-center gap-1">
+                  <span className="text-amber-400">○</span> {f.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {isComplete && (
+          <div className="bg-teal/5 border border-teal/20 rounded-sm px-4 py-3">
+            <p className="text-[11px] text-teal font-semibold tracking-wide uppercase">
+              ✓ Product is complete — you can publish it from the products list after saving.
+            </p>
+          </div>
+        )}
 
         {error && <p className="text-[12px] text-red-500">{error}</p>}
 

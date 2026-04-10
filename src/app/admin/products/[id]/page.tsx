@@ -5,6 +5,28 @@ import { useRouter, useParams } from 'next/navigation'
 import type { DbProduct } from '@/lib/supabase'
 import ImageUpload from '@/components/admin/ImageUpload'
 
+const REQUIRED: { key: keyof DbProduct; label: string }[] = [
+  { key: 'image',        label: 'Photo' },
+  { key: 'name',         label: 'Name' },
+  { key: 'price',        label: 'Price' },
+  { key: 'fact',         label: 'Fact (EN)' },
+  { key: 'fact_pt',      label: 'Fact (PT)' },
+  { key: 'details',      label: 'Details (EN)' },
+  { key: 'details_pt',   label: 'Details (PT)' },
+  { key: 'size',         label: 'Size (EN)' },
+  { key: 'size_pt',      label: 'Size (PT)' },
+  { key: 'care_tips',    label: 'Care Tips (EN)' },
+  { key: 'care_tips_pt', label: 'Care Tips (PT)' },
+]
+
+function missingFields(form: Partial<DbProduct>) {
+  return REQUIRED.filter(r => {
+    const v = form[r.key]
+    if (r.key === 'price') return !v && v !== 0
+    return !v || String(v).trim() === '' || String(v).includes('placeholder')
+  })
+}
+
 export default function EditProduct() {
   const router = useRouter()
   const { id } = useParams<{ id: string }>()
@@ -26,10 +48,15 @@ export default function EditProduct() {
     setForm(f => ({ ...f, [field]: value }))
   }
 
+  const missing = missingFields(form)
+  const isComplete = missing.length === 0
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setSaving(true)
     setError('')
+    // Force draft if product is incomplete
+    const active = isComplete ? form.active : false
     const res = await fetch(`/api/admin/products/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -49,7 +76,7 @@ export default function EditProduct() {
         size_pt: form.size_pt ?? '',
         care_tips: form.care_tips,
         care_tips_pt: form.care_tips_pt ?? '',
-        active: form.active,
+        active,
       }),
     })
     if (!res.ok) {
@@ -138,7 +165,7 @@ export default function EditProduct() {
           <div>
             <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Details <span className="text-stone/50 normal-case">(EN)</span></label>
             <textarea value={form.details ?? ''} onChange={e => set('details', e.target.value)} rows={3}
-              placeholder="Materials: 100% cotton, hypoallergenic fiber stuffing and eyes locked for safety."
+              placeholder="100% cotton, hypoallergenic fiber stuffing and eyes locked for safety."
               className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
           </div>
           <div>
@@ -160,7 +187,7 @@ export default function EditProduct() {
           <div>
             <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Details <span className="text-stone/50 normal-case">(PT)</span></label>
             <textarea value={form.details_pt ?? ''} onChange={e => set('details_pt', e.target.value)} rows={3}
-              placeholder="Materiais: 100% algodão, enchimento hipoalergénico e olhos fixos para segurança."
+              placeholder="100% algodão, enchimento hipoalergénico e olhos fixos para segurança."
               className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors resize-none" />
           </div>
           <div>
@@ -195,12 +222,38 @@ export default function EditProduct() {
         </div>
 
         {/* Visibility */}
-        <div className="flex items-center gap-3 py-1">
-          <input type="checkbox" id="active" checked={form.active !== false} onChange={e => set('active', e.target.checked)}
-            className="w-4 h-4 accent-teal" />
-          <label htmlFor="active" className="text-[12px] text-ink cursor-pointer">Visible on site</label>
-          {form.active === false && (
-            <span className="text-[10px] text-orange-500 ml-1">— currently hidden (draft)</span>
+        <div className="space-y-3">
+          <div className={`flex items-center gap-3 py-1 ${!isComplete ? 'opacity-50' : ''}`}>
+            <input
+              type="checkbox"
+              id="active"
+              checked={isComplete && form.active !== false}
+              disabled={!isComplete}
+              onChange={e => set('active', e.target.checked)}
+              className="w-4 h-4 accent-teal disabled:cursor-not-allowed"
+            />
+            <label htmlFor="active" className={`text-[12px] text-ink ${!isComplete ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
+              Visible on site
+            </label>
+            {form.active === false && isComplete && (
+              <span className="text-[10px] text-orange-500 ml-1">— currently hidden (draft)</span>
+            )}
+          </div>
+
+          {/* Completeness checklist */}
+          {!isComplete && (
+            <div className="bg-amber-50 border border-amber-200 rounded-sm px-4 py-3">
+              <p className="text-[11px] font-semibold text-amber-800 mb-2 tracking-wide uppercase">
+                Product will be saved as draft — fill in to publish:
+              </p>
+              <ul className="flex flex-wrap gap-x-4 gap-y-1">
+                {missing.map(f => (
+                  <li key={f.key} className="text-[11px] text-amber-700 flex items-center gap-1">
+                    <span className="text-amber-400">○</span> {f.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
 
