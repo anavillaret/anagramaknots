@@ -45,7 +45,8 @@ export async function POST(req: NextRequest) {
       quantity: 1,
     }))
 
-    const session = await stripe.checkout.sessions.create({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const session = await (stripe.checkout.sessions.create as any)({
       automatic_payment_methods: { enabled: true },
       line_items,
       mode: 'payment',
