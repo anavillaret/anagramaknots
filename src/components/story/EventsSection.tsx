@@ -30,7 +30,7 @@ export default function EventsSection() {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    fetch('/api/events')
+    fetch(`/api/events?t=${Date.now()}`, { cache: 'no-store' })
       .then(r => r.json())
       .then(data => { setEvents(data); setLoaded(true) })
       .catch(() => setLoaded(true))
