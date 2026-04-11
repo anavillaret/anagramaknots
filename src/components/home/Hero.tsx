@@ -31,8 +31,6 @@ export default function Hero({ heroProducts }: { heroProducts?: Product[] }) {
     const cta = product
       ? product.badge === 'soldout'
         ? `${meetLabel} the ${product.name}`
-        : product.availableOnRequest
-        ? `${meetLabel} the ${product.name}`
         : `${meetLabel} the ${product.name} — €${product.price}`
       : text.cta
     return {
