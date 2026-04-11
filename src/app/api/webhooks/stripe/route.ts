@@ -67,7 +67,8 @@ async function sendConfirmationToCustomer(session: Stripe.Checkout.Session, rese
   if (!customerEmail) return
 
   const collectedShipping2 = (session as unknown as Record<string, unknown> & { collected_information?: { shipping_details?: { name?: string } } }).collected_information?.shipping_details
-  const customerName = collectedShipping2?.name ?? session.shipping_details?.name ?? session.customer_details?.name ?? 'there'
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const customerName = collectedShipping2?.name ?? (session as any).shipping_details?.name ?? session.customer_details?.name ?? 'there'
   const amountTotal = session.amount_total ? `€${(session.amount_total / 100).toFixed(2)}` : 'N/A'
 
   await resend.emails.send({
@@ -119,9 +120,11 @@ export async function POST(req: NextRequest) {
       const db = supabaseAdmin()
       // In newer Stripe API versions the address lives in collected_information or customer_details
       const collectedShipping = (session as unknown as Record<string, unknown> & { collected_information?: { shipping_details?: { address?: Stripe.Address; name?: string } } }).collected_information?.shipping_details
-      const customerName = collectedShipping?.name ?? session.shipping_details?.name ?? session.customer_details?.name ?? ''
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const s2 = session as any
+      const customerName = collectedShipping?.name ?? s2.shipping_details?.name ?? session.customer_details?.name ?? ''
       const customerEmail = session.customer_details?.email ?? ''
-      const shipping = collectedShipping?.address ?? session.shipping_details?.address ?? session.customer_details?.address
+      const shipping = collectedShipping?.address ?? s2.shipping_details?.address ?? session.customer_details?.address
       const shippingAddress = shipping
         ? { line1: shipping.line1, line2: shipping.line2, city: shipping.city, postal_code: shipping.postal_code, country: shipping.country }
         : {}
