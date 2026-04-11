@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
     }))
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card', 'mb_way'],
+      automatic_payment_methods: { enabled: true },
       line_items,
       mode: 'payment',
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
