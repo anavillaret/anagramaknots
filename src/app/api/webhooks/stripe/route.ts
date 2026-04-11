@@ -29,9 +29,11 @@ function formatLineItems(session: Stripe.Checkout.Session) {
 
 async function sendOrderNotificationToAna(session: Stripe.Checkout.Session, resend: Resend) {
   const collectedShipping = (session as unknown as Record<string, unknown> & { collected_information?: { shipping_details?: { address?: Stripe.Address; name?: string } } }).collected_information?.shipping_details
-  const customerName = collectedShipping?.name ?? session.shipping_details?.name ?? session.customer_details?.name ?? 'Unknown'
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const s = session as any
+  const customerName = collectedShipping?.name ?? s.shipping_details?.name ?? session.customer_details?.name ?? 'Unknown'
   const customerEmail = session.customer_details?.email ?? 'Unknown'
-  const shipping = collectedShipping?.address ?? session.shipping_details?.address ?? session.customer_details?.address
+  const shipping = collectedShipping?.address ?? s.shipping_details?.address ?? session.customer_details?.address
   const shippingAddress = shipping
     ? [shipping.line1, shipping.line2, shipping.city, shipping.postal_code, shipping.country].filter(Boolean).join(', ')
     : 'Not provided'
