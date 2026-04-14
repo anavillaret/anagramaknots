@@ -20,6 +20,13 @@ type Slide = {
   secondary: string
 }
 
+// Infer the Portuguese article from the first word of the PT name:
+// words ending in 'a' are feminine ("a"), everything else masculine ("o").
+// Covers all common animal names: Alpaca→a, Cacatua→a, Cobra→a, Urso→o, Pinguim→o, Flamingo→o…
+function ptArticle(name: string): string {
+  return name.split(' ')[0].toLowerCase().endsWith('a') ? 'a' : 'o'
+}
+
 export default function Hero({ heroProducts }: { heroProducts?: Product[] }) {
   const { t, lang } = useLang()
 
@@ -28,10 +35,11 @@ export default function Hero({ heroProducts }: { heroProducts?: Product[] }) {
     const product = heroProducts?.[i]
     const fact = lang === 'pt' && product?.factPt ? product.factPt : product?.fact
     const displayName = product ? (lang === 'pt' && product.namePt ? product.namePt : product.name) : null
+    const article = displayName ? ptArticle(displayName) : 'o'
     const cta = product
       ? product.badge === 'soldout'
-        ? lang === 'pt' ? `Conhecer ${displayName}` : `Meet the ${product.name}`
-        : lang === 'pt' ? `Conhecer ${displayName} — €${product.price}` : `Meet the ${product.name} — €${product.price}`
+        ? lang === 'pt' ? `Conhece ${article} ${displayName}` : `Meet the ${product.name}`
+        : lang === 'pt' ? `Conhece ${article} ${displayName} — €${product.price}` : `Meet the ${product.name} — €${product.price}`
       : text.cta
     return {
       image: product?.image ?? '/images/hero.jpeg',
