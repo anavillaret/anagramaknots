@@ -41,16 +41,14 @@ export default function ShippingContent() {
       <section className="max-w-4xl mx-auto px-6 mb-20">
         <h2 className="text-2xl font-semibold text-ink mb-8 tracking-tight">{s.tableHeading}</h2>
         <div className="border border-stone-light divide-y divide-stone-light">
-          <div className="grid grid-cols-3 px-6 py-3 bg-linen">
+          <div className="grid grid-cols-2 px-6 py-3 bg-linen">
             <span className="text-[11px] tracking-[0.15em] uppercase text-stone font-medium">{s.colRegion}</span>
-            <span className="text-[11px] tracking-[0.15em] uppercase text-stone font-medium">{s.colStandard}</span>
-            <span className="text-[11px] tracking-[0.15em] uppercase text-stone font-medium">{s.colExpress}</span>
+            <span className="text-[11px] tracking-[0.15em] uppercase text-stone font-medium">{s.colDelivery}</span>
           </div>
           {s.rows.map(r => (
-            <div key={r.region} className="grid grid-cols-3 px-6 py-4">
+            <div key={r.region} className="grid grid-cols-2 px-6 py-4">
               <span className="text-[14px] font-medium text-ink">{r.region}</span>
-              <span className="text-[14px] text-stone">{r.standard}</span>
-              <span className="text-[14px] text-stone">{r.express}</span>
+              <span className="text-[14px] text-stone">{r.delivery}</span>
             </div>
           ))}
         </div>
