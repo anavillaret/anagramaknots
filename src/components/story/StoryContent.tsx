@@ -32,10 +32,10 @@ export default function StoryContent() {
 
           <div className="relative aspect-[3/4] overflow-hidden">
             <Image
-              src="/images/process-1.jpeg"
-              alt="Ana crocheting"
+              src="https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190677242-img_8751.jpg"
+              alt="Crochet heart"
               fill
-              className="object-cover"
+              className="object-cover object-center"
               priority
             />
             <Watermark />
@@ -50,11 +50,11 @@ export default function StoryContent() {
 
             <div className="grid grid-cols-2 gap-3 order-2 md:order-1">
               <div className="relative aspect-square overflow-hidden mt-8">
-                <Image src="/images/process-2.jpeg" alt="Ana at work" fill className="object-cover" />
+                <Image src="https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190678839-img_8562.jpg" alt="Crochet square" fill className="object-cover" />
                 <Watermark />
               </div>
               <div className="relative aspect-[3/4] overflow-hidden">
-                <Image src="/images/process-3.jpeg" alt="Yarn and hooks" fill className="object-cover" />
+                <Image src="/images/process-3.jpeg" alt="Green animals" fill className="object-cover" />
                 <Watermark />
               </div>
             </div>
