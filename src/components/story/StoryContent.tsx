@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import Watermark from '@/components/ui/Watermark'
 import { useLang } from '@/lib/i18n/context'
@@ -19,6 +19,108 @@ const PHOTOS = [
 ]
 
 type Lightbox = { index: number } | null
+
+function PhotoCarousel({
+  photos,
+  lightboxOffset,
+  onOpen,
+}: {
+  photos: { src: string; alt: string }[]
+  lightboxOffset: number[]
+  onOpen: (lb: { index: number }) => void
+}) {
+  const [active, setActive] = useState(0)
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  const go = useCallback((dir: number) => {
+    setActive(a => (a + dir + photos.length) % photos.length)
+  }, [photos.length])
+
+  const resetTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current)
+    timerRef.current = setInterval(() => setActive(a => (a + 1) % photos.length), 4000)
+  }, [photos.length])
+
+  useEffect(() => {
+    resetTimer()
+    return () => { if (timerRef.current) clearInterval(timerRef.current) }
+  }, [resetTimer])
+
+  // Indices of the 3 visible slots: prev, active, next
+  const indices = [
+    (active - 1 + photos.length) % photos.length,
+    active,
+    (active + 1) % photos.length,
+  ]
+
+  return (
+    <section className="py-16 overflow-hidden">
+      <div className="relative flex items-center justify-center gap-4 px-16">
+
+        {/* Prev arrow */}
+        <button
+          onClick={() => { go(-1); resetTimer() }}
+          className="absolute left-4 z-10 p-2 text-stone hover:text-ink transition-colors"
+        >
+          <ChevronLeft size={32} strokeWidth={1.5} />
+        </button>
+
+        {/* 3 photos: side · center · side */}
+        {indices.map((photoIdx, slot) => {
+          const isCenter = slot === 1
+          return (
+            <button
+              key={slot}
+              onClick={() => {
+                if (isCenter) {
+                  onOpen({ index: lightboxOffset[photoIdx] })
+                } else {
+                  go(slot === 0 ? -1 : 1)
+                  resetTimer()
+                }
+              }}
+              className={`relative overflow-hidden shrink-0 transition-all duration-500 ${
+                isCenter
+                  ? 'w-[420px] aspect-[4/3] cursor-zoom-in opacity-100 scale-100'
+                  : 'w-[260px] aspect-[4/3] cursor-pointer opacity-50 scale-95 hover:opacity-70'
+              }`}
+            >
+              <Image
+                src={photos[photoIdx].src}
+                alt={photos[photoIdx].alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 80vw, 420px"
+              />
+              {isCenter && <Watermark />}
+            </button>
+          )
+        })}
+
+        {/* Next arrow */}
+        <button
+          onClick={() => { go(1); resetTimer() }}
+          className="absolute right-4 z-10 p-2 text-stone hover:text-ink transition-colors"
+        >
+          <ChevronRight size={32} strokeWidth={1.5} />
+        </button>
+      </div>
+
+      {/* Dots */}
+      <div className="flex justify-center gap-2 mt-6">
+        {photos.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => { setActive(i); resetTimer() }}
+            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+              i === active ? 'bg-teal w-4' : 'bg-stone-light hover:bg-stone'
+            }`}
+          />
+        ))}
+      </div>
+    </section>
+  )
+}
 
 export default function StoryContent() {
   const { t } = useLang()
@@ -113,21 +215,8 @@ export default function StoryContent() {
         </div>
       </section>
 
-      {/* Photo strip */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-          {[PHOTOS[1], ...PHOTOS.slice(3)].map((photo, i) => (
-            <button
-              key={i}
-              onClick={() => setLightbox({ index: i === 0 ? 1 : i + 3 })}
-              className="relative aspect-square overflow-hidden cursor-zoom-in"
-            >
-              <Image src={photo.src} alt={photo.alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
-              <Watermark />
-            </button>
-          ))}
-        </div>
-      </section>
+      {/* Photo carousel */}
+      <PhotoCarousel photos={[PHOTOS[1], ...PHOTOS.slice(3)]} lightboxOffset={[1,3,4,5,6]} onOpen={setLightbox} />
 
       {/* Process */}
       <section className="max-w-7xl mx-auto px-6 py-24">
