@@ -140,7 +140,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
 
             {product.fact && (
               <div className="mt-6 border-l-2 border-teal pl-4">
-                <p className="text-[13px] leading-relaxed text-stone italic">
+                <p className="text-[15px] leading-relaxed text-stone italic">
                   {lang === 'pt' && product.factPt ? product.factPt : product.fact}
                 </p>
               </div>
