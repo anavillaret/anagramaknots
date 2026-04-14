@@ -62,7 +62,7 @@ export default function ProductCard({ product }: { product: Product }) {
           <div>
             <p className="text-[12px] font-semibold tracking-wide text-teal transition-colors flex items-center gap-1.5 uppercase">
               <BrandSymbol size={11} />
-              {product.name}
+              {lang === 'pt' && product.namePt ? product.namePt : product.name}
             </p>
             {product.species && (
               <p className="text-[10px] tracking-wide text-stone italic mt-0.5">

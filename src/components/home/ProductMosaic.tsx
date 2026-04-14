@@ -67,7 +67,7 @@ export default function ProductMosaic({ products }: { products: Product[] }) {
               <div className="absolute bottom-5 left-5 right-5">
                 <p className="text-[11px] tracking-[0.2em] uppercase text-white/80 mb-1 flex items-center gap-1.5">
                   <BrandSymbol size={10} className="opacity-80" />
-                  {hero.name}
+                  {lang === 'pt' && hero.namePt ? hero.namePt : hero.name}
                 </p>
                 <p className="text-white text-sm leading-snug line-clamp-2 max-w-xs">
                   {lang === 'pt' && hero.factPt ? hero.factPt : hero.fact}

@@ -63,6 +63,7 @@ export default function EditProduct() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: form.name,
+        name_pt: form.name_pt ?? null,
         slug: form.slug,
         species: form.species,
         fact: form.fact,
@@ -126,15 +127,21 @@ export default function EditProduct() {
         {/* Name + Slug */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Name</label>
+            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Name <span className="text-stone/50 normal-case">(EN)</span></label>
             <input type="text" required value={form.name ?? ''} onChange={e => set('name', e.target.value)}
               className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors" />
           </div>
           <div>
-            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Slug</label>
-            <input type="text" required value={form.slug ?? ''} onChange={e => set('slug', e.target.value)}
+            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Name <span className="text-stone/50 normal-case">(PT)</span></label>
+            <input type="text" value={form.name_pt ?? ''} onChange={e => set('name_pt', e.target.value)}
+              placeholder="Nome em português"
               className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors" />
           </div>
+        </div>
+        <div>
+          <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Slug</label>
+          <input type="text" required value={form.slug ?? ''} onChange={e => set('slug', e.target.value)}
+            className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors" />
         </div>
 
         {/* Species + Price */}

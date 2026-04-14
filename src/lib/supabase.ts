@@ -15,6 +15,7 @@ export function supabaseAdmin() {
 export type DbProduct = {
   id: string
   name: string
+  name_pt: string | null
   slug: string
   species: string
   fact: string

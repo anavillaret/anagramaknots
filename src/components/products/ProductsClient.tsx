@@ -9,7 +9,7 @@ import BrandSymbol from '@/components/ui/BrandSymbol'
 import { useLang } from '@/lib/i18n/context'
 
 export default function ProductsClient({ products }: { products: Product[] }) {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const p = t.products
   const [filter, setFilter] = useState<'all' | 'available'>('all')
 
@@ -74,7 +74,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
                 <div className="mt-3 flex items-start justify-between gap-2">
                   <p className="text-[13px] font-medium text-teal transition-colors flex items-center gap-1.5 uppercase">
                     <BrandSymbol size={12} />
-                    {product.name}
+                    {lang === 'pt' && product.namePt ? product.namePt : product.name}
                   </p>
                   {!isUnavailable && (
                     <p className="text-[13px] font-medium text-ink shrink-0">€{product.price}</p>

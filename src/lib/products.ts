@@ -4,6 +4,7 @@ import type { DbProduct } from '@/lib/supabase'
 export type Product = {
   id: string
   name: string
+  namePt?: string
   species: string
   fact: string
   factPt?: string
@@ -28,6 +29,7 @@ export function dbProductToProduct(row: DbProduct): Product {
   return {
     id: row.id,
     name: row.name,
+    namePt: row.name_pt ?? undefined,
     species: row.species ?? '',
     fact: row.fact ?? '',
     factPt: row.fact_pt ?? undefined,

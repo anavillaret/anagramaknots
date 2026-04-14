@@ -6,7 +6,7 @@ import ImageUpload from '@/components/admin/ImageUpload'
 import MultiImageUpload from '@/components/admin/MultiImageUpload'
 
 type FormState = {
-  name: string; slug: string; species: string
+  name: string; name_pt: string; slug: string; species: string
   fact: string; fact_pt: string; price: string; image: string
   available_on_request: boolean; badge: string
   details: string; details_pt: string
@@ -42,7 +42,7 @@ export default function NewProduct() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [form, setForm] = useState<FormState>({
-    name: '', slug: '', species: '',
+    name: '', name_pt: '', slug: '', species: '',
     fact: '', fact_pt: '', price: '', image: '',
     available_on_request: false, badge: '',
     details: '', details_pt: '',
@@ -74,6 +74,7 @@ export default function NewProduct() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: form.name,
+        name_pt: form.name_pt || null,
         slug: form.slug,
         species: form.species,
         fact: form.fact,
@@ -103,7 +104,8 @@ export default function NewProduct() {
   }
 
   const textFields = [
-    { key: 'name', label: 'Name', placeholder: 'e.g. Red Panda', required: true },
+    { key: 'name', label: 'Name (EN)', placeholder: 'e.g. Red Panda', required: true },
+    { key: 'name_pt', label: 'Name (PT)', placeholder: 'ex. Panda Vermelho' },
     { key: 'slug', label: 'Slug (auto-generated)', placeholder: 'e.g. red-panda', required: true },
     { key: 'species', label: 'Species (scientific / local name)', placeholder: 'e.g. Ailurus fulgens' },
     { key: 'price', label: 'Price (€)', placeholder: '81', required: true, type: 'number' },

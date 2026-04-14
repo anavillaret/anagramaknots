@@ -72,7 +72,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
         <nav className="flex items-center gap-2 text-[10px] tracking-[0.15em] uppercase text-stone mb-8">
           <Link href="/products" className="hover:text-ink transition-colors">{t.nav.products}</Link>
           <span>·</span>
-          <span className="text-ink">{product.name}</span>
+          <span className="text-ink">{lang === 'pt' && product.namePt ? product.namePt : product.name}</span>
         </nav>
 
         {/* Main grid */}
@@ -132,7 +132,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
             )}
             <h1 className="text-3xl md:text-4xl font-semibold tracking-tight flex items-center gap-3">
               <BrandSymbol size={28} className="shrink-0 mt-0.5" />
-              <span className="text-teal uppercase">{product.name}</span>
+              <span className="text-teal uppercase">{lang === 'pt' && product.namePt ? product.namePt : product.name}</span>
             </h1>
             {product.badge !== 'soldout' && !product.availableOnRequest && (
               <p className="mt-4 text-2xl font-medium text-ink">€{product.price}</p>
@@ -265,7 +265,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
                     <Watermark />
                   </div>
                   <div className="mt-2 flex items-start justify-between gap-2">
-                    <p className="text-[12px] font-medium text-teal flex items-center gap-1.5"><BrandSymbol size={10} />{r.name}</p>
+                    <p className="text-[12px] font-medium text-teal flex items-center gap-1.5"><BrandSymbol size={10} />{lang === 'pt' && r.namePt ? r.namePt : r.name}</p>
                     {r.badge !== 'soldout' && (
                       <p className="text-[12px] text-ink shrink-0">€{r.price}</p>
                     )}
