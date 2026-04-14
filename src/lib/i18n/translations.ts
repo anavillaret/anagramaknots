@@ -58,7 +58,7 @@ export const translations = {
       story: {
         eyebrow: '※ The Story',
         heading: ['Behind the name,', 'a love story.'],
-        sub: 'In Portuguese, gramar means to fall deeply in love. Ana + Grama. The name wrote itself before the first stitch was cast.',
+        sub: 'In Portuguese, \'gramar\' means to be fond of something. Ana + Grama. The name wrote itself — before the first stitch was cast, before the first loop pulled tight.',
         cta: 'Read the Story',
       },
       commission: {
@@ -346,7 +346,7 @@ export const translations = {
       story: {
         eyebrow: '※ A História',
         heading: ['Por detrás do nome,', 'uma história de amor.'],
-        sub: 'Em português, gramar significa apaixonar-se profundamente. Ana + Grama. O nome escreveu-se antes do primeiro ponto.',
+        sub: 'Em português, \'gramar\' significa gostar muito de algo. Ana + Grama. O nome escreveu-se sozinho — antes do primeiro ponto, antes do primeiro nó.',
         cta: 'Ler a História',
       },
       commission: {
