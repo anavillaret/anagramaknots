@@ -20,11 +20,27 @@ export const metadata: Metadata = {
   description:
     'Shop unique handmade crochet amigurumis from Portugal. Each piece is one of a kind — named after a real animal, carrying its story. Artisan gifts, custom crochet commissions.',
   keywords: [
+    // EN — generic & purchase intent
     'amigurumi', 'crochet amigurumi', 'handmade crochet', 'crochet animals',
-    'buy amigurumi', 'amigurumi shop', 'handmade gifts', 'unique gifts Portugal',
-    'custom crochet', 'crochet toys', 'stuffed animals handmade',
-    'peluche crochet', 'amigurumi Portugal', 'artisan crochet',
-    'Art in Knots', 'Anagrama',
+    'buy amigurumi', 'amigurumi shop', 'amigurumi for sale', 'amigurumi online',
+    'handmade gifts', 'unique handmade gift', 'one of a kind gift',
+    'custom amigurumi', 'crochet commission', 'bespoke crochet',
+    'crochet toy', 'stuffed animal handmade', 'artisan crochet',
+    'handmade from Portugal', 'crochet art', 'sustainable handmade gift',
+    // EN — specific animals (long tail)
+    'crochet bear', 'crochet alpaca', 'crochet penguin', 'crochet cockatoo',
+    'crochet grizzly bear', 'amigurumi bear', 'amigurumi alpaca',
+    // PT — Portugal & Portuguese-language markets
+    'amigurumi Portugal', 'amigurumi comprar', 'amigurumi à venda',
+    'peluche crochet artesanal', 'boneco crochet feito à mão',
+    'presente artesanal Portugal', 'encomenda crochet personalizada',
+    'amigurumi personalizado', 'peluche artesanal único',
+    'crochet feito à mão Portugal', 'presente original artesanal',
+    // ES — Spanish-speaking markets (Spain + LatAm)
+    'amigurumi artesanal', 'peluche crochet hecho a mano',
+    'regalo artesanal único', 'amigurumi personalizado Portugal',
+    // Brand
+    'Anagrama', 'Anagrama Art in Knots', 'anagramaknots',
   ],
   authors: [{ name: 'Ana', url: BASE_URL }],
   creator: 'Anagrama',
