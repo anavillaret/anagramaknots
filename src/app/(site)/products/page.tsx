@@ -5,8 +5,8 @@ import { getProducts } from '@/lib/products'
 export const dynamic = 'force-dynamic'
 
 export const metadata = {
-  title: 'The Collection',
-  description: 'Handmade crochet amigurumis, accessories and clothing from Portugal — each piece one of a kind, each inspired by a real animal.',
+  title: 'Shop Handmade Crochet Amigurumis | The Collection',
+  description: 'Browse our full collection of handmade crochet amigurumis from Portugal. Each piece is unique and one of a kind — crochet animals, artisan stuffed toys, and handmade gifts.',
 }
 
 export default async function ProductsPage() {

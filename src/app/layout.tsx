@@ -18,8 +18,14 @@ export const metadata: Metadata = {
     template: '%s — Anagrama',
   },
   description:
-    'Handcrafted crochet amigurumis and accessories from Portugal. Each piece is one of a kind, named after a real animal, carrying its story.',
-  keywords: ['crochet', 'amigurumi', 'handmade', 'Portugal', 'Art in Knots', 'crochet animals', 'unique handmade gifts'],
+    'Shop unique handmade crochet amigurumis from Portugal. Each piece is one of a kind — named after a real animal, carrying its story. Artisan gifts, custom crochet commissions.',
+  keywords: [
+    'amigurumi', 'crochet amigurumi', 'handmade crochet', 'crochet animals',
+    'buy amigurumi', 'amigurumi shop', 'handmade gifts', 'unique gifts Portugal',
+    'custom crochet', 'crochet toys', 'stuffed animals handmade',
+    'peluche crochet', 'amigurumi Portugal', 'artisan crochet',
+    'Art in Knots', 'Anagrama',
+  ],
   authors: [{ name: 'Ana', url: BASE_URL }],
   creator: 'Anagrama',
   openGraph: {
@@ -29,7 +35,7 @@ export const metadata: Metadata = {
     siteName: 'Anagrama',
     title: 'Anagrama — Art in Knots',
     description:
-      'Handcrafted crochet amigurumis and accessories from Portugal. Each piece is one of a kind.',
+      'Shop unique handmade crochet amigurumis from Portugal. Each piece is one of a kind — artisan gifts and custom commissions.',
     images: [
       {
         url: '/og-image.jpg',

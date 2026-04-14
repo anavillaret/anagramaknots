@@ -5,8 +5,8 @@ import type { Product } from '@/lib/products'
 export const dynamic = 'force-dynamic'
 
 export const metadata = {
-  title: 'Made for You',
-  description: 'Request a custom handmade piece, made just for you.',
+  title: 'Custom Crochet Commission | Made for You',
+  description: 'Request a custom handmade crochet amigurumi — made just for you or as a one-of-a-kind gift. Tell us your animal, we bring it to life. Custom crochet orders from Portugal.',
 }
 
 export default async function CommissionPage() {
