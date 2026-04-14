@@ -52,5 +52,48 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const others = sameCategory.filter(p => p.badge === 'soldout' || p.availableOnRequest)
   const related = [...availableFirst, ...others].slice(0, 3)
 
-  return <ProductDetail product={product} related={related} />
+  const isSold = product.badge === 'soldout'
+  const isOnRequest = product.availableOnRequest === true
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.fact
+      ? `${product.fact} One of a kind, handmade in Portugal by Anagrama Art in Knots.`
+      : `Handmade ${product.name} crochet amigurumi by Anagrama — one of a kind, made in Portugal.`,
+    image: product.image,
+    brand: {
+      '@type': 'Brand',
+      name: 'Anagrama',
+      url: 'https://anagramaknots.com',
+    },
+    url: `https://anagramaknots.com/products/${product.slug}`,
+    ...(product.category === 'amigurumis' && { category: 'Toys & Games > Stuffed Animals & Plush Toys' }),
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'EUR',
+      price: isSold || isOnRequest ? undefined : product.price,
+      availability: isSold
+        ? 'https://schema.org/SoldOut'
+        : isOnRequest
+        ? 'https://schema.org/PreOrder'
+        : 'https://schema.org/InStock',
+      itemCondition: 'https://schema.org/NewCondition',
+      seller: {
+        '@type': 'Organization',
+        name: 'Anagrama',
+      },
+    },
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ProductDetail product={product} related={related} />
+    </>
+  )
 }

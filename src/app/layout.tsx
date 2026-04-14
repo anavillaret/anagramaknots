@@ -60,6 +60,24 @@ export const metadata: Metadata = {
   },
 }
 
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Anagrama',
+  alternateName: 'Anagrama Art in Knots',
+  url: BASE_URL,
+  logo: `${BASE_URL}/logo.png`,
+  description:
+    'Handcrafted crochet amigurumis and accessories from Portugal. Each piece is one of a kind, named after a real animal, carrying its story.',
+  foundingLocation: {
+    '@type': 'Place',
+    address: { '@type': 'PostalAddress', addressCountry: 'PT' },
+  },
+  sameAs: [
+    'https://www.instagram.com/anagramaknots',
+  ],
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -68,6 +86,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-BD7HQX7XYG" />
         <script
