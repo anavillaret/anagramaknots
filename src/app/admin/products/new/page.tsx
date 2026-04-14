@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import ImageUpload from '@/components/admin/ImageUpload'
+import MultiImageUpload from '@/components/admin/MultiImageUpload'
 
 type FormState = {
   name: string; slug: string; species: string
@@ -11,6 +12,7 @@ type FormState = {
   details: string; details_pt: string
   size: string; size_pt: string
   care_tips: string; care_tips_pt: string
+  images: string[]
 }
 
 const REQUIRED: { key: keyof FormState; label: string }[] = [
@@ -46,6 +48,7 @@ export default function NewProduct() {
     details: '', details_pt: '',
     size: '', size_pt: '',
     care_tips: '', care_tips_pt: '',
+    images: [],
   })
 
   function set(field: string, value: string | boolean) {
@@ -86,6 +89,7 @@ export default function NewProduct() {
         size_pt: form.size_pt || '',
         care_tips: form.care_tips,
         care_tips_pt: form.care_tips_pt || '',
+        images: form.images,
         active: false, // always draft — publish from products list
       }),
     })
@@ -118,6 +122,12 @@ export default function NewProduct() {
         <div>
           <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Photo</label>
           <ImageUpload value={form.image} onChange={url => set('image', url)} />
+        </div>
+
+        {/* Gallery photos */}
+        <div>
+          <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Gallery Photos <span className="text-stone/50 normal-case">(optional — shown below the main photo)</span></label>
+          <MultiImageUpload values={form.images} onChange={urls => setForm(f => ({ ...f, images: urls }))} />
         </div>
 
         {/* Text fields */}

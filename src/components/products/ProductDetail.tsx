@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react' // eslint-disable-line
+import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ShoppingBag, Check } from 'lucide-react'
+import { ShoppingBag, Check, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import BrandSymbol from '@/components/ui/BrandSymbol'
 import { Product } from '@/lib/products'
 import { useCart } from '@/lib/cart'
@@ -12,11 +12,40 @@ import Watermark from '@/components/ui/Watermark'
 import { useLang } from '@/lib/i18n/context'
 import { SHOP_OPEN } from '@/lib/siteConfig'
 
+type Lightbox = { photos: string[]; index: number } | null
+
 export default function ProductDetail({ product, related }: { product: Product; related: Product[] }) {
   const { addItem, hasItem } = useCart()
   const { t, lang } = useLang()
   const p = t.product
   const [justAdded, setJustAdded] = useState(false)
+  const [lightbox, setLightbox] = useState<Lightbox>(null)
+
+  const allPhotos = [product.image, ...(product.images ?? []).filter(u => u && u !== product.image)]
+
+  const openLightbox = (index: number) => setLightbox({ photos: allPhotos, index })
+  const closeLightbox = () => setLightbox(null)
+
+  const prev = useCallback(() => {
+    if (!lightbox) return
+    setLightbox({ ...lightbox, index: (lightbox.index - 1 + lightbox.photos.length) % lightbox.photos.length })
+  }, [lightbox])
+
+  const next = useCallback(() => {
+    if (!lightbox) return
+    setLightbox({ ...lightbox, index: (lightbox.index + 1) % lightbox.photos.length })
+  }, [lightbox])
+
+  useEffect(() => {
+    if (!lightbox) return
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'ArrowLeft') prev()
+      if (e.key === 'ArrowRight') next()
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [lightbox, prev, next])
 
   const isSold = product.badge === 'soldout'
   const isOnRequest = product.availableOnRequest === true
@@ -35,6 +64,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
   )}&image=${encodeURIComponent(product.image)}`
 
   return (
+    <>
     <main className="pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-6">
 
@@ -48,22 +78,49 @@ export default function ProductDetail({ product, related }: { product: Product; 
         {/* Main grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
 
-          {/* Image */}
-          <div className="relative overflow-hidden aspect-[3/4]">
-            <Image src={product.image} alt={product.name} fill className="object-cover object-center" priority />
-            {product.badge && (
-              <div className="absolute top-3 left-3">
-                <Badge type={product.badge} />
+          {/* Image + Gallery */}
+          <div>
+            <button
+              onClick={() => openLightbox(0)}
+              className="relative overflow-hidden aspect-[3/4] w-full block cursor-zoom-in"
+            >
+              <Image src={product.image} alt={product.name} fill className="object-cover object-center hover:scale-[1.02] transition-transform duration-500" priority />
+              {product.badge && (
+                <div className="absolute top-3 left-3">
+                  <Badge type={product.badge} />
+                </div>
+              )}
+              {isSold && (
+                <div className="absolute inset-0 bg-white/60 flex items-center justify-center">
+                  <span className="text-[11px] tracking-[0.35em] uppercase text-ink font-semibold border border-ink px-5 py-2">
+                    {p.soldOut}
+                  </span>
+                </div>
+              )}
+              <Watermark />
+            </button>
+
+            {/* Gallery thumbnails */}
+            {allPhotos.length > 1 && (
+              <div className="grid grid-cols-4 gap-2 mt-2">
+                {allPhotos.slice(1, 5).map((url, i) => (
+                  <button
+                    key={i}
+                    onClick={() => openLightbox(i + 1)}
+                    className="relative aspect-square overflow-hidden bg-linen cursor-zoom-in"
+                  >
+                    <Image
+                      src={url}
+                      alt={`${product.name} ${i + 2}`}
+                      fill
+                      className="object-cover object-center hover:scale-[1.05] transition-transform duration-300"
+                      sizes="15vw"
+                    />
+                    <Watermark />
+                  </button>
+                ))}
               </div>
             )}
-            {isSold && (
-              <div className="absolute inset-0 bg-white/60 flex items-center justify-center">
-                <span className="text-[11px] tracking-[0.35em] uppercase text-ink font-semibold border border-ink px-5 py-2">
-                  {p.soldOut}
-                </span>
-              </div>
-            )}
-            <Watermark />
           </div>
 
           {/* Info */}
@@ -221,5 +278,63 @@ export default function ProductDetail({ product, related }: { product: Product; 
         )}
       </div>
     </main>
+
+    {/* Lightbox */}
+    {lightbox && (
+      <div
+        className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
+        onClick={closeLightbox}
+      >
+        <button onClick={closeLightbox} className="absolute top-4 right-4 text-white/80 hover:text-white p-2">
+          <X size={28} />
+        </button>
+
+        {lightbox.photos.length > 1 && (
+          <button
+            onClick={e => { e.stopPropagation(); prev() }}
+            className="absolute left-4 text-white/80 hover:text-white p-2"
+          >
+            <ChevronLeft size={36} />
+          </button>
+        )}
+
+        <div
+          className="relative w-full h-full max-w-4xl max-h-[90vh] mx-16"
+          onClick={e => e.stopPropagation()}
+        >
+          <Image
+            src={lightbox.photos[lightbox.index]}
+            alt=""
+            fill
+            className="object-contain"
+            sizes="100vw"
+            priority
+          />
+          <Watermark />
+        </div>
+
+        {lightbox.photos.length > 1 && (
+          <button
+            onClick={e => { e.stopPropagation(); next() }}
+            className="absolute right-4 text-white/80 hover:text-white p-2"
+          >
+            <ChevronRight size={36} />
+          </button>
+        )}
+
+        {lightbox.photos.length > 1 && (
+          <div className="absolute bottom-4 flex gap-2">
+            {lightbox.photos.map((_, i) => (
+              <button
+                key={i}
+                onClick={e => { e.stopPropagation(); setLightbox({ ...lightbox, index: i }) }}
+                className={`w-2 h-2 rounded-full transition-colors ${i === lightbox.index ? 'bg-white' : 'bg-white/40'}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    )}
+    </>
   )
 }

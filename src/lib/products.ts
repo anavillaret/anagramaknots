@@ -19,6 +19,7 @@ export type Product = {
   careTips?: string
   careTipsPt?: string
   availableOnRequest?: boolean  // true = commission only, no stock
+  images?: string[]
 }
 
 /** Map a Supabase row to the frontend Product shape */
@@ -42,6 +43,7 @@ export function dbProductToProduct(row: DbProduct): Product {
     careTips: row.care_tips ?? undefined,
     careTipsPt: row.care_tips_pt || undefined,
     availableOnRequest: row.available_on_request ?? false,
+    images: row.images ?? [],
   }
 }
 

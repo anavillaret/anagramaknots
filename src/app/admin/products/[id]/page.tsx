@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import type { DbProduct } from '@/lib/supabase'
 import ImageUpload from '@/components/admin/ImageUpload'
+import MultiImageUpload from '@/components/admin/MultiImageUpload'
 
 const REQUIRED: { key: keyof DbProduct; label: string }[] = [
   { key: 'image',        label: 'Photo' },
@@ -76,6 +77,7 @@ export default function EditProduct() {
         size_pt: form.size_pt ?? '',
         care_tips: form.care_tips,
         care_tips_pt: form.care_tips_pt ?? '',
+        images: form.images ?? [],
         active,
       }),
     })
@@ -113,6 +115,12 @@ export default function EditProduct() {
         <div>
           <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Photo</label>
           <ImageUpload value={form.image ?? ''} onChange={url => set('image', url)} />
+        </div>
+
+        {/* Gallery photos */}
+        <div>
+          <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Gallery Photos <span className="text-stone/50 normal-case">(optional — shown below the main photo)</span></label>
+          <MultiImageUpload values={form.images ?? []} onChange={urls => setForm(f => ({ ...f, images: urls }))} />
         </div>
 
         {/* Name + Slug */}

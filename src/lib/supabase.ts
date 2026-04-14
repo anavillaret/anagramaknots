@@ -32,6 +32,7 @@ export type DbProduct = {
   care_tips: string
   active: boolean
   sort_order: number
+  images: string[]
   created_at: string
   updated_at: string
 }
