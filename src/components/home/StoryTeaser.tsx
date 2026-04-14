@@ -11,7 +11,6 @@ const PHOTOS = [
   { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190677242-img_8751.jpg', alt: 'Crochet heart' },
   { src: '/images/process-2.jpeg', alt: 'Ana at work' },
   { src: '/images/process-3.jpeg', alt: 'Green animals' },
-  { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190678839-img_8562.jpg', alt: 'Crochet square' },
 ]
 
 type Lightbox = { index: number } | null
@@ -48,25 +47,22 @@ export default function StoryTeaser() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
-          {/* Image collage — 2×2 grid */}
+          {/* Image collage — tall left + two stacked right */}
           <div className="grid grid-cols-2 gap-3">
-            {PHOTOS.map((photo, i) => (
-              <button
-                key={i}
-                onClick={() => setLightbox({ index: i })}
-                className="relative overflow-hidden cursor-zoom-in"
-                style={{ aspectRatio: i === 0 ? '3/4' : i === 1 ? '1/1' : i === 2 ? '4/3' : '1/1' }}
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  className="object-cover hover:scale-[1.03] transition-transform duration-500"
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                />
+            <button onClick={() => setLightbox({ index: 0 })} className="relative aspect-[3/4] overflow-hidden cursor-zoom-in">
+              <Image src={PHOTOS[0].src} alt={PHOTOS[0].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-500" sizes="25vw" />
+              <Watermark />
+            </button>
+            <div className="flex flex-col gap-3 mt-8">
+              <button onClick={() => setLightbox({ index: 1 })} className="relative aspect-square overflow-hidden cursor-zoom-in">
+                <Image src={PHOTOS[1].src} alt={PHOTOS[1].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-500" sizes="25vw" />
                 <Watermark />
               </button>
-            ))}
+              <button onClick={() => setLightbox({ index: 2 })} className="relative aspect-[4/3] overflow-hidden cursor-zoom-in">
+                <Image src={PHOTOS[2].src} alt={PHOTOS[2].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-500" sizes="25vw" />
+                <Watermark />
+              </button>
+            </div>
           </div>
 
           {/* Text */}

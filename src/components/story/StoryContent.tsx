@@ -12,6 +12,10 @@ const PHOTOS = [
   { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190677242-img_8751.jpg', alt: 'Crochet heart' },
   { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190678839-img_8562.jpg', alt: 'Crochet square' },
   { src: '/images/process-3.jpeg', alt: 'Green animals' },
+  { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776191359279-img_6360.jpg', alt: 'Crochet granny squares in progress' },
+  { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776191361270-img_0356.jpg', alt: 'Yarn and granny squares' },
+  { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776191363725-img_7408.jpg', alt: 'Crocheting in progress' },
+  { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776191365240-img_8400.jpg', alt: 'Crochet bookmarks' },
 ]
 
 type Lightbox = { index: number } | null
@@ -115,6 +119,22 @@ export default function StoryContent() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Photo strip */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {PHOTOS.slice(3).map((photo, i) => (
+            <button
+              key={i}
+              onClick={() => setLightbox({ index: i + 3 })}
+              className="relative aspect-square overflow-hidden cursor-zoom-in"
+            >
+              <Image src={photo.src} alt={photo.alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
+              <Watermark />
+            </button>
+          ))}
         </div>
       </section>
 
