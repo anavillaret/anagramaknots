@@ -12,7 +12,7 @@ import { FX, CURRENCIES } from '@/lib/fx'
 
 export default function CartClient() {
   const { items, removeItem, total } = useCart()
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const c = t.cart
   const [currency, setCurrency] = useState('eur')
   const [loading, setLoading] = useState(false)
@@ -86,7 +86,7 @@ export default function CartClient() {
               <div className="flex-1 flex flex-col gap-1">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="text-[13px] font-medium text-teal flex items-center gap-1.5"><BrandSymbol size={12} />{product.name}</p>
+                    <p className="text-[13px] font-medium text-teal flex items-center gap-1.5"><BrandSymbol size={12} />{lang === 'pt' && product.namePt ? product.namePt : product.name}</p>
                     {product.species && (
                       <p className="text-[11px] text-stone italic">{product.species}</p>
                     )}

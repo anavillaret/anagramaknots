@@ -8,7 +8,7 @@ import { useLang } from '@/lib/i18n/context'
 import type { Product } from '@/lib/products'
 
 export default function CommissionPageContent({ availableProducts }: { availableProducts: Product[] }) {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const c = t.commission
 
   return (
@@ -68,7 +68,7 @@ export default function CommissionPageContent({ availableProducts }: { available
                 <div className="mt-2.5 flex items-start justify-between gap-2">
                   <p className="text-[12px] font-medium text-teal flex items-center gap-1.5">
                     <BrandSymbol size={10} />
-                    {product.name}
+                    {lang === 'pt' && product.namePt ? product.namePt : product.name}
                   </p>
                   <p className="text-[12px] font-medium text-ink shrink-0">€{product.price}</p>
                 </div>

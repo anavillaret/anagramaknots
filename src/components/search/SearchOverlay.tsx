@@ -12,13 +12,14 @@ function matchesQuery(product: Product, query: string): boolean {
   const q = query.toLowerCase()
   return (
     product.name.toLowerCase().includes(q) ||
+    (product.namePt?.toLowerCase().includes(q) ?? false) ||
     product.species.toLowerCase().includes(q) ||
     product.category.toLowerCase().includes(q)
   )
 }
 
 export default function SearchOverlay({ onClose }: { onClose: () => void }) {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   const s = t.search
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('all')
@@ -123,7 +124,7 @@ export default function SearchOverlay({ onClose }: { onClose: () => void }) {
                 </div>
                 <div>
                   <p className="text-[12px] font-medium text-teal flex items-center gap-1.5">
-                    <BrandSymbol size={11} />{product.name}
+                    <BrandSymbol size={11} />{lang === 'pt' && product.namePt ? product.namePt : product.name}
                   </p>
                   {product.species && (
                     <p className="text-[10px] text-stone italic">{product.species}</p>
