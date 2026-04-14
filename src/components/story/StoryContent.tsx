@@ -2,15 +2,48 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState, useEffect, useCallback } from 'react'
+import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import Watermark from '@/components/ui/Watermark'
 import { useLang } from '@/lib/i18n/context'
 import EventsSection from '@/components/story/EventsSection'
 
+const PHOTOS = [
+  { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190677242-img_8751.jpg', alt: 'Crochet heart' },
+  { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190678839-img_8562.jpg', alt: 'Crochet square' },
+  { src: '/images/process-3.jpeg', alt: 'Green animals' },
+]
+
+type Lightbox = { index: number } | null
+
 export default function StoryContent() {
   const { t } = useLang()
   const s = t.story
+  const [lightbox, setLightbox] = useState<Lightbox>(null)
+
+  const prev = useCallback(() => {
+    if (!lightbox) return
+    setLightbox({ index: (lightbox.index - 1 + PHOTOS.length) % PHOTOS.length })
+  }, [lightbox])
+
+  const next = useCallback(() => {
+    if (!lightbox) return
+    setLightbox({ index: (lightbox.index + 1) % PHOTOS.length })
+  }, [lightbox])
+
+  useEffect(() => {
+    if (!lightbox) return
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightbox(null)
+      if (e.key === 'ArrowLeft') prev()
+      if (e.key === 'ArrowRight') next()
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [lightbox, prev, next])
 
   return (
+    <>
     <main className="pt-32 pb-24">
 
       {/* Hero */}
@@ -30,16 +63,19 @@ export default function StoryContent() {
             </p>
           </div>
 
-          <div className="relative aspect-[3/4] overflow-hidden">
+          <button
+            onClick={() => setLightbox({ index: 0 })}
+            className="relative aspect-[3/4] overflow-hidden w-full cursor-zoom-in"
+          >
             <Image
-              src="https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190677242-img_8751.jpg"
-              alt="Crochet heart"
+              src={PHOTOS[0].src}
+              alt={PHOTOS[0].alt}
               fill
-              className="object-cover object-center"
+              className="object-cover object-center hover:scale-[1.02] transition-transform duration-500"
               priority
             />
             <Watermark />
-          </div>
+          </button>
         </div>
       </section>
 
@@ -49,14 +85,20 @@ export default function StoryContent() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
 
             <div className="grid grid-cols-2 gap-3 order-2 md:order-1">
-              <div className="relative aspect-square overflow-hidden mt-8">
-                <Image src="https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190678839-img_8562.jpg" alt="Crochet square" fill className="object-cover" />
+              <button
+                onClick={() => setLightbox({ index: 1 })}
+                className="relative aspect-square overflow-hidden mt-8 cursor-zoom-in"
+              >
+                <Image src={PHOTOS[1].src} alt={PHOTOS[1].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-500" />
                 <Watermark />
-              </div>
-              <div className="relative aspect-[3/4] overflow-hidden">
-                <Image src="/images/process-3.jpeg" alt="Green animals" fill className="object-cover" />
+              </button>
+              <button
+                onClick={() => setLightbox({ index: 2 })}
+                className="relative aspect-[3/4] overflow-hidden cursor-zoom-in"
+              >
+                <Image src={PHOTOS[2].src} alt={PHOTOS[2].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-500" />
                 <Watermark />
-              </div>
+              </button>
             </div>
 
             <div className="order-1 md:order-2 md:pl-8">
@@ -131,5 +173,57 @@ export default function StoryContent() {
       </section>
 
     </main>
+
+    {/* Lightbox */}
+    {lightbox && (
+      <div
+        className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
+        onClick={() => setLightbox(null)}
+      >
+        <button onClick={() => setLightbox(null)} className="absolute top-4 right-4 text-white/80 hover:text-white p-2">
+          <X size={28} />
+        </button>
+
+        <button
+          onClick={e => { e.stopPropagation(); prev() }}
+          className="absolute left-4 text-white/80 hover:text-white p-2"
+        >
+          <ChevronLeft size={36} />
+        </button>
+
+        <div
+          className="relative w-full h-full max-w-4xl max-h-[90vh] mx-16"
+          onClick={e => e.stopPropagation()}
+        >
+          <Image
+            src={PHOTOS[lightbox.index].src}
+            alt={PHOTOS[lightbox.index].alt}
+            fill
+            className="object-contain"
+            sizes="100vw"
+            priority
+          />
+          <Watermark />
+        </div>
+
+        <button
+          onClick={e => { e.stopPropagation(); next() }}
+          className="absolute right-4 text-white/80 hover:text-white p-2"
+        >
+          <ChevronRight size={36} />
+        </button>
+
+        <div className="absolute bottom-4 flex gap-2">
+          {PHOTOS.map((_, i) => (
+            <button
+              key={i}
+              onClick={e => { e.stopPropagation(); setLightbox({ index: i }) }}
+              className={`w-2 h-2 rounded-full transition-colors ${i === lightbox.index ? 'bg-white' : 'bg-white/40'}`}
+            />
+          ))}
+        </div>
+      </div>
+    )}
+    </>
   )
 }
