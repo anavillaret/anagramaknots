@@ -88,22 +88,13 @@ export default function StoryContent() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-            <div className="grid grid-cols-2 gap-3 order-2 md:order-1">
-              <button
-                onClick={() => setLightbox({ index: 1 })}
-                className="relative aspect-square overflow-hidden mt-8 cursor-zoom-in"
-              >
-                <Image src={PHOTOS[1].src} alt={PHOTOS[1].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-500" />
-                <Watermark />
-              </button>
-              <button
-                onClick={() => setLightbox({ index: 2 })}
-                className="relative aspect-[3/4] overflow-hidden cursor-zoom-in"
-              >
-                <Image src={PHOTOS[2].src} alt={PHOTOS[2].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-500" />
-                <Watermark />
-              </button>
-            </div>
+            <button
+              onClick={() => setLightbox({ index: 2 })}
+              className="relative aspect-[3/4] overflow-hidden order-2 md:order-1 cursor-zoom-in w-full"
+            >
+              <Image src={PHOTOS[2].src} alt={PHOTOS[2].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-500" />
+              <Watermark />
+            </button>
 
             <div className="order-1 md:order-2 md:pl-8">
               <p className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{s.missionEyebrow}</p>
@@ -124,11 +115,11 @@ export default function StoryContent() {
 
       {/* Photo strip */}
       <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {PHOTOS.slice(3).map((photo, i) => (
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          {[PHOTOS[1], ...PHOTOS.slice(3)].map((photo, i) => (
             <button
               key={i}
-              onClick={() => setLightbox({ index: i + 3 })}
+              onClick={() => setLightbox({ index: i === 0 ? 1 : i + 3 })}
               className="relative aspect-square overflow-hidden cursor-zoom-in"
             >
               <Image src={photo.src} alt={photo.alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
