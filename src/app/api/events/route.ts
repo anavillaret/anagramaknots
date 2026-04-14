@@ -1,13 +1,16 @@
 import { NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase'
 
 export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export async function GET() {
-  const { data, error } = await supabase
+  const db = supabaseAdmin()
+  const { data, error } = await db
     .from('events')
     .select('*')
     .eq('active', true)
+    .neq('id', '3a66f45a-ec6a-4955-ad8d-ea92ccc2655b')
     .order('date', { ascending: false })
 
   if (error) {
@@ -16,6 +19,9 @@ export async function GET() {
   }
 
   return NextResponse.json(data ?? [], {
-    headers: { 'Cache-Control': 'no-store' },
+    headers: {
+      'Cache-Control': 'no-store, no-cache, must-revalidate',
+      'Pragma': 'no-cache',
+    },
   })
 }
