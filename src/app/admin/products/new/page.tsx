@@ -137,7 +137,7 @@ export default function NewProduct() {
             <input
               type={f.type ?? 'text'}
               required={f.required}
-              value={(form as Record<string, string | boolean>)[f.key] as string}
+              value={(form as Record<string, unknown>)[f.key] as string}
               onChange={e => set(f.key, e.target.value)}
               placeholder={f.placeholder}
               className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors"
