@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react'
 import Image from 'next/image'
 import { MapPin, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useLang } from '@/lib/i18n/context'
+import Watermark from '@/components/ui/Watermark'
 
 type Event = {
   id: string
@@ -102,6 +103,7 @@ export default function EventsSection() {
                         className="object-cover object-top hover:scale-[1.02] transition-transform duration-500"
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
+                      <Watermark />
                     </button>
                   ) : (
                     <div className="aspect-[4/3] bg-linen flex items-center justify-center">
@@ -125,6 +127,7 @@ export default function EventsSection() {
                             className="object-cover object-top hover:scale-[1.05] transition-transform duration-300"
                             sizes="15vw"
                           />
+                          <Watermark />
                         </button>
                       ))}
                     </div>
@@ -194,6 +197,7 @@ export default function EventsSection() {
               sizes="100vw"
               priority
             />
+            <Watermark />
           </div>
 
           {/* Next */}
