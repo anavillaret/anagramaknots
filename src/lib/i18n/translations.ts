@@ -160,6 +160,13 @@ export const translations = {
       sub2: 'Ana will review your request and reply within',
       sub2Bold: '3–5 working days',
       sub2Suffix: 'with a price and timeline estimate. No commitment required.',
+      howTitle: 'How it works',
+      steps: [
+        { n: '01', title: 'Send your request', body: 'Fill in the form below with as much detail as you like — animal, colours, size, who it\'s for.' },
+        { n: '02', title: 'Ana reviews & replies', body: 'Within 3–5 working days Ana will email you with a price, estimated timeline, and any questions.' },
+        { n: '03', title: 'Confirm & pay', body: 'If you\'re happy to proceed, Ana sends a secure payment link. You pay by card or MB Way — no commitment before that.' },
+        { n: '04', title: 'She brings it to life', body: 'Once payment is confirmed, Ana starts making your piece. She\'ll keep you updated along the way.' },
+      ],
       refBanner: 'Reference piece',
       fields: {
         name: 'Your name',
@@ -442,6 +449,13 @@ export const translations = {
       sub2: 'A Ana vai analisar o teu pedido e responder em',
       sub2Bold: '3–5 dias úteis',
       sub2Suffix: 'com uma estimativa de preço e prazo. Sem compromisso.',
+      howTitle: 'Como funciona',
+      steps: [
+        { n: '01', title: 'Envia o teu pedido', body: 'Preenche o formulário abaixo com o máximo de detalhe — animal, cores, tamanho, para quem é.' },
+        { n: '02', title: 'A Ana analisa e responde', body: 'Em 3–5 dias úteis a Ana envia-te um email com o preço, prazo estimado e eventuais questões.' },
+        { n: '03', title: 'Confirma e paga', body: 'Se quiseres avançar, a Ana envia-te um link de pagamento seguro. Pagas com cartão ou MB Way — sem compromisso antes disso.' },
+        { n: '04', title: 'Ela dá vida à tua ideia', body: 'Assim que o pagamento for confirmado, a Ana começa a fazer a tua peça. Irá mantê-la a par durante o processo.' },
+      ],
       refBanner: 'Peça de referência',
       fields: {
         name: 'O teu nome',

@@ -23,6 +23,21 @@ export default function CommissionPageContent({ availableProducts }: { available
         <p className="mt-3 text-[13px] leading-relaxed text-stone max-w-md">
           {c.sub2} <strong className="text-ink font-medium">{c.sub2Bold}</strong> {c.sub2Suffix}
         </p>
+
+        {/* How it works */}
+        <div className="mt-10">
+          <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-medium mb-5">{c.howTitle}</p>
+          <div className="grid grid-cols-2 gap-4">
+            {c.steps.map(step => (
+              <div key={step.n} className="border border-stone-light p-5">
+                <span className="text-[11px] font-semibold tracking-[0.2em] text-teal/60">{step.n}</span>
+                <p className="mt-2 text-[13px] font-medium text-ink leading-snug">{step.title}</p>
+                <p className="mt-1.5 text-[12px] text-stone leading-relaxed">{step.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="mt-12 border-t border-stone-light pt-10">
           <CommissionForm />
         </div>
