@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import Image from 'next/image'
-import { MapPin, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { MapPin, ExternalLink, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useLang } from '@/lib/i18n/context'
 import Watermark from '@/components/ui/Watermark'
 import Eyebrow from '@/components/ui/Eyebrow'
@@ -16,6 +16,7 @@ type Event = {
   description: string
   description_pt: string
   photos: string[]
+  link?: string
 }
 
 type Lightbox = { photos: string[]; index: number } | null
@@ -153,6 +154,18 @@ export default function EventsSection() {
                     <p className="text-[14px] leading-relaxed text-stone whitespace-pre-line">
                       {lang === 'pt' && event.description_pt ? event.description_pt : event.description}
                     </p>
+                  )}
+
+                  {event.link && (
+                    <a
+                      href={event.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 mt-5 text-[11px] tracking-[0.15em] uppercase text-teal hover:text-teal-dark transition-colors border-b border-teal/30 pb-0.5"
+                    >
+                      {lang === 'pt' ? 'Ver mais' : 'Learn more'}
+                      <ExternalLink size={11} strokeWidth={1.5} />
+                    </a>
                   )}
                 </div>
               </article>

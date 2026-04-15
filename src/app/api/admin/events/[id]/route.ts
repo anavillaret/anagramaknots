@@ -24,6 +24,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         description:    body.description ?? '',
         description_pt: body.description_pt ?? '',
         photos:         body.photos ?? [],
+        link:           body.link ?? '',
         active:         body.active ?? true,
         sort_order:     body.sort_order ?? 0,
       })

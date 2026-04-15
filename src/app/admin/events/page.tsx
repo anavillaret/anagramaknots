@@ -13,6 +13,7 @@ type Event = {
   description: string
   description_pt: string
   photos: string[]
+  link: string
   active: boolean
   sort_order: number
 }
@@ -25,6 +26,7 @@ const EMPTY: Omit<Event, 'id'> = {
   description: '',
   description_pt: '',
   photos: [],
+  link: '',
   active: true,
   sort_order: 0,
 }
@@ -92,6 +94,7 @@ export default function EventsAdmin() {
       description:    event.description,
       description_pt: event.description_pt ?? '',
       photos:         event.photos ?? [],
+      link:           event.link ?? '',
       active:         event.active,
       sort_order:     event.sort_order,
     })
@@ -219,6 +222,20 @@ export default function EventsAdmin() {
 
           <Field label="Photos">
             <MultiImageUpload values={form.photos} onChange={urls => set('photos', urls)} />
+          </Field>
+
+          {/* Optional link */}
+          <Field label="Link (optional)">
+            <input
+              type="url"
+              value={form.link}
+              onChange={e => set('link', e.target.value)}
+              placeholder="e.g. https://instagram.com/p/… or https://eventhost.com"
+              className={inputCls}
+            />
+            <p className="mt-1.5 text-[11px] text-stone">
+              Link to the event page, host website, or social media post. Shown as a subtle button on the Story page.
+            </p>
           </Field>
 
           {/* Visibility + completeness */}
