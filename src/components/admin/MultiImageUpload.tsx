@@ -53,11 +53,6 @@ export default function MultiImageUpload({ values, onChange }: Props) {
             <div key={url} className="relative group">
               <div className="relative aspect-square overflow-hidden bg-gray-50 border border-gray-200">
                 <Image src={url} alt={`Event photo ${i + 1}`} fill className="object-cover" />
-                {i === 0 && (
-                  <span className="absolute top-1 left-1 text-[9px] bg-stone text-white px-1.5 py-0.5 tracking-wide uppercase">
-                    1st
-                  </span>
-                )}
               </div>
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                 {i > 0 && (
