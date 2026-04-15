@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import Watermark from '@/components/ui/Watermark'
+import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
 import EventsSection from '@/components/story/EventsSection'
 
@@ -156,7 +157,7 @@ export default function StoryContent() {
       <section className="max-w-7xl mx-auto px-6 mb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div>
-            <p className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{s.eyebrow}</p>
+            <Eyebrow className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{s.eyebrow}</Eyebrow>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-ink leading-[1.1] tracking-tight">
               {s.heading[0]}<br />
               <em className="font-normal not-italic text-teal">{s.heading[1]}</em>
@@ -199,7 +200,7 @@ export default function StoryContent() {
             </button>
 
             <div className="order-1 md:order-2 md:pl-8">
-              <p className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{s.missionEyebrow}</p>
+              <Eyebrow className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{s.missionEyebrow}</Eyebrow>
               <h2 className="text-3xl md:text-4xl font-semibold text-ink leading-tight tracking-tight">
                 {s.missionHeading[0]}<br />
                 <em className="font-normal not-italic text-teal">{s.missionHeading[1]}</em>
@@ -221,7 +222,7 @@ export default function StoryContent() {
       {/* Process */}
       <section className="max-w-7xl mx-auto px-6 py-24">
         <div className="max-w-2xl mx-auto text-center mb-16">
-          <p className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{s.processEyebrow}</p>
+          <Eyebrow className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6 justify-center">{s.processEyebrow}</Eyebrow>
           <h2 className="text-3xl md:text-4xl font-semibold text-ink leading-tight tracking-tight">
             {s.processHeading[0]}<br />
             <em className="font-normal not-italic text-teal">{s.processHeading[1]}</em>
@@ -249,7 +250,7 @@ export default function StoryContent() {
       <section className="bg-ink py-20">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
-            <p className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-4">{s.ctaEyebrow}</p>
+            <Eyebrow className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-4">{s.ctaEyebrow}</Eyebrow>
             <h2 className="text-2xl md:text-3xl font-semibold text-white leading-tight tracking-tight">
               {s.ctaHeading[0]}<br />
               <em className="font-normal not-italic text-teal">{s.ctaHeading[1]}</em>

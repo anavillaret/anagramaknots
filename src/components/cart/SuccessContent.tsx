@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import ClearCart from '@/components/cart/ClearCart'
+import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
 
 export default function SuccessContent() {
@@ -11,7 +12,7 @@ export default function SuccessContent() {
   return (
     <main className="pt-36 pb-24 min-h-[70vh] flex flex-col items-center justify-center text-center px-6">
       <ClearCart />
-      <p className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{s.eyebrow}</p>
+      <Eyebrow className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{s.eyebrow}</Eyebrow>
       <h1 className="text-4xl md:text-5xl font-semibold text-ink leading-tight tracking-tight">
         {s.heading[0]}<br />
         <em className="font-normal not-italic text-teal">{s.heading[1]}</em>

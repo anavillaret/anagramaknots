@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
 
 export default function CancelContent() {
@@ -9,7 +10,7 @@ export default function CancelContent() {
 
   return (
     <main className="pt-36 pb-24 min-h-[70vh] flex flex-col items-center justify-center text-center px-6">
-      <p className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{c.eyebrow}</p>
+      <Eyebrow className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{c.eyebrow}</Eyebrow>
       <h1 className="text-4xl font-semibold text-ink tracking-tight">
         {c.heading[0]}<br />
         <em className="font-normal not-italic text-teal">{c.heading[1]}</em>

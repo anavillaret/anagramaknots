@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { Paperclip, X } from 'lucide-react'
 import { useLang } from '@/lib/i18n/context'
 import BrandSymbol from '@/components/ui/BrandSymbol'
+import Eyebrow from '@/components/ui/Eyebrow'
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
@@ -86,7 +87,7 @@ function CommissionFormInner() {
   if (status === 'success') {
     return (
       <div className="py-10 text-center">
-        <p className="text-[12px] tracking-[0.25em] uppercase text-teal mb-3">{c.successEyebrow}</p>
+        <Eyebrow className="text-[12px] tracking-[0.25em] uppercase text-teal mb-3 justify-center">{c.successEyebrow}</Eyebrow>
         <h2 className="text-2xl font-semibold text-ink">{c.successHeading}</h2>
         <p className="mt-3 text-[14px] text-stone leading-relaxed">{c.successSub}</p>
       </div>

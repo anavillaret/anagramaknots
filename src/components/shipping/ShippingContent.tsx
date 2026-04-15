@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
 
 export default function ShippingContent() {
@@ -12,7 +13,7 @@ export default function ShippingContent() {
 
       {/* Header */}
       <section className="max-w-3xl mx-auto px-6 mb-20 text-center">
-        <p className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{s.eyebrow}</p>
+        <Eyebrow className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6 justify-center">{s.eyebrow}</Eyebrow>
         <h1 className="text-4xl md:text-5xl font-semibold text-ink leading-[1.1] tracking-tight">
           {s.heading[0]}<br />
           <em className="font-normal not-italic text-teal">{s.heading[1]}</em>

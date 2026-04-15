@@ -1,6 +1,7 @@
 'use client'
 
 import ContactForm from '@/components/contact/ContactForm'
+import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
 
 export default function ContactPageContent() {
@@ -14,7 +15,7 @@ export default function ContactPageContent() {
 
           {/* Left — info */}
           <div className="flex flex-col justify-center">
-            <p className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{c.eyebrow}</p>
+            <Eyebrow className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{c.eyebrow}</Eyebrow>
             <h1 className="text-4xl md:text-5xl font-semibold text-ink leading-[1.1] tracking-tight">
               {c.heading[0]}<br />
               <em className="font-normal not-italic text-teal">{c.heading[1]}</em>

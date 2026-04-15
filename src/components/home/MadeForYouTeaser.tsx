@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
 
 export default function MadeForYouTeaser() {
@@ -12,9 +13,9 @@ export default function MadeForYouTeaser() {
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-10">
 
         <div className="max-w-lg">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-teal mb-5">
+          <Eyebrow className="text-[12px] tracking-[0.3em] uppercase text-teal mb-5">
             {c.eyebrow}
-          </p>
+          </Eyebrow>
           <h2 className="text-3xl md:text-4xl font-semibold text-white leading-tight tracking-tight text-balance">
             {c.heading[0]}<br />
             <em className="font-normal not-italic text-teal">{c.heading[1]}</em>

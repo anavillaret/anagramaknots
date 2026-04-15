@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ShoppingBag, Check, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import BrandSymbol from '@/components/ui/BrandSymbol'
+import Eyebrow from '@/components/ui/Eyebrow'
 import { Product } from '@/lib/products'
 import { useCart } from '@/lib/cart'
 import Badge from '@/components/ui/Badge'
@@ -251,7 +252,7 @@ export default function ProductDetail({ product, related }: { product: Product; 
         {/* Related */}
         {related.length > 0 && (
           <div className="mt-20 border-t border-stone-light pt-12">
-            <p className="text-[12px] tracking-[0.3em] uppercase text-teal mb-8">{p.relatedEyebrow}</p>
+            <Eyebrow className="text-[12px] tracking-[0.3em] uppercase text-teal mb-8">{p.relatedEyebrow}</Eyebrow>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
               {related.map(r => (
                 <Link key={r.id} href={`/products/${r.slug}`} className="group flex flex-col">

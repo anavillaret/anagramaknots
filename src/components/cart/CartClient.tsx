@@ -8,6 +8,7 @@ import { useCart } from '@/lib/cart'
 import { useLang } from '@/lib/i18n/context'
 import { SHOP_OPEN } from '@/lib/siteConfig'
 import BrandSymbol from '@/components/ui/BrandSymbol'
+import Eyebrow from '@/components/ui/Eyebrow'
 import { FX, CURRENCIES } from '@/lib/fx'
 
 export default function CartClient() {
@@ -47,7 +48,7 @@ export default function CartClient() {
   if (items.length === 0) {
     return (
       <main className="pt-36 pb-24 min-h-[60vh] flex flex-col items-center justify-center text-center px-6">
-        <p className="text-[12px] tracking-[0.3em] uppercase text-teal mb-4">{c.eyebrow}</p>
+        <Eyebrow className="text-[12px] tracking-[0.3em] uppercase text-teal mb-4">{c.eyebrow}</Eyebrow>
         <h1 className="text-3xl font-semibold text-ink">{c.empty.heading}</h1>
         <p className="mt-3 text-[14px] text-stone">{c.empty.sub}</p>
         <Link
@@ -63,7 +64,7 @@ export default function CartClient() {
   return (
     <main className="pt-36 pb-24">
       <div className="max-w-3xl mx-auto px-6">
-        <p className="text-[12px] tracking-[0.3em] uppercase text-teal mb-3">{c.eyebrow}</p>
+        <Eyebrow className="text-[12px] tracking-[0.3em] uppercase text-teal mb-3">{c.eyebrow}</Eyebrow>
         <h1 className="text-3xl font-semibold text-ink mb-10">
           {items.length} {items.length === 1 ? 'piece' : 'pieces'}
         </h1>

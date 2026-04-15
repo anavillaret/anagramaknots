@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Watermark from '@/components/ui/Watermark'
+import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
 import type { Product } from '@/lib/products'
 
@@ -106,9 +107,9 @@ export default function Hero({ heroProducts }: { heroProducts?: Product[] }) {
             className="max-w-md transition-opacity duration-400"
             style={{ opacity: fading ? 0 : 1 }}
           >
-            <p className="text-[13px] lg:text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-4 lg:mb-6">
+            <Eyebrow className="text-[13px] lg:text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-4 lg:mb-6">
               {slide.label}
-            </p>
+            </Eyebrow>
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-ink leading-[1.1] tracking-tight">
               {slide.heading[0]}<br />
               <em className="font-normal not-italic text-teal">{slide.heading[1]}</em>

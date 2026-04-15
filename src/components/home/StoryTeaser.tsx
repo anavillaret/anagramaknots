@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useState, useEffect, useCallback } from 'react'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import Watermark from '@/components/ui/Watermark'
+import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
 
 const PHOTOS = [
@@ -67,7 +68,7 @@ export default function StoryTeaser() {
 
           {/* Text */}
           <div className="md:pl-8 lg:pl-16">
-            <p className="text-[12px] tracking-[0.3em] uppercase text-teal mb-5">{s.eyebrow}</p>
+            <Eyebrow className="text-[12px] tracking-[0.3em] uppercase text-teal mb-5">{s.eyebrow}</Eyebrow>
             <h2 className="text-3xl md:text-4xl font-semibold text-ink leading-tight tracking-tight text-balance">
               {s.heading[0]}<br />
               <em className="font-normal not-italic text-teal">{s.heading[1]}</em>

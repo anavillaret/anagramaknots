@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { MapPin, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useLang } from '@/lib/i18n/context'
 import Watermark from '@/components/ui/Watermark'
+import Eyebrow from '@/components/ui/Eyebrow'
 
 type Event = {
   id: string
@@ -71,7 +72,7 @@ export default function EventsSection() {
       <section className="max-w-7xl mx-auto px-6 py-24">
         {/* Header */}
         <div className="max-w-xl mb-16">
-          <p className="text-[12px] tracking-[0.3em] uppercase text-teal mb-3">{e.eyebrow}</p>
+          <Eyebrow className="text-[12px] tracking-[0.3em] uppercase text-teal mb-3">{e.eyebrow}</Eyebrow>
           <h2 className="text-3xl md:text-4xl font-semibold text-ink tracking-tight">{e.heading}</h2>
           <p className="mt-4 text-[15px] text-stone leading-relaxed">{e.sub}</p>
         </div>

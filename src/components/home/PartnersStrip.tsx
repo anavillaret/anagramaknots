@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { createClient } from '@supabase/supabase-js'
+import Eyebrow from '@/components/ui/Eyebrow'
 
 type Partner = {
   id: string
@@ -41,9 +42,9 @@ export default async function PartnersStrip() {
     <section className="bg-white border-t border-stone-light py-16">
       <div className="max-w-5xl mx-auto px-6">
 
-        <p className="text-[11px] tracking-[0.3em] uppercase text-teal font-semibold text-center mb-10">
-          ※ Partners
-        </p>
+        <Eyebrow className="text-[11px] tracking-[0.3em] uppercase text-teal font-semibold justify-center mb-10">
+          Partners
+        </Eyebrow>
 
         <div className={`grid gap-8 ${
           partners.length === 1 ? 'grid-cols-1 max-w-sm mx-auto' :

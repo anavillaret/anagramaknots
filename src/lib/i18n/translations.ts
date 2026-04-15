@@ -10,7 +10,7 @@ export const translations = {
     },
     footer: {
       rights: 'All rights reserved.',
-      tagline: '※ Handmade with care, one knot at a time.',
+      tagline: 'Handmade with care, one knot at a time.',
       privacy: 'Privacy Policy',
       terms: 'Terms & Conditions',
       returns: 'Returns',
@@ -30,14 +30,14 @@ export const translations = {
           secondary: 'Our Story',
         },
         {
-          label: '※ Cacatua-de-crista-amarela',
+          label: 'Cacatua-de-crista-amarela',
           heading: ['Art born from', 'love of nature.'],
           sub: 'Wild cockatoo numbers are decreasing due to habitat loss and the illegal pet trade. Each piece we make carries their story forward.',
           cta: 'Meet the Cockatoo — €65',
           secondary: 'Our Story',
         },
         {
-          label: '※ Pinguim-de-Magalhães',
+          label: 'Pinguim-de-Magalhães',
           heading: ['One knot,', 'one creature.'],
           sub: 'Penguins are monogamous — males search long and hard for the perfect pebble to gift their partner. Every stitch in this piece honours that devotion.',
           cta: 'Meet the Penguin — €58',
@@ -47,7 +47,7 @@ export const translations = {
     },
     home: {
       mosaic: {
-        eyebrow: '※ The Collection',
+        eyebrow: 'The Collection',
         heading: 'Each piece is one of a kind.',
         sub: 'When it\'s gone, it\'s gone. Every amigurumi is handmade once — never repeated, never mass produced.',
         cta: 'Explore All',
@@ -56,23 +56,23 @@ export const translations = {
         commissionPiece: 'Commission this piece',
       },
       story: {
-        eyebrow: '※ The Story',
+        eyebrow: 'The Story',
         heading: ['Behind the name,', 'a love story.'],
         sub: 'In Portuguese, \'gramar\' means to be fond of something. Ana + Grama. The name wrote itself — before the first stitch was cast, before the first loop pulled tight.',
         cta: 'Read the Story',
       },
       commission: {
-        eyebrow: '※ Made for You',
+        eyebrow: 'Made for You',
         heading: ['Can\'t find what', 'you\'re looking for?'],
         sub: 'Ana makes custom pieces to order — your animal, your colours, your story. Commissions open year round.',
         cta: 'Commission a Piece',
       },
       instagram: {
-        eyebrow: '※ Follow the making',
+        eyebrow: 'Follow the making',
       },
     },
     products: {
-      eyebrow: '※ The Collection',
+      eyebrow: 'The Collection',
       heading: 'Every piece tells a story.',
       sub: 'Each amigurumi is named after a real species. Each accessory is made by hand, one knot at a time.',
       filters: {
@@ -111,7 +111,7 @@ export const translations = {
       materials: 'Materials',
       size: 'Size',
       care: 'Care',
-      relatedEyebrow: '※ You might also like',
+      relatedEyebrow: 'You might also like',
       badges: {
         new: 'New',
         bestseller: 'Best Seller',
@@ -120,7 +120,7 @@ export const translations = {
       },
     },
     cart: {
-      eyebrow: '※ Your Cart',
+      eyebrow: 'Your Cart',
       empty: {
         heading: 'Your cart is empty.',
         sub: 'Every knot starts somewhere.',
@@ -139,7 +139,7 @@ export const translations = {
       agreePrivacy: 'Privacy Policy',
     },
     success: {
-      eyebrow: '※ Order Confirmed',
+      eyebrow: 'Order Confirmed',
       heading: ['Thank you.', 'Your piece is on its way.'],
       sub: 'Ana will carefully pack your order and send it with love. You\'ll receive a confirmation email shortly.',
       contact: 'Questions? Reach us at',
@@ -147,14 +147,14 @@ export const translations = {
       home: 'Home',
     },
     cancel: {
-      eyebrow: '※ Checkout Cancelled',
+      eyebrow: 'Checkout Cancelled',
       heading: ['No worries —', 'your cart is still here.'],
       sub: 'You were not charged. Your items are waiting whenever you\'re ready.',
       cta: 'Return to Cart',
       browse: 'Keep Browsing',
     },
     commission: {
-      eyebrow: '※ Made for You',
+      eyebrow: 'Made for You',
       heading: ['Your idea,', 'knot by knot.'],
       sub: 'Half of everything Ana makes is born from a conversation. Tell her what you have in mind — a specific animal, a colour, a memory — and she will bring it to life.',
       sub2: 'Ana will review your request and reply within',
@@ -187,16 +187,16 @@ export const translations = {
         submit: 'Send Request',
         sending: 'Sending…',
       },
-      successEyebrow: '※ Request received',
+      successEyebrow: 'Request received',
       successHeading: 'Thank you.',
       successSub: 'Ana will be in touch within 3–5 working days with a price and timeline estimate.',
       error: 'Something went wrong. Please try again or email us at anagramaknots@gmail.com.',
-      upsellEyebrow: '※ Available Now',
+      upsellEyebrow: 'Available Now',
       upsellHeading: 'Or take one home today',
       upsellSub: 'These pieces are ready to ship — no wait, no commission needed.',
     },
     contact: {
-      eyebrow: '※ Contact',
+      eyebrow: 'Contact',
       heading: ['Say hello', 'to Ana.'],
       sub: 'Questions about an order, a custom piece, a collaboration — or just want to talk about animals? Ana reads every message herself and replies within 3–5 working days.',
       emailLabel: 'Email',
@@ -228,7 +228,7 @@ export const translations = {
       noResults: 'No results for',
     },
     shipping: {
-      eyebrow: '※ How it Ships',
+      eyebrow: 'How it Ships',
       heading: ['Made with care.', 'Sent with love.'],
       sub: 'Every Anagrama piece is carefully packed by hand and shipped from Portugal to wherever you are in the world.',
       features: [
@@ -260,21 +260,21 @@ export const translations = {
       contactCta: 'Contact Us',
     },
     events: {
-      eyebrow: '※ Events & Workshops',
+      eyebrow: 'Events & Workshops',
       heading: 'Ana in the world.',
       sub: 'Workshops, fairs and events where you can find Anagrama in real life.',
       empty: 'No events yet — check back soon.',
     },
     story: {
-      eyebrow: '※ The Story',
+      eyebrow: 'The Story',
       heading: ['The name was', 'always hers.'],
       p1: 'In Portuguese, \'gramar\' means to be fond of something. Ana + Grama. The name wrote itself — before the first stitch was cast, before the first loop pulled tight.',
       p2: "What began as knowledge passed down among female relatives and friends, whispered in order to preserve tradition, evolved into a lifelong language — a way of making meaning with her hands.",
-      missionEyebrow: '※ The Mission',
+      missionEyebrow: 'The Mission',
       missionHeading: ['Art born from', 'love of nature.'],
       missionP1: "Every amigurumi Ana creates carries the story of a real animal — where it lives, how it loves, what it faces. The cockatoo losing its forest. The penguin who brings a pebble as a proposal. The bumblebee three centimetres long, vanishing from a world it built.",
       missionP2: 'These are not just toys. They are small monuments. Reminders that the world is full of astonishing creatures — and that beauty and awareness can be tied together, knot by knot.',
-      processEyebrow: '※ The Process',
+      processEyebrow: 'The Process',
       processHeading: ['Every piece is made', 'by a single pair of hands.'],
       processSub: "Ana works alone, in Portugal, with no shortcuts. Each amigurumi is crocheted from scratch — the body, the limbs, the expression — stuffed, assembled, and finished by hand. A single piece can take anywhere from eight to thirty hours.",
       steps: [
@@ -282,7 +282,7 @@ export const translations = {
         { number: '02', title: 'Craft', body: 'Crocheted loop by loop, in natural cotton yarns. No machines. No mass production.' },
         { number: '03', title: 'Story', body: 'Each piece ships with a card about the real animal — where it lives and what it faces.' },
       ],
-      ctaEyebrow: '※ Ready to find yours?',
+      ctaEyebrow: 'Ready to find yours?',
       ctaHeading: ["Every piece is one of a kind.", "Once it's gone, it's gone."],
       ctaButton: 'Explore the Collection',
       ctaSecondary: 'Commission a Custom Piece',
@@ -298,7 +298,7 @@ export const translations = {
     },
     footer: {
       rights: 'Todos os direitos reservados.',
-      tagline: '※ Feito com carinho, nó a nó.',
+      tagline: 'Feito com carinho, nó a nó.',
       privacy: 'Política de Privacidade',
       terms: 'Termos e Condições',
       returns: 'Devoluções',
@@ -318,14 +318,14 @@ export const translations = {
           secondary: 'A Nossa História',
         },
         {
-          label: '※ Cacatua-de-crista-amarela',
+          label: 'Cacatua-de-crista-amarela',
           heading: ['Arte nascida do', 'amor pela natureza.'],
           sub: 'O número de cacatuas selvagens está a diminuir devido à perda de habitat e ao tráfico ilegal. Cada peça que criamos carrega a sua história.',
           cta: 'Conhecer a Cacatua — €65',
           secondary: 'A Nossa História',
         },
         {
-          label: '※ Pinguim-de-Magalhães',
+          label: 'Pinguim-de-Magalhães',
           heading: ['Um nó,', 'uma criatura.'],
           sub: 'Os pinguins são monógamos — os machos procuram a pedra perfeita para oferecer à sua parceira. Cada ponto desta peça honra essa devoção.',
           cta: 'Conhecer o Pinguim — €58',
@@ -335,7 +335,7 @@ export const translations = {
     },
     home: {
       mosaic: {
-        eyebrow: '※ A Coleção',
+        eyebrow: 'A Coleção',
         heading: 'Cada peça é única.',
         sub: 'Quando vai, vai. Cada amigurumi é feito uma só vez — nunca repetido, nunca produzido em série.',
         cta: 'Ver Tudo',
@@ -344,23 +344,23 @@ export const translations = {
         commissionPiece: 'Encomendar esta peça',
       },
       story: {
-        eyebrow: '※ A História',
+        eyebrow: 'A História',
         heading: ['Por detrás do nome,', 'uma história de amor.'],
         sub: 'Em português, \'gramar\' significa gostar muito de algo. Ana + Grama. O nome escreveu-se sozinho — antes do primeiro ponto, antes do primeiro nó.',
         cta: 'Ler a História',
       },
       commission: {
-        eyebrow: '※ Feito para Ti',
+        eyebrow: 'Feito para Ti',
         heading: ['Não encontras o', 'que procuras?'],
         sub: 'A Ana faz peças personalizadas a pedido — o teu animal, as tuas cores, a tua história. Encomendas abertas todo o ano.',
         cta: 'Encomendar uma Peça',
       },
       instagram: {
-        eyebrow: '※ Acompanha o processo',
+        eyebrow: 'Acompanha o processo',
       },
     },
     products: {
-      eyebrow: '※ A Coleção',
+      eyebrow: 'A Coleção',
       heading: 'Cada peça conta uma história.',
       sub: 'Cada amigurumi tem o nome de uma espécie real. Cada acessório é feito à mão, nó a nó.',
       filters: {
@@ -399,7 +399,7 @@ export const translations = {
       materials: 'Materiais',
       size: 'Tamanho',
       care: 'Cuidados',
-      relatedEyebrow: '※ Também podes gostar',
+      relatedEyebrow: 'Também podes gostar',
       badges: {
         new: 'Novo',
         bestseller: 'Mais Vendido',
@@ -408,7 +408,7 @@ export const translations = {
       },
     },
     cart: {
-      eyebrow: '※ O Teu Carrinho',
+      eyebrow: 'O Teu Carrinho',
       empty: {
         heading: 'O teu carrinho está vazio.',
         sub: 'Cada nó começa algures.',
@@ -427,7 +427,7 @@ export const translations = {
       agreePrivacy: 'Política de Privacidade',
     },
     success: {
-      eyebrow: '※ Encomenda Confirmada',
+      eyebrow: 'Encomenda Confirmada',
       heading: ['Obrigada.', 'A tua peça está a caminho.'],
       sub: 'A Ana vai embalar a tua encomenda com cuidado e enviá-la com amor. Receberás um email de confirmação em breve.',
       contact: 'Dúvidas? Contacta-nos em',
@@ -435,14 +435,14 @@ export const translations = {
       home: 'Início',
     },
     cancel: {
-      eyebrow: '※ Checkout Cancelado',
+      eyebrow: 'Checkout Cancelado',
       heading: ['Sem problema —', 'o teu carrinho está aqui.'],
       sub: 'Não foi cobrado nenhum valor. Os teus artigos estão à tua espera quando estiveres pronto.',
       cta: 'Voltar ao Carrinho',
       browse: 'Continuar a Explorar',
     },
     commission: {
-      eyebrow: '※ Feito para Ti',
+      eyebrow: 'Feito para Ti',
       heading: ['A tua ideia,', 'nó a nó.'],
       sub: 'Metade do que a Ana faz nasce de uma conversa. Diz-lhe o que tens em mente — um animal específico, uma cor, uma memória — e ela dará vida à tua ideia.',
       sub2: 'A Ana vai analisar o teu pedido e responder em',
@@ -475,16 +475,16 @@ export const translations = {
         submit: 'Enviar Pedido',
         sending: 'A enviar…',
       },
-      successEyebrow: '※ Pedido recebido',
+      successEyebrow: 'Pedido recebido',
       successHeading: 'Obrigada.',
       successSub: 'A Ana vai contactar-te em 3–5 dias úteis com uma estimativa de preço e prazo.',
       error: 'Algo correu mal. Por favor tenta novamente ou envia-nos um email para anagramaknots@gmail.com.',
-      upsellEyebrow: '※ Disponível Agora',
+      upsellEyebrow: 'Disponível Agora',
       upsellHeading: 'Ou leva uma para casa hoje',
       upsellSub: 'Estas peças estão prontas para envio — sem espera, sem encomenda.',
     },
     contact: {
-      eyebrow: '※ Contacto',
+      eyebrow: 'Contacto',
       heading: ['Diz olá', 'à Ana.'],
       sub: 'Dúvidas sobre uma encomenda, uma peça personalizada, uma colaboração — ou só queres falar sobre animais? A Ana lê todas as mensagens e responde em 3–5 dias úteis.',
       emailLabel: 'Email',
@@ -516,7 +516,7 @@ export const translations = {
       noResults: 'Sem resultados para',
     },
     shipping: {
-      eyebrow: '※ Como Enviamos',
+      eyebrow: 'Como Enviamos',
       heading: ['Feito com cuidado.', 'Enviado com amor.'],
       sub: 'Cada peça Anagrama é cuidadosamente embalada à mão e enviada de Portugal para onde quer que estejas no mundo.',
       features: [
@@ -548,21 +548,21 @@ export const translations = {
       contactCta: 'Fala Connosco',
     },
     events: {
-      eyebrow: '※ Eventos & Workshops',
+      eyebrow: 'Eventos & Workshops',
       heading: 'Ana pelo mundo.',
       sub: 'Workshops, feiras e eventos onde podes encontrar a Anagrama ao vivo.',
       empty: 'Ainda sem eventos — em breve.',
     },
     story: {
-      eyebrow: '※ A História',
+      eyebrow: 'A História',
       heading: ['O nome sempre', 'foi dela.'],
       p1: 'Em português, \'gramar\' significa gostar muito de algo. Ana + Grama. O nome escreveu-se sozinho — antes do primeiro ponto, antes do primeiro nó.',
       p2: 'O que começou como um conhecimento passado entre familiares e amigas, sussurrado para preservar a tradição, tornou-se uma linguagem para toda a vida — uma forma de dar sentido às coisas com as mãos.',
-      missionEyebrow: '※ A Missão',
+      missionEyebrow: 'A Missão',
       missionHeading: ['Arte nascida do', 'amor pela natureza.'],
       missionP1: 'Cada amigurumi que a Ana cria carrega a história de um animal real — onde vive, como ama, o que enfrenta. A cacatua a perder a sua floresta. O pinguim que traz uma pedra como pedido de casamento. O abelhão de três centímetros, a desaparecer de um mundo que ele próprio construiu.',
       missionP2: 'Não são apenas brinquedos. São pequenos monumentos. Lembretes de que o mundo está cheio de criaturas extraordinárias — e que beleza e consciência podem estar ligadas, nó a nó.',
-      processEyebrow: '※ O Processo',
+      processEyebrow: 'O Processo',
       processHeading: ['Cada peça é feita', 'por um único par de mãos.'],
       processSub: 'A Ana trabalha sozinha, em Portugal, sem atalhos. Cada amigurumi é crochetado do zero — o corpo, os membros, a expressão — recheado, montado e acabado à mão. Uma peça pode demorar entre oito a trinta horas.',
       steps: [
@@ -570,7 +570,7 @@ export const translations = {
         { number: '02', title: 'Criação', body: 'Crochetado laço a laço, em fios de algodão natural. Sem máquinas. Sem produção em série.' },
         { number: '03', title: 'História', body: 'Cada peça é enviada com um cartão sobre o animal real — onde vive e o que enfrenta.' },
       ],
-      ctaEyebrow: '※ Pronto para encontrar a tua?',
+      ctaEyebrow: 'Pronto para encontrar a tua?',
       ctaHeading: ['Cada peça é única.', 'Quando vai, vai.'],
       ctaButton: 'Explorar a Coleção',
       ctaSecondary: 'Encomendar uma Peça Personalizada',

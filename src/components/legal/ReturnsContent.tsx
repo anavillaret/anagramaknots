@@ -1,5 +1,6 @@
 'use client'
 
+import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -105,7 +106,7 @@ export default function ReturnsContent() {
   return (
     <main className="pt-36 pb-24">
       <div className="max-w-2xl mx-auto px-6">
-        <p className="text-[11px] tracking-[0.3em] uppercase text-teal mb-3">※ Legal</p>
+        <Eyebrow className="text-[11px] tracking-[0.3em] uppercase text-teal mb-3">Legal</Eyebrow>
         <h1 className="text-3xl font-semibold text-ink mb-2">{t.footer.returns}</h1>
         <p className="text-[12px] text-stone mb-12">{lang === 'pt' ? 'Última atualização: abril de 2025' : 'Last updated: April 2025'}</p>
 

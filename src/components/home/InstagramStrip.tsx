@@ -1,5 +1,6 @@
 'use client'
 
+import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
 
 export default function InstagramStrip() {
@@ -7,9 +8,9 @@ export default function InstagramStrip() {
 
   return (
     <section className="py-16 px-6 text-center">
-      <p className="text-[10px] tracking-[0.3em] uppercase text-stone mb-3">
+      <Eyebrow className="text-[10px] tracking-[0.3em] uppercase text-stone mb-3 justify-center">
         {t.home.instagram.eyebrow}
-      </p>
+      </Eyebrow>
       <a
         href="https://www.instagram.com/anagrama_knots/"
         target="_blank"

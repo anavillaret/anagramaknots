@@ -5,6 +5,7 @@ import Link from 'next/link'
 import ProductCard from '@/components/ui/ProductCard'
 import Watermark from '@/components/ui/Watermark'
 import BrandSymbol from '@/components/ui/BrandSymbol'
+import Eyebrow from '@/components/ui/Eyebrow'
 import { Product } from '@/lib/products'
 import { useLang } from '@/lib/i18n/context'
 
@@ -34,9 +35,9 @@ export default function ProductMosaic({ products }: { products: Product[] }) {
       {/* Section header */}
       <div className="flex items-end justify-between mb-12">
         <div>
-          <p className="text-[12px] tracking-[0.3em] uppercase text-teal mb-2">
+          <Eyebrow className="text-[12px] tracking-[0.3em] uppercase text-teal mb-2">
             {m.eyebrow}
-          </p>
+          </Eyebrow>
           <h2 className="text-3xl font-semibold text-ink tracking-tight">
             {m.heading}
           </h2>

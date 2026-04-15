@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Mail, MessageCircle, CreditCard, Wand2 } from 'lucide-react'
 import CommissionForm from './CommissionForm'
 import BrandSymbol from '@/components/ui/BrandSymbol'
+import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
 import type { Product } from '@/lib/products'
 
@@ -23,7 +24,7 @@ export default function CommissionPageContent({ availableProducts }: { available
   return (
     <main className="pt-32 pb-24">
       <div className="max-w-2xl mx-auto px-6">
-        <p className="text-[12px] tracking-[0.3em] uppercase text-teal mb-4">{c.eyebrow}</p>
+        <Eyebrow className="text-[12px] tracking-[0.3em] uppercase text-teal mb-4">{c.eyebrow}</Eyebrow>
         <h1 className="text-4xl font-semibold text-ink tracking-tight leading-tight">
           {c.heading[0]}<br />
           <em className="font-normal not-italic text-teal">{c.heading[1]}</em>
@@ -60,7 +61,7 @@ export default function CommissionPageContent({ availableProducts }: { available
         <div className="max-w-7xl mx-auto px-6 mt-24 pt-16 border-t border-stone-light">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <p className="text-[12px] tracking-[0.3em] uppercase text-teal mb-2">{c.upsellEyebrow}</p>
+              <Eyebrow className="text-[12px] tracking-[0.3em] uppercase text-teal mb-2">{c.upsellEyebrow}</Eyebrow>
               <h2 className="text-2xl font-semibold text-ink tracking-tight">{c.upsellHeading}</h2>
               <p className="mt-2 text-[13px] text-stone max-w-sm leading-relaxed">{c.upsellSub}</p>
             </div>
