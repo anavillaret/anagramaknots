@@ -67,6 +67,9 @@ export default function ImageUpload({ value, onChange }: Props) {
           /* Preview */
           <div className="relative w-full aspect-square max-w-[200px] mx-auto my-4">
             <Image src={value} alt="Product image" fill className="object-contain" />
+            <span className="absolute top-1 left-1 text-[9px] bg-teal text-white px-1.5 py-0.5 tracking-wide uppercase">
+              Main
+            </span>
             <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 hover:opacity-100">
               <span className="text-white text-[11px] tracking-[0.1em] uppercase bg-black/60 px-3 py-1.5">
                 Change photo
