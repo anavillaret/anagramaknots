@@ -188,9 +188,13 @@ export default function StoryContent() {
 
       {/* Photo carousel — Ana's journey before the amigurumis */}
       <section className="bg-linen py-16">
-        <div className="max-w-7xl mx-auto px-6 mb-8">
-          <Eyebrow className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-3">{s.journeyEyebrow}</Eyebrow>
-          <p className="text-[14px] leading-relaxed text-stone max-w-md">{s.journeySub}</p>
+        <div className="max-w-7xl mx-auto px-6 mb-10">
+          <Eyebrow className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-6">{s.journeyEyebrow}</Eyebrow>
+          <h2 className="text-3xl md:text-4xl font-semibold text-ink leading-tight tracking-tight">
+            {s.journeyHeading[0]}<br />
+            <em className="font-normal not-italic text-teal">{s.journeyHeading[1]}</em>
+          </h2>
+          <p className="mt-4 text-[14px] leading-relaxed text-stone max-w-md">{s.journeySub}</p>
         </div>
         <PhotoCarousel photos={[PHOTOS[1], ...PHOTOS.slice(3)]} lightboxOffset={[1,3,4,5,6]} onOpen={setLightbox} />
       </section>
