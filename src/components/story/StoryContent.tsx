@@ -186,6 +186,9 @@ export default function StoryContent() {
         </div>
       </section>
 
+      {/* Photo carousel — Ana's journey before the amigurumis */}
+      <PhotoCarousel photos={[PHOTOS[1], ...PHOTOS.slice(3)]} lightboxOffset={[1,3,4,5,6]} onOpen={setLightbox} />
+
       {/* Mission */}
       <section className="bg-linen py-24">
         <div className="max-w-7xl mx-auto px-6">
@@ -215,9 +218,6 @@ export default function StoryContent() {
           </div>
         </div>
       </section>
-
-      {/* Photo carousel */}
-      <PhotoCarousel photos={[PHOTOS[1], ...PHOTOS.slice(3)]} lightboxOffset={[1,3,4,5,6]} onOpen={setLightbox} />
 
       {/* Process */}
       <section className="max-w-7xl mx-auto px-6 py-24">
