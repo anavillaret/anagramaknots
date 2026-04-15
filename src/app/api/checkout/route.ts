@@ -63,28 +63,44 @@ export async function POST(req: NextRequest) {
         {
           shipping_rate_data: {
             type: 'fixed_amount',
-            fixed_amount: {
-              amount: Math.round(7 * rate * 100),
-              currency: cur,
-            },
-            display_name: 'Standard Shipping',
+            fixed_amount: { amount: Math.round(6 * rate * 100), currency: cur },
+            display_name: 'Portugal',
             delivery_estimate: {
-              minimum: { unit: 'business_day', value: 3 },
-              maximum: { unit: 'business_day', value: 21 },
+              minimum: { unit: 'business_day', value: 1 },
+              maximum: { unit: 'business_day', value: 3 },
             },
           },
         },
         {
           shipping_rate_data: {
             type: 'fixed_amount',
-            fixed_amount: {
-              amount: Math.round(14 * rate * 100),
-              currency: cur,
-            },
-            display_name: 'Express Shipping',
+            fixed_amount: { amount: Math.round(9 * rate * 100), currency: cur },
+            display_name: 'Spain',
             delivery_estimate: {
-              minimum: { unit: 'business_day', value: 1 },
-              maximum: { unit: 'business_day', value: 10 },
+              minimum: { unit: 'business_day', value: 2 },
+              maximum: { unit: 'business_day', value: 5 },
+            },
+          },
+        },
+        {
+          shipping_rate_data: {
+            type: 'fixed_amount',
+            fixed_amount: { amount: Math.round(14 * rate * 100), currency: cur },
+            display_name: 'Rest of Europe',
+            delivery_estimate: {
+              minimum: { unit: 'business_day', value: 5 },
+              maximum: { unit: 'business_day', value: 7 },
+            },
+          },
+        },
+        {
+          shipping_rate_data: {
+            type: 'fixed_amount',
+            fixed_amount: { amount: Math.round(21 * rate * 100), currency: cur },
+            display_name: 'Rest of World',
+            delivery_estimate: {
+              minimum: { unit: 'business_day', value: 5 },
+              maximum: { unit: 'business_day', value: 9 },
             },
           },
         },
