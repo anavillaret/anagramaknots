@@ -2,10 +2,19 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { Feather, MessageCircle, CreditCard, Scissors } from 'lucide-react'
 import CommissionForm from './CommissionForm'
 import BrandSymbol from '@/components/ui/BrandSymbol'
 import { useLang } from '@/lib/i18n/context'
 import type { Product } from '@/lib/products'
+
+// One icon per step — themed around craft, nature and making
+const STEP_ICONS = [
+  <Feather size={18} strokeWidth={1.5} />,       // 01 · Send your request — feather = writing, bird
+  <MessageCircle size={18} strokeWidth={1.5} />, // 02 · Ana reviews & replies
+  <CreditCard size={18} strokeWidth={1.5} />,    // 03 · Confirm & pay
+  <Scissors size={18} strokeWidth={1.5} />,      // 04 · She brings it to life — scissors = craft
+]
 
 export default function CommissionPageContent({ availableProducts }: { availableProducts: Product[] }) {
   const { t, lang } = useLang()
@@ -28,10 +37,13 @@ export default function CommissionPageContent({ availableProducts }: { available
         <div className="mt-10">
           <p className="text-[11px] tracking-[0.2em] uppercase text-teal font-medium mb-5">{c.howTitle}</p>
           <div className="grid grid-cols-2 gap-4">
-            {c.steps.map(step => (
+            {c.steps.map((step, i) => (
               <div key={step.n} className="border border-stone-light p-5">
-                <span className="text-[11px] font-semibold tracking-[0.2em] text-teal/60">{step.n}</span>
-                <p className="mt-2 text-[13px] font-medium text-ink leading-snug">{step.title}</p>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[11px] font-semibold tracking-[0.2em] text-teal/60">{step.n}</span>
+                  <span className="text-teal/50">{STEP_ICONS[i]}</span>
+                </div>
+                <p className="text-[13px] font-medium text-ink leading-snug">{step.title}</p>
                 <p className="mt-1.5 text-[12px] text-stone leading-relaxed">{step.body}</p>
               </div>
             ))}
