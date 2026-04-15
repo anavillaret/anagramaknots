@@ -55,7 +55,7 @@ function PhotoCarousel({
   ]
 
   return (
-    <section className="py-16 overflow-hidden">
+    <section className="overflow-hidden">
       <div className="relative flex items-center justify-center gap-4 px-16">
 
         {/* Prev arrow */}
@@ -187,7 +187,12 @@ export default function StoryContent() {
       </section>
 
       {/* Photo carousel — Ana's journey before the amigurumis */}
-      <PhotoCarousel photos={[PHOTOS[1], ...PHOTOS.slice(3)]} lightboxOffset={[1,3,4,5,6]} onOpen={setLightbox} />
+      <section className="bg-linen py-16">
+        <div className="max-w-7xl mx-auto px-6 mb-4">
+          <Eyebrow className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal">{s.journeyEyebrow}</Eyebrow>
+        </div>
+        <PhotoCarousel photos={[PHOTOS[1], ...PHOTOS.slice(3)]} lightboxOffset={[1,3,4,5,6]} onOpen={setLightbox} />
+      </section>
 
       {/* Mission */}
       <section className="bg-linen py-24">
