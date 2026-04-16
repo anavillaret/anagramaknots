@@ -13,12 +13,12 @@ export default function MadeForYouTeaser() {
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-10">
 
         <div className="max-w-lg">
-          <Eyebrow className="text-[12px] tracking-[0.3em] uppercase text-teal mb-5">
+          <Eyebrow className="text-[12px] tracking-[0.3em] uppercase text-teal-bright mb-5">
             {c.eyebrow}
           </Eyebrow>
           <h2 className="text-3xl md:text-4xl font-semibold text-white leading-tight tracking-tight text-balance">
             {c.heading[0]}<br />
-            <em className="font-normal not-italic text-teal">{c.heading[1]}</em>
+            <em className="font-normal not-italic text-teal-bright">{c.heading[1]}</em>
           </h2>
           <p className="mt-5 text-[14px] leading-relaxed text-stone-light">
             {c.sub}

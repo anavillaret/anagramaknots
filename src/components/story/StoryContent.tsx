@@ -260,10 +260,10 @@ export default function StoryContent() {
       <section className="bg-ink py-20">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
-            <Eyebrow className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal mb-4">{s.ctaEyebrow}</Eyebrow>
+            <Eyebrow className="text-[15px] tracking-[0.3em] uppercase font-bold text-teal-bright mb-4">{s.ctaEyebrow}</Eyebrow>
             <h2 className="text-2xl md:text-3xl font-semibold text-white leading-tight tracking-tight">
               {s.ctaHeading[0]}<br />
-              <em className="font-normal not-italic text-teal">{s.ctaHeading[1]}</em>
+              <em className="font-normal not-italic text-teal-bright">{s.ctaHeading[1]}</em>
             </h2>
           </div>
           <div className="flex flex-col items-start md:items-end gap-4 shrink-0">

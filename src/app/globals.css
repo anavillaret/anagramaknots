@@ -2,16 +2,17 @@
 
 @theme {
   /* Brand Colors — updated palette */
-  --color-teal: #0F7A75;
+  --color-teal: #0c6e6a;
   --color-teal-dark: #0a5e5a;
   --color-teal-light: #e4f0ef;
-  --color-teal-deep: #0F7A75;
+  --color-teal-deep: #0c6e6a;
+  --color-teal-bright: #2dbfb8;
   --color-linen: #F7E7DD;
   --color-peach: #FFCA99;
   --color-peach-soft: #FEDCBE;
   --color-rose: #C8897A;
   --color-rose-dark: #a96e61;
-  --color-stone: #8A837C;
+  --color-stone: #696360;
   --color-stone-light: #d4cfc9;
   --color-ink: #1a1a1a;
 
