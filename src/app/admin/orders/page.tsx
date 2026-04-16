@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { supabase, type DbOrder } from '@/lib/supabase'
+import { type DbOrder } from '@/lib/supabase'
 
 const STATUS_COLORS: Record<string, string> = {
   paid:      'bg-blue-50 text-blue-700',
@@ -29,8 +29,9 @@ export default function AdminOrders() {
 
   async function load() {
     setLoading(true)
-    const { data } = await supabase.from('orders').select('*').order('created_at', { ascending: false })
-    setOrders(data ?? [])
+    const res = await fetch('/api/admin/orders')
+    const data = await res.json()
+    setOrders(Array.isArray(data) ? data : [])
     setLoading(false)
   }
 
@@ -38,7 +39,11 @@ export default function AdminOrders() {
 
   async function updateStatus(id: string, status: string) {
     setSaving(id)
-    await supabase.from('orders').update({ status }).eq('id', id)
+    await fetch('/api/admin/orders', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, status }),
+    })
     await load()
     setSaving(null)
   }
