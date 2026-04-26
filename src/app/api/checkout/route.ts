@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { FX } from '@/lib/fx'
-import { getZone, ZONES, ALL_ALLOWED_COUNTRIES } from '@/lib/shipping'
+import { getZone, ZONES } from '@/lib/shipping'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
@@ -62,9 +62,8 @@ export async function POST(req: NextRequest) {
       quantity: 1,
     }))
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const session = await (stripe.checkout.sessions.create as any)({
-      payment_method_types: ['card', 'mb_way'],
+    const session = await stripe.checkout.sessions.create({
+      automatic_payment_methods: { enabled: true },
       line_items,
       mode: 'payment',
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
@@ -74,6 +73,7 @@ export async function POST(req: NextRequest) {
         // The customer already told us their country — this just restricts the
         // address entry to that zone's countries so they can't change region mid-flow.
         allowed_countries: zoneData.countries as Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry[],
+        // Restricted to the zone the customer selected — can't slip to a cheaper region mid-flow
       },
       shipping_options: [
         {
