@@ -4,12 +4,14 @@ import { useEffect, useState } from 'react'
 import { Pencil, Trash2, Plus, Check, X } from 'lucide-react'
 import ContentField from '@/components/admin/ContentField'
 import ContentSection from '@/components/admin/ContentSection'
+import ImageUpload from '@/components/admin/ImageUpload'
 import MultiImageUpload from '@/components/admin/MultiImageUpload'
 import { translations } from '@/lib/i18n/translations'
+import type { StoryPhoto } from '@/app/api/admin/story-photos/route'
 
 // ─── Tab config ───────────────────────────────────────────────────────────────
 
-const TABS = ['Page Texts', 'Events & Workshops'] as const
+const TABS = ['Page Texts', 'Photos', 'Events & Workshops'] as const
 type Tab = typeof TABS[number]
 
 // ─── Story Page Texts ─────────────────────────────────────────────────────────
@@ -274,6 +276,108 @@ function StoryTexts() {
           <ContentField label="Primary button" {...f('ctaButton')} />
           <ContentField label="Secondary link" {...f('ctaSecondary')} />
         </ContentSection>
+      </div>
+    </div>
+  )
+}
+
+// ─── Story Photos ─────────────────────────────────────────────────────────────
+
+const PHOTO_DEFAULTS: StoryPhoto[] = [
+  { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190677242-img_8751.jpg', alt: 'Crochet heart' },
+  { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190678839-img_8562.jpg', alt: 'Crochet square' },
+  { src: '/images/process-3.jpeg', alt: 'Green animals' },
+  { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776191359279-img_6360.jpg', alt: 'Crochet granny squares in progress' },
+  { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776191361270-img_0356.jpg', alt: 'Yarn and granny squares' },
+  { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776191363725-img_7408.jpg', alt: 'Crocheting in progress' },
+  { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776191365240-img_8400.jpg', alt: 'Crochet bookmarks' },
+]
+
+const PHOTO_LABELS: { label: string; hint: string }[] = [
+  { label: 'Photo 1 — Hero portrait',    hint: 'Appears on the right of the hero section (tall portrait format).' },
+  { label: 'Photo 2 — Carousel photo 1', hint: 'First photo in the journey carousel.' },
+  { label: 'Photo 3 — Mission portrait', hint: 'Appears on the left of the mission/philosophy section (tall portrait).' },
+  { label: 'Photo 4 — Carousel photo 2', hint: 'Second photo in the journey carousel.' },
+  { label: 'Photo 5 — Carousel photo 3', hint: 'Third photo in the journey carousel.' },
+  { label: 'Photo 6 — Carousel photo 4', hint: 'Fourth photo in the journey carousel.' },
+  { label: 'Photo 7 — Carousel photo 5', hint: 'Fifth photo in the journey carousel.' },
+]
+
+function StoryPhotos() {
+  const [photos, setPhotos] = useState<StoryPhoto[]>(PHOTO_DEFAULTS)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    fetch('/api/admin/story-photos')
+      .then(r => r.json())
+      .then(d => {
+        if (Array.isArray(d.photos) && d.photos.length === 7) {
+          setPhotos(d.photos)
+        }
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [])
+
+  function setPhoto(index: number, patch: Partial<StoryPhoto>) {
+    setPhotos(prev => prev.map((p, i) => i === index ? { ...p, ...patch } : p))
+  }
+
+  async function save() {
+    setSaving(true)
+    await fetch('/api/admin/story-photos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ photos }),
+    })
+    setSaving(false)
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2500)
+  }
+
+  if (loading) return <p className="text-[13px] text-stone">Loading…</p>
+
+  return (
+    <div>
+      <div className="mb-6 flex items-center justify-between">
+        <p className="text-[13px] text-stone">
+          Photos shown on the Story page.{' '}
+          <a href="/story" target="_blank" className="text-teal hover:underline">View page →</a>
+        </p>
+        <button
+          onClick={save}
+          disabled={saving}
+          className="bg-teal text-white text-[11px] tracking-[0.15em] uppercase px-6 py-2.5 hover:bg-teal-dark transition-colors disabled:opacity-50"
+        >
+          {saving ? 'Saving…' : saved ? 'Saved ✓' : 'Save Photos'}
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {PHOTO_LABELS.map(({ label, hint }, i) => (
+          <div key={i} className="bg-white border border-gray-100 p-5 space-y-3">
+            <div>
+              <p className="text-[11px] tracking-[0.15em] uppercase font-semibold text-ink mb-1">{label}</p>
+              <p className="text-[11px] text-stone leading-relaxed">{hint}</p>
+            </div>
+            <ImageUpload
+              value={photos[i]?.src ?? ''}
+              onChange={url => setPhoto(i, { src: url })}
+            />
+            <div>
+              <label className="block text-[10px] tracking-[0.12em] uppercase text-stone mb-1">Alt text</label>
+              <input
+                type="text"
+                value={photos[i]?.alt ?? ''}
+                onChange={e => setPhoto(i, { alt: e.target.value })}
+                placeholder="Describe the photo…"
+                className="w-full border border-gray-200 px-3 py-2 text-[12px] text-ink outline-none focus:border-teal transition-colors"
+              />
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )
@@ -628,6 +732,7 @@ export default function AdminStoryPage() {
       </div>
 
       {activeTab === 'Page Texts' && <StoryTexts />}
+      {activeTab === 'Photos' && <StoryPhotos />}
       {activeTab === 'Events & Workshops' && <EventsWorkshops />}
     </div>
   )

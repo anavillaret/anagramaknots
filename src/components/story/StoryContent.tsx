@@ -10,7 +10,9 @@ import { useLang } from '@/lib/i18n/context'
 import { mergeContent } from '@/lib/mergeContent'
 import EventsSection from '@/components/story/EventsSection'
 
-const PHOTOS = [
+type Photo = { src: string; alt: string }
+
+const DEFAULT_PHOTOS: Photo[] = [
   { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190677242-img_8751.jpg', alt: 'Crochet heart' },
   { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190678839-img_8562.jpg', alt: 'Crochet square' },
   { src: '/images/process-3.jpeg', alt: 'Green animals' },
@@ -127,6 +129,7 @@ function PhotoCarousel({
 export default function StoryContent() {
   const { t, lang } = useLang()
   const [s, setS] = useState(t.story)
+  const [photos, setPhotos] = useState<Photo[]>(DEFAULT_PHOTOS)
   const [lightbox, setLightbox] = useState<Lightbox>(null)
 
   useEffect(() => {
@@ -143,15 +146,29 @@ export default function StoryContent() {
       .catch(() => setS(t.story))
   }, [lang, t.story])
 
+  useEffect(() => {
+    fetch('/api/admin/story-photos')
+      .then(r => r.json())
+      .then(d => {
+        if (Array.isArray(d.photos) && d.photos.length === 7) {
+          // Merge: use DB value when src is set, otherwise keep default
+          setPhotos(d.photos.map((p: Photo, i: number) =>
+            p.src ? p : DEFAULT_photos[i]
+          ))
+        }
+      })
+      .catch(() => {})
+  }, [])
+
   const prev = useCallback(() => {
     if (!lightbox) return
-    setLightbox({ index: (lightbox.index - 1 + PHOTOS.length) % PHOTOS.length })
-  }, [lightbox])
+    setLightbox({ index: (lightbox.index - 1 + photos.length) % photos.length })
+  }, [lightbox, photos.length])
 
   const next = useCallback(() => {
     if (!lightbox) return
-    setLightbox({ index: (lightbox.index + 1) % PHOTOS.length })
-  }, [lightbox])
+    setLightbox({ index: (lightbox.index + 1) % photos.length })
+  }, [lightbox, photos.length])
 
   useEffect(() => {
     if (!lightbox) return
@@ -190,8 +207,8 @@ export default function StoryContent() {
             className="relative aspect-[3/4] overflow-hidden w-full cursor-zoom-in"
           >
             <Image
-              src={PHOTOS[0].src}
-              alt={PHOTOS[0].alt}
+              src={photos[0].src}
+              alt={photos[0].alt}
               fill
               className="object-cover object-center hover:scale-[1.02] transition-transform duration-500"
               priority
@@ -211,7 +228,7 @@ export default function StoryContent() {
           </h2>
           <p className="mt-4 text-[14px] leading-relaxed text-stone max-w-md">{s.journeySub}</p>
         </div>
-        <PhotoCarousel photos={[PHOTOS[1], ...PHOTOS.slice(3)]} lightboxOffset={[1,3,4,5,6]} onOpen={setLightbox} />
+        <PhotoCarousel photos={[photos[1], ...photos.slice(3)]} lightboxOffset={[1,3,4,5,6]} onOpen={setLightbox} />
       </section>
 
       {/* Mission */}
@@ -223,7 +240,7 @@ export default function StoryContent() {
               onClick={() => setLightbox({ index: 2 })}
               className="relative aspect-[3/4] overflow-hidden order-2 md:order-1 cursor-zoom-in w-full"
             >
-              <Image src={PHOTOS[2].src} alt={PHOTOS[2].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-500" />
+              <Image src={photos[2].src} alt={photos[2].alt} fill className="object-cover hover:scale-[1.03] transition-transform duration-500" />
               <Watermark />
             </button>
 
@@ -322,8 +339,8 @@ export default function StoryContent() {
           onClick={e => e.stopPropagation()}
         >
           <Image
-            src={PHOTOS[lightbox.index].src}
-            alt={PHOTOS[lightbox.index].alt}
+            src={photos[lightbox.index].src}
+            alt={photos[lightbox.index].alt}
             fill
             className="object-contain"
             sizes="100vw"
@@ -340,7 +357,7 @@ export default function StoryContent() {
         </button>
 
         <div className="absolute bottom-4 flex gap-2">
-          {PHOTOS.map((_, i) => (
+          {photos.map((_, i) => (
             <button
               key={i}
               onClick={e => { e.stopPropagation(); setLightbox({ index: i }) }}
