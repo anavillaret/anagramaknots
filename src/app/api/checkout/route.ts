@@ -64,7 +64,18 @@ export async function POST(req: NextRequest) {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const session = await (stripe.checkout.sessions.create as any)({
-      payment_method_types: ['card', 'mb_way'],
+      payment_method_types: [
+        'card',        // covers Apple Pay + Google Pay automatically
+        'link',        // Stripe Link (saved cards) — all regions
+        'amazon_pay',  // all regions
+        'revolut_pay', // Europe + UK
+        'klarna',      // buy now pay later — all regions
+        'mb_way',      // Portugal
+        'bancontact',  // Belgium
+        'blik',        // Poland
+        'eps',         // Austria
+        'pix',         // Brazil
+      ],
       line_items,
       mode: 'payment',
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
