@@ -47,11 +47,11 @@ export default function CartClient() {
       if (data.url) {
         window.location.href = data.url
       } else {
-        setError('Something went wrong. Please try again.')
+        setError(data.detail ? `Error: ${data.detail}` : 'Something went wrong. Please try again.')
         setLoading(false)
       }
-    } catch {
-      setError('Something went wrong. Please try again.')
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Something went wrong. Please try again.')
       setLoading(false)
     }
   }
