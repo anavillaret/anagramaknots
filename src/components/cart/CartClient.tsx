@@ -3,19 +3,21 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { X, Loader2 } from 'lucide-react'
+import { X, Loader2, ChevronDown } from 'lucide-react'
 import { useCart } from '@/lib/cart'
 import { useLang } from '@/lib/i18n/context'
 import { SHOP_OPEN } from '@/lib/siteConfig'
 import BrandSymbol from '@/components/ui/BrandSymbol'
 import Eyebrow from '@/components/ui/Eyebrow'
 import { FX, CURRENCIES } from '@/lib/fx'
+import { SHIPPING_COUNTRIES, ZONES, getZone } from '@/lib/shipping'
 
 export default function CartClient() {
   const { items, removeItem, total } = useCart()
   const { t, lang } = useLang()
   const c = t.cart
   const [currency, setCurrency] = useState('eur')
+  const [country, setCountry] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [agreed, setAgreed] = useState(false)
@@ -23,14 +25,23 @@ export default function CartClient() {
   const rate = FX[currency] ?? 1
   const sym = CURRENCIES.find(cur => cur.code === currency)?.symbol ?? '€'
 
+  // Derived shipping info from selected country
+  const zone = country ? getZone(country) : null
+  const zoneData = zone ? ZONES[zone] : null
+  const shippingPerPiece = zoneData ? zoneData.eurPerPiece * rate : null
+  const shippingTotal = shippingPerPiece !== null ? shippingPerPiece * items.length : null
+
+  const canCheckout = agreed && !!country
+
   const handleCheckout = async () => {
+    if (!country) { setError('Please select your destination country.'); return }
     setLoading(true)
     setError('')
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items, currency }),
+        body: JSON.stringify({ items, currency, country }),
       })
       const data = await res.json()
       if (data.url) {
@@ -87,7 +98,10 @@ export default function CartClient() {
               <div className="flex-1 flex flex-col gap-1">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="text-[13px] font-medium text-teal flex items-center gap-1.5"><BrandSymbol size={12} />{lang === 'pt' && product.namePt ? product.namePt : product.name}</p>
+                    <p className="text-[13px] font-medium text-teal flex items-center gap-1.5">
+                      <BrandSymbol size={12} />
+                      {lang === 'pt' && product.namePt ? product.namePt : product.name}
+                    </p>
                     {product.species && (
                       <p className="text-[11px] text-stone italic">{product.species}</p>
                     )}
@@ -141,15 +155,78 @@ export default function CartClient() {
             </div>
           </div>
 
-          <div className="flex items-center gap-8 text-[13px]">
-            <span className="text-stone">{c.subtotal}</span>
-            <span className="font-semibold text-ink text-[18px]">
-              {sym}{(total() * rate).toFixed(2)}
+          {/* Country selector */}
+          <div className="flex items-center gap-3 w-full md:w-auto">
+            <span className="text-[11px] tracking-[0.1em] uppercase text-stone shrink-0">
+              {lang === 'pt' ? 'Enviar para' : 'Ship to'}
             </span>
+            <div className="relative flex-1 md:flex-none md:min-w-[220px]">
+              <select
+                value={country}
+                onChange={e => setCountry(e.target.value)}
+                className={`w-full appearance-none border px-3 py-1.5 pr-8 text-[12px] outline-none transition-colors cursor-pointer ${
+                  country
+                    ? 'border-teal text-ink'
+                    : 'border-stone-light text-stone'
+                } bg-white focus:border-teal`}
+              >
+                <option value="">
+                  {lang === 'pt' ? 'Seleciona o teu país…' : 'Select your country…'}
+                </option>
+                {SHIPPING_COUNTRIES.map(c => (
+                  <option key={c.code} value={c.code}>{c.name}</option>
+                ))}
+              </select>
+              <ChevronDown
+                size={13}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone pointer-events-none"
+              />
+            </div>
           </div>
-          <p className="text-[11px] text-stone text-right">
-            {c.shipping}
-          </p>
+
+          {/* Subtotal + shipping estimate */}
+          <div className="flex flex-col items-end gap-2 w-full">
+            <div className="flex items-center justify-between w-full text-[13px] text-stone">
+              <span>{c.subtotal}</span>
+              <span className="font-medium text-ink">
+                {sym}{(total() * rate).toFixed(2)}
+              </span>
+            </div>
+
+            {zoneData ? (
+              <div className="flex items-center justify-between w-full text-[13px] text-stone">
+                <span>
+                  {lang === 'pt' ? 'Envio' : 'Shipping'}
+                  <span className="text-[11px] ml-1.5 text-stone/70">
+                    ({zoneData.days})
+                  </span>
+                </span>
+                <span className="font-medium text-ink">
+                  {sym}{(shippingTotal ?? 0).toFixed(2)}
+                  {items.length > 1 && (
+                    <span className="text-[11px] text-stone ml-1">
+                      ({items.length} × {sym}{(shippingPerPiece ?? 0).toFixed(2)})
+                    </span>
+                  )}
+                </span>
+              </div>
+            ) : (
+              <p className="text-[11px] text-stone text-right w-full">
+                {c.shipping}
+              </p>
+            )}
+
+            {zoneData && (
+              <div className="flex items-center justify-between w-full border-t border-stone-light pt-3 mt-1">
+                <span className="text-[13px] font-semibold text-ink">
+                  {lang === 'pt' ? 'Total estimado' : 'Estimated total'}
+                </span>
+                <span className="text-[18px] font-semibold text-ink">
+                  {sym}{(total() * rate + (shippingTotal ?? 0)).toFixed(2)}
+                </span>
+              </div>
+            )}
+          </div>
 
           {error && (
             <p className="text-[12px] text-rose text-right">{error}</p>
@@ -172,17 +249,26 @@ export default function CartClient() {
           </label>
 
           {SHOP_OPEN ? (
-            <button
-              onClick={handleCheckout}
-              disabled={loading || !agreed}
-              className="w-full md:w-auto flex items-center justify-center gap-2 bg-teal text-white text-[11px] tracking-[0.2em] uppercase px-14 py-4 hover:bg-teal-dark transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {loading ? (
-                <><Loader2 size={14} className="animate-spin" /> {t.cart.checkout}…</>
-              ) : (
-                c.checkout
+            <>
+              {!country && (
+                <p className="text-[11px] text-amber-600 text-right w-full">
+                  {lang === 'pt'
+                    ? '↑ Seleciona o país de destino para continuar'
+                    : '↑ Select your destination country to continue'}
+                </p>
               )}
-            </button>
+              <button
+                onClick={handleCheckout}
+                disabled={loading || !canCheckout}
+                className="w-full md:w-auto flex items-center justify-center gap-2 bg-teal text-white text-[11px] tracking-[0.2em] uppercase px-14 py-4 hover:bg-teal-dark transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {loading ? (
+                  <><Loader2 size={14} className="animate-spin" /> {t.cart.checkout}…</>
+                ) : (
+                  c.checkout
+                )}
+              </button>
+            </>
           ) : (
             <div className="w-full md:w-auto text-center border border-stone-light px-14 py-4">
               <p className="text-[11px] tracking-[0.15em] uppercase text-stone">{t.product.shopSoon}</p>

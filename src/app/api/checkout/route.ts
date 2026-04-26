@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { FX } from '@/lib/fx'
+import { getZone, ZONES, ALL_ALLOWED_COUNTRIES } from '@/lib/shipping'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
@@ -17,15 +18,31 @@ type CartItem = {
 
 export async function POST(req: NextRequest) {
   try {
-    const { items, currency }: { items: CartItem[]; currency: string } = await req.json()
+    const {
+      items,
+      currency,
+      country,
+    }: { items: CartItem[]; currency: string; country: string } = await req.json()
 
     if (!items || items.length === 0) {
       return NextResponse.json({ error: 'Cart is empty' }, { status: 400 })
+    }
+    if (!country) {
+      return NextResponse.json({ error: 'Destination country is required' }, { status: 400 })
     }
 
     const cur = (currency || 'eur').toLowerCase()
     const rate = FX[cur] ?? 1
     const origin = req.headers.get('origin') || 'http://localhost:3000'
+
+    const zone = getZone(country)
+    const zoneData = ZONES[zone]
+    const n = items.length
+
+    // Human-friendly shipping label, e.g. "Portugal (2 × €6)"
+    const shippingLabel = n > 1
+      ? `${zoneData.label} (${n} × €${zoneData.eurPerPiece})`
+      : zoneData.label
 
     const line_items = items.map(({ product, personalisation }) => ({
       price_data: {
@@ -53,62 +70,31 @@ export async function POST(req: NextRequest) {
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/cart`,
       shipping_address_collection: {
-        allowed_countries: [
-          'PT', 'ES', 'FR', 'DE', 'IT', 'NL', 'BE', 'GB', 'IE', 'US',
-          'CA', 'AU', 'NZ', 'BR', 'JP', 'SG', 'CH', 'AT', 'SE', 'NO',
-          'DK', 'FI', 'PL', 'CZ', 'HU', 'RO', 'GR', 'HR', 'SK', 'SI',
-        ],
+        // Allow all countries in the selected zone so Stripe validates the address.
+        // The customer already told us their country — this just restricts the
+        // address entry to that zone's countries so they can't change region mid-flow.
+        allowed_countries: zoneData.countries as Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry[],
       },
-      // Shipping is per piece — each item is individually boxed as a complete gift.
-      // Multiply base rate by the number of items in the cart.
       shipping_options: [
         {
           shipping_rate_data: {
             type: 'fixed_amount',
-            fixed_amount: { amount: Math.round(6 * items.length * rate * 100), currency: cur },
-            display_name: items.length > 1 ? `Portugal (${items.length} × €6)` : 'Portugal',
-            delivery_estimate: {
-              minimum: { unit: 'business_day', value: 1 },
-              maximum: { unit: 'business_day', value: 3 },
+            fixed_amount: {
+              amount: Math.round(zoneData.eurPerPiece * n * rate * 100),
+              currency: cur,
             },
-          },
-        },
-        {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: { amount: Math.round(9 * items.length * rate * 100), currency: cur },
-            display_name: items.length > 1 ? `Spain (${items.length} × €9)` : 'Spain',
+            display_name: shippingLabel,
             delivery_estimate: {
-              minimum: { unit: 'business_day', value: 2 },
-              maximum: { unit: 'business_day', value: 5 },
-            },
-          },
-        },
-        {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: { amount: Math.round(14 * items.length * rate * 100), currency: cur },
-            display_name: items.length > 1 ? `Rest of Europe (${items.length} × €14)` : 'Rest of Europe',
-            delivery_estimate: {
-              minimum: { unit: 'business_day', value: 5 },
-              maximum: { unit: 'business_day', value: 7 },
-            },
-          },
-        },
-        {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: { amount: Math.round(21 * items.length * rate * 100), currency: cur },
-            display_name: items.length > 1 ? `Rest of World (${items.length} × €21)` : 'Rest of World',
-            delivery_estimate: {
-              minimum: { unit: 'business_day', value: 5 },
-              maximum: { unit: 'business_day', value: 9 },
+              minimum: { unit: 'business_day', value: zoneData.minDays },
+              maximum: { unit: 'business_day', value: zoneData.maxDays },
             },
           },
         },
       ],
       metadata: {
         product_ids: items.map(i => i.product.id).join(','),
+        shipping_country: country,
+        shipping_zone: zone,
         items: JSON.stringify(items.map(({ product }) => ({
           name: product.name,
           quantity: 1,
