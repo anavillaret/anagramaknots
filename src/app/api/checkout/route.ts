@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import Stripe from 'stripe'
+import Stripe from 'stripe' // keep for instantiation
 import { FX } from '@/lib/fx'
 import { getZone, ZONES } from '@/lib/shipping'
 
@@ -73,8 +73,7 @@ export async function POST(req: NextRequest) {
         // Allow all countries in the selected zone so Stripe validates the address.
         // The customer already told us their country — this just restricts the
         // address entry to that zone's countries so they can't change region mid-flow.
-        allowed_countries: zoneData.countries as Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry[],
-        // Restricted to the zone the customer selected — can't slip to a cheaper region mid-flow
+        allowed_countries: zoneData.countries,
       },
       shipping_options: [
         {
