@@ -59,12 +59,14 @@ export async function POST(req: NextRequest) {
           'DK', 'FI', 'PL', 'CZ', 'HU', 'RO', 'GR', 'HR', 'SK', 'SI',
         ],
       },
+      // Shipping is per piece — each item is individually boxed as a complete gift.
+      // Multiply base rate by the number of items in the cart.
       shipping_options: [
         {
           shipping_rate_data: {
             type: 'fixed_amount',
-            fixed_amount: { amount: Math.round(6 * rate * 100), currency: cur },
-            display_name: 'Portugal',
+            fixed_amount: { amount: Math.round(6 * items.length * rate * 100), currency: cur },
+            display_name: items.length > 1 ? `Portugal (${items.length} × €6)` : 'Portugal',
             delivery_estimate: {
               minimum: { unit: 'business_day', value: 1 },
               maximum: { unit: 'business_day', value: 3 },
@@ -74,8 +76,8 @@ export async function POST(req: NextRequest) {
         {
           shipping_rate_data: {
             type: 'fixed_amount',
-            fixed_amount: { amount: Math.round(9 * rate * 100), currency: cur },
-            display_name: 'Spain',
+            fixed_amount: { amount: Math.round(9 * items.length * rate * 100), currency: cur },
+            display_name: items.length > 1 ? `Spain (${items.length} × €9)` : 'Spain',
             delivery_estimate: {
               minimum: { unit: 'business_day', value: 2 },
               maximum: { unit: 'business_day', value: 5 },
@@ -85,8 +87,8 @@ export async function POST(req: NextRequest) {
         {
           shipping_rate_data: {
             type: 'fixed_amount',
-            fixed_amount: { amount: Math.round(14 * rate * 100), currency: cur },
-            display_name: 'Rest of Europe',
+            fixed_amount: { amount: Math.round(14 * items.length * rate * 100), currency: cur },
+            display_name: items.length > 1 ? `Rest of Europe (${items.length} × €14)` : 'Rest of Europe',
             delivery_estimate: {
               minimum: { unit: 'business_day', value: 5 },
               maximum: { unit: 'business_day', value: 7 },
@@ -96,8 +98,8 @@ export async function POST(req: NextRequest) {
         {
           shipping_rate_data: {
             type: 'fixed_amount',
-            fixed_amount: { amount: Math.round(21 * rate * 100), currency: cur },
-            display_name: 'Rest of World',
+            fixed_amount: { amount: Math.round(21 * items.length * rate * 100), currency: cur },
+            display_name: items.length > 1 ? `Rest of World (${items.length} × €21)` : 'Rest of World',
             delivery_estimate: {
               minimum: { unit: 'business_day', value: 5 },
               maximum: { unit: 'business_day', value: 9 },
