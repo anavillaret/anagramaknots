@@ -83,10 +83,10 @@ function PhotoCarousel({
                   resetTimer()
                 }
               }}
-              className={`relative overflow-hidden shrink-0 transition-all duration-500 ${
+              className={`relative overflow-hidden rounded-xl shrink-0 transition-all duration-500 ${
                 isCenter
-                  ? 'w-[600px] aspect-[4/3] cursor-zoom-in opacity-100 scale-100'
-                  : 'w-[360px] aspect-[4/3] cursor-pointer opacity-50 scale-95 hover:opacity-70'
+                  ? 'w-[600px] aspect-[4/3] cursor-zoom-in opacity-100 scale-100 shadow-xl'
+                  : 'w-[360px] aspect-[4/3] cursor-pointer opacity-50 scale-95 hover:opacity-70 shadow-md'
               }`}
             >
               <Image
