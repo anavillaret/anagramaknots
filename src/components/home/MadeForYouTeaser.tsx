@@ -1,12 +1,29 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
+import { mergeContent } from '@/lib/mergeContent'
 
 export default function MadeForYouTeaser() {
-  const { t } = useLang()
-  const c = t.home.commission
+  const { t, lang } = useLang()
+  const [c, setC] = useState(t.home.commission)
+
+  useEffect(() => {
+    fetch('/api/admin/content/page_home')
+      .then(r => r.json())
+      .then(d => {
+        const langContent = d.content?.[lang] as Record<string, unknown> | undefined
+        const homeContent = langContent?.home as Record<string, unknown> | undefined
+        if (homeContent?.commission && typeof homeContent.commission === 'object') {
+          setC(mergeContent(t.home.commission, homeContent.commission as Record<string, unknown>))
+        } else {
+          setC(t.home.commission)
+        }
+      })
+      .catch(() => setC(t.home.commission))
+  }, [lang, t.home.commission])
 
   return (
     <section className="bg-ink py-24">

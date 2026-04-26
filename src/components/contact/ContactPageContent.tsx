@@ -1,12 +1,28 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import ContactForm from '@/components/contact/ContactForm'
 import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
+import { mergeContent } from '@/lib/mergeContent'
 
 export default function ContactPageContent() {
-  const { t } = useLang()
-  const c = t.contact
+  const { t, lang } = useLang()
+  const [c, setC] = useState(t.contact)
+
+  useEffect(() => {
+    fetch('/api/admin/content/page_contact')
+      .then(r => r.json())
+      .then(d => {
+        const langContent = d.content?.[lang] as Record<string, unknown> | undefined
+        if (langContent?.contact && typeof langContent.contact === 'object') {
+          setC(mergeContent(t.contact, langContent.contact as Record<string, unknown>))
+        } else {
+          setC(t.contact)
+        }
+      })
+      .catch(() => setC(t.contact))
+  }, [lang, t.contact])
 
   return (
     <main className="pt-32 pb-24">

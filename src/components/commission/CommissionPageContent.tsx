@@ -2,11 +2,13 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import { Mail, MessageCircle, CreditCard, Wand2 } from 'lucide-react'
 import CommissionForm from './CommissionForm'
 import BrandSymbol from '@/components/ui/BrandSymbol'
 import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
+import { mergeContent } from '@/lib/mergeContent'
 import type { Product } from '@/lib/products'
 
 // One icon per step — themed around craft, nature and making
@@ -19,7 +21,21 @@ const STEP_ICONS = [
 
 export default function CommissionPageContent({ availableProducts }: { availableProducts: Product[] }) {
   const { t, lang } = useLang()
-  const c = t.commission
+  const [c, setC] = useState(t.commission)
+
+  useEffect(() => {
+    fetch('/api/admin/content/page_commission')
+      .then(r => r.json())
+      .then(d => {
+        const langContent = d.content?.[lang] as Record<string, unknown> | undefined
+        if (langContent?.commission && typeof langContent.commission === 'object') {
+          setC(mergeContent(t.commission, langContent.commission as Record<string, unknown>))
+        } else {
+          setC(t.commission)
+        }
+      })
+      .catch(() => setC(t.commission))
+  }, [lang, t.commission])
 
   return (
     <main className="pt-32 pb-24">

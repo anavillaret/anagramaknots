@@ -2,16 +2,33 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import ProductCard from '@/components/ui/ProductCard'
 import Watermark from '@/components/ui/Watermark'
 import BrandSymbol from '@/components/ui/BrandSymbol'
 import Eyebrow from '@/components/ui/Eyebrow'
 import { Product } from '@/lib/products'
 import { useLang } from '@/lib/i18n/context'
+import { mergeContent } from '@/lib/mergeContent'
 
 export default function ProductMosaic({ products }: { products: Product[] }) {
   const { t, lang } = useLang()
-  const m = t.home.mosaic
+  const [m, setM] = useState(t.home.mosaic)
+
+  useEffect(() => {
+    fetch('/api/admin/content/page_home')
+      .then(r => r.json())
+      .then(d => {
+        const langContent = d.content?.[lang] as Record<string, unknown> | undefined
+        const homeContent = langContent?.home as Record<string, unknown> | undefined
+        if (homeContent?.mosaic && typeof homeContent.mosaic === 'object') {
+          setM(mergeContent(t.home.mosaic, homeContent.mosaic as Record<string, unknown>))
+        } else {
+          setM(t.home.mosaic)
+        }
+      })
+      .catch(() => setM(t.home.mosaic))
+  }, [lang, t.home.mosaic])
 
   // Available pieces first, then commission/on-request, then sold — so homepage shows what can be bought
   const sorted = [...products].sort((a, b) => {

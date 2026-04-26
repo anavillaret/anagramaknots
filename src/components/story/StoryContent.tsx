@@ -7,6 +7,7 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import Watermark from '@/components/ui/Watermark'
 import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
+import { mergeContent } from '@/lib/mergeContent'
 import EventsSection from '@/components/story/EventsSection'
 
 const PHOTOS = [
@@ -124,9 +125,23 @@ function PhotoCarousel({
 }
 
 export default function StoryContent() {
-  const { t } = useLang()
-  const s = t.story
+  const { t, lang } = useLang()
+  const [s, setS] = useState(t.story)
   const [lightbox, setLightbox] = useState<Lightbox>(null)
+
+  useEffect(() => {
+    fetch('/api/admin/content/page_story')
+      .then(r => r.json())
+      .then(d => {
+        const langContent = d.content?.[lang] as Record<string, unknown> | undefined
+        if (langContent?.story && typeof langContent.story === 'object') {
+          setS(mergeContent(t.story, langContent.story as Record<string, unknown>))
+        } else {
+          setS(t.story)
+        }
+      })
+      .catch(() => setS(t.story))
+  }, [lang, t.story])
 
   const prev = useCallback(() => {
     if (!lightbox) return

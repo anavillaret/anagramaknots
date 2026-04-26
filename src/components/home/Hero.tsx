@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import Watermark from '@/components/ui/Watermark'
 import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
+import { mergeContent } from '@/lib/mergeContent'
 import type { Product } from '@/lib/products'
 
 const INTERVAL = 6000
@@ -30,9 +31,24 @@ function ptArticle(name: string): string {
 
 export default function Hero({ heroProducts }: { heroProducts?: Product[] }) {
   const { t, lang } = useLang()
+  const [heroText, setHeroText] = useState(t.hero)
 
-  // Headings stay curated (from translations). Label, description and CTA come from the product.
-  const slides: Slide[] = t.hero.slides.map((text, i) => {
+  useEffect(() => {
+    fetch('/api/admin/content/page_home')
+      .then(r => r.json())
+      .then(d => {
+        const langContent = d.content?.[lang] as Record<string, unknown> | undefined
+        if (langContent?.hero && typeof langContent.hero === 'object') {
+          setHeroText(mergeContent(t.hero, langContent.hero as Record<string, unknown>))
+        } else {
+          setHeroText(t.hero)
+        }
+      })
+      .catch(() => setHeroText(t.hero))
+  }, [lang, t.hero])
+
+  // Headings stay curated (from translations/DB). Label, description and CTA come from the product.
+  const slides: Slide[] = heroText.slides.map((text, i) => {
     const product = heroProducts?.[i]
     const fact = lang === 'pt' && product?.factPt ? product.factPt : product?.fact
     const displayName = product ? (lang === 'pt' && product.namePt ? product.namePt : product.name) : null

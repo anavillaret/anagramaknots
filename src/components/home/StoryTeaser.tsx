@@ -7,6 +7,7 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import Watermark from '@/components/ui/Watermark'
 import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
+import { mergeContent } from '@/lib/mergeContent'
 
 const PHOTOS = [
   { src: 'https://mkfaebmekhaqwrlcvtte.supabase.co/storage/v1/object/public/products/1776190677242-img_8751.jpg', alt: 'Crochet heart' },
@@ -17,9 +18,24 @@ const PHOTOS = [
 type Lightbox = { index: number } | null
 
 export default function StoryTeaser() {
-  const { t } = useLang()
-  const s = t.home.story
+  const { t, lang } = useLang()
+  const [s, setS] = useState(t.home.story)
   const [lightbox, setLightbox] = useState<Lightbox>(null)
+
+  useEffect(() => {
+    fetch('/api/admin/content/page_home')
+      .then(r => r.json())
+      .then(d => {
+        const langContent = d.content?.[lang] as Record<string, unknown> | undefined
+        const homeContent = langContent?.home as Record<string, unknown> | undefined
+        if (homeContent?.story && typeof homeContent.story === 'object') {
+          setS(mergeContent(t.home.story, homeContent.story as Record<string, unknown>))
+        } else {
+          setS(t.home.story)
+        }
+      })
+      .catch(() => setS(t.home.story))
+  }, [lang, t.home.story])
 
   const prev = useCallback(() => {
     if (!lightbox) return

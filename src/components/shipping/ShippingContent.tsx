@@ -1,12 +1,29 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
+import { mergeContent } from '@/lib/mergeContent'
 
 export default function ShippingContent() {
-  const { t } = useLang()
-  const s = t.shipping
+  const { t, lang } = useLang()
+  const [s, setS] = useState(t.shipping)
+
+  useEffect(() => {
+    fetch('/api/admin/content/page_shipping')
+      .then(r => r.json())
+      .then(d => {
+        const langContent = d.content?.[lang] as Record<string, unknown> | undefined
+        if (langContent?.shipping && typeof langContent.shipping === 'object') {
+          const merged = mergeContent(t.shipping, langContent.shipping as Record<string, unknown>)
+          setS(merged)
+        } else {
+          setS(t.shipping)
+        }
+      })
+      .catch(() => setS(t.shipping))
+  }, [lang, t.shipping])
 
   return (
     <main className="pt-32 pb-24">

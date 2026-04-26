@@ -22,6 +22,13 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
               <a href="/admin/events" className="text-[12px] text-stone hover:text-ink transition-colors">Events</a>
               <a href="/admin/hero" className="text-[12px] text-stone hover:text-ink transition-colors">Hero</a>
               <a href="/admin/partners" className="text-[12px] text-stone hover:text-ink transition-colors">Partners</a>
+              <span className="text-gray-300 select-none">|</span>
+              <span className="text-[10px] text-stone/50 uppercase tracking-[0.1em]">Content</span>
+              <a href="/admin/content/home" className="text-[12px] text-teal/70 hover:text-teal transition-colors">Home</a>
+              <a href="/admin/content/story" className="text-[12px] text-teal/70 hover:text-teal transition-colors">Story</a>
+              <a href="/admin/content/shipping" className="text-[12px] text-teal/70 hover:text-teal transition-colors">Shipping</a>
+              <a href="/admin/content/commission" className="text-[12px] text-teal/70 hover:text-teal transition-colors">Commission</a>
+              <a href="/admin/content/contact" className="text-[12px] text-teal/70 hover:text-teal transition-colors">Contact</a>
             </nav>
           </div>
           <div className="flex items-center gap-4">
