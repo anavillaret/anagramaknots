@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import AdminShell from '@/components/admin/AdminShell'
 import ContentField from '@/components/admin/ContentField'
 import ContentSection from '@/components/admin/ContentSection'
 import { translations } from '@/lib/i18n/translations'
@@ -111,7 +110,7 @@ function payloadToState(raw: Record<string, unknown>, defaults: ContactState): C
   }
 }
 
-export default function AdminContentContact() {
+export default function AdminContactPage() {
   const [en, setEn] = useState<ContactState>(defaultState(DEF_EN))
   const [pt, setPt] = useState<ContactState>(defaultState(DEF_PT))
   const [loading, setLoading] = useState(true)
@@ -149,13 +148,13 @@ export default function AdminContentContact() {
     setTimeout(() => setSaved(false), 2500)
   }
 
-  if (loading) return <AdminShell><p className="text-[13px] text-stone">Loading…</p></AdminShell>
+  if (loading) return <p className="text-[13px] text-stone">Loading…</p>
 
   return (
-    <AdminShell>
+    <div>
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-ink">Contact Page Content</h1>
+          <h1 className="text-2xl font-semibold text-ink">Contact</h1>
           <p className="text-[13px] text-stone mt-1">
             Edit all text on the contact page including form labels and messages.{' '}
             <a href="/contact" target="_blank" className="text-teal hover:underline">View page →</a>
@@ -204,6 +203,6 @@ export default function AdminContentContact() {
         </ContentSection>
 
       </div>
-    </AdminShell>
+    </div>
   )
 }

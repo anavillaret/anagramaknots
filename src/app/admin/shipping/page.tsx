@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import AdminShell from '@/components/admin/AdminShell'
 import ContentField from '@/components/admin/ContentField'
 import ContentSection from '@/components/admin/ContentSection'
 import { translations } from '@/lib/i18n/translations'
@@ -100,7 +99,7 @@ function payloadToState(raw: Record<string, unknown>, defaults: ShippingState): 
   }
 }
 
-export default function AdminContentShipping() {
+export default function AdminShippingPage() {
   const [en, setEn] = useState<ShippingState>(defaultState(DEF_EN))
   const [pt, setPt] = useState<ShippingState>(defaultState(DEF_PT))
   const [loading, setLoading] = useState(true)
@@ -172,13 +171,13 @@ export default function AdminContentShipping() {
     setTimeout(() => setSaved(false), 2500)
   }
 
-  if (loading) return <AdminShell><p className="text-[13px] text-stone">Loading…</p></AdminShell>
+  if (loading) return <p className="text-[13px] text-stone">Loading…</p>
 
   return (
-    <AdminShell>
+    <div>
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-ink">Shipping Page Content</h1>
+          <h1 className="text-2xl font-semibold text-ink">Shipping</h1>
           <p className="text-[13px] text-stone mt-1">
             Edit all shipping information, delivery times and FAQs.{' '}
             <a href="/shipping" target="_blank" className="text-teal hover:underline">View page →</a>
@@ -254,12 +253,8 @@ export default function AdminContentShipping() {
             <div key={i} className="border border-gray-100 rounded-sm p-4 flex flex-col gap-3 relative">
               <div className="flex items-center justify-between mb-1">
                 <p className="text-[11px] text-stone uppercase tracking-[0.08em]">FAQ {i + 1}</p>
-                <button
-                  type="button"
-                  onClick={() => removeFaq(i)}
-                  className="text-stone hover:text-red-500 transition-colors"
-                  title="Remove this FAQ"
-                >
+                <button type="button" onClick={() => removeFaq(i)}
+                  className="text-stone hover:text-red-500 transition-colors" title="Remove this FAQ">
                   <Trash2 size={14} />
                 </button>
               </div>
@@ -280,11 +275,8 @@ export default function AdminContentShipping() {
               />
             </div>
           ))}
-          <button
-            type="button"
-            onClick={addFaq}
-            className="flex items-center gap-2 text-[12px] text-teal hover:text-teal-dark transition-colors border border-dashed border-teal/40 px-4 py-2.5 hover:border-teal"
-          >
+          <button type="button" onClick={addFaq}
+            className="flex items-center gap-2 text-[12px] text-teal hover:text-teal-dark transition-colors border border-dashed border-teal/40 px-4 py-2.5 hover:border-teal">
             <Plus size={14} />
             Add FAQ
           </button>
@@ -296,6 +288,6 @@ export default function AdminContentShipping() {
         </ContentSection>
 
       </div>
-    </AdminShell>
+    </div>
   )
 }
