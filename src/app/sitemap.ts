@@ -16,7 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const productUrls = products.map(product => ({
     url: `${BASE_URL}/products/${product.slug}`,
     // Use the real DB timestamp so Google knows exactly when each product changed.
-    lastModified: new Date(product.updated_at),
+    lastModified: product.updatedAt ? new Date(product.updatedAt) : LAUNCH_DATE,
     changeFrequency: 'weekly' as const,
     priority: 0.8,
   }))
