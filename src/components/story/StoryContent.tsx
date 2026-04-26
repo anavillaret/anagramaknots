@@ -153,7 +153,7 @@ export default function StoryContent() {
         if (Array.isArray(d.photos) && d.photos.length === 7) {
           // Merge: use DB value when src is set, otherwise keep default
           setPhotos(d.photos.map((p: Photo, i: number) =>
-            p.src ? p : DEFAULT_photos[i]
+            p.src ? p : DEFAULT_PHOTOS[i]
           ))
         }
       })
