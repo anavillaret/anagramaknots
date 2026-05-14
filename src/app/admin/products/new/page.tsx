@@ -45,9 +45,11 @@ export default function NewProduct() {
     name: '', name_pt: '', slug: '', species: '',
     fact: '', fact_pt: '', price: '', image: '',
     available_on_request: false, badge: '',
-    details: '', details_pt: '',
+    details: '100% cotton, hypoallergenic fiber stuffing and eyes locked for safety.',
+    details_pt: '100% algodão, enchimento hipoalergénico e olhos fixos para segurança.',
     size: '', size_pt: '',
-    care_tips: '', care_tips_pt: '',
+    care_tips: 'Hand wash with care and let air dry.',
+    care_tips_pt: 'Lavar à mão com cuidado e deixar secar ao ar.',
     images: [],
   })
 
