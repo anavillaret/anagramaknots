@@ -55,6 +55,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const isSold = product.badge === 'soldout'
   const isOnRequest = product.availableOnRequest === true
 
+  // priceValidUntil: 1 year from build time — required by Google Merchant listings
+  const priceValidUntil = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
+    .toISOString()
+    .split('T')[0]
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -72,8 +77,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     ...(product.category === 'amigurumis' && { category: 'Toys & Games > Stuffed Animals & Plush Toys' }),
     offers: {
       '@type': 'Offer',
+      url: `https://anagramaknots.com/products/${product.slug}`,
       priceCurrency: 'EUR',
-      price: isSold || isOnRequest ? undefined : product.price,
+      price: product.price,
+      priceValidUntil,
       availability: isSold
         ? 'https://schema.org/SoldOut'
         : isOnRequest
