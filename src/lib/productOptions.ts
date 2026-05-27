@@ -5,6 +5,7 @@ export const ECOSYSTEMS = [
   { value: 'savanna',   label: '🌾 Savana' },
   { value: 'grassland', label: '🌿 Campo / Pradaria' },
   { value: 'river',     label: '🏞️ Rio / Água doce' },
+  { value: 'farm',      label: '🐄 Quinta / Farm' },
   { value: 'domestic',  label: '🏡 Doméstico' },
 ]
 
