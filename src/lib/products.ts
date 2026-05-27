@@ -21,6 +21,8 @@ export type Product = {
   careTipsPt?: string
   availableOnRequest?: boolean  // true = commission only, no stock
   images?: string[]
+  ecosystem?: string   // e.g. 'forest' | 'ocean' | 'arctic' | 'savanna' | 'grassland' | 'river' | 'domestic'
+  animalGroup?: string // e.g. 'mammal' | 'bird' | 'reptile' | 'insect' | 'invertebrate'
   updatedAt?: string
 }
 
@@ -47,6 +49,8 @@ export function dbProductToProduct(row: DbProduct): Product {
     careTipsPt: row.care_tips_pt || undefined,
     availableOnRequest: row.available_on_request ?? false,
     images: row.images ?? [],
+    ecosystem: row.ecosystem ?? undefined,
+    animalGroup: row.animal_group ?? undefined,
     updatedAt: row.updated_at,
   }
 }

@@ -5,6 +5,7 @@ import { useRouter, useParams } from 'next/navigation'
 import type { DbProduct } from '@/lib/supabase'
 import ImageUpload from '@/components/admin/ImageUpload'
 import MultiImageUpload from '@/components/admin/MultiImageUpload'
+import { ECOSYSTEMS, ANIMAL_GROUPS } from '@/app/admin/products/new/page'
 
 const REQUIRED: { key: keyof DbProduct; label: string }[] = [
   { key: 'image',        label: 'Photo' },
@@ -79,6 +80,8 @@ export default function EditProduct() {
         care_tips: form.care_tips,
         care_tips_pt: form.care_tips_pt ?? '',
         images: form.images ?? [],
+        ecosystem: form.ecosystem ?? null,
+        animal_group: form.animal_group ?? null,
         active,
       }),
     })
@@ -156,6 +159,26 @@ export default function EditProduct() {
             <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Price (€)</label>
             <input type="number" required value={form.price ?? ''} onChange={e => set('price', parseFloat(e.target.value) || 0)}
               className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors" />
+          </div>
+        </div>
+
+        {/* Ecosystem + Animal Group */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Ecossistema</label>
+            <select value={form.ecosystem ?? ''} onChange={e => set('ecosystem', e.target.value || null)}
+              className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors bg-white">
+              <option value="">— Selecionar —</option>
+              {ECOSYSTEMS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Família animal</label>
+            <select value={form.animal_group ?? ''} onChange={e => set('animal_group', e.target.value || null)}
+              className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors bg-white">
+              <option value="">— Selecionar —</option>
+              {ANIMAL_GROUPS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
           </div>
         </div>
 

@@ -34,6 +34,8 @@ export type DbProduct = {
   active: boolean
   sort_order: number
   images: string[]
+  ecosystem: string | null
+  animal_group: string | null
   created_at: string
   updated_at: string
 }

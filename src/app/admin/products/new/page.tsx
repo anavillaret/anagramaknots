@@ -5,6 +5,24 @@ import { useRouter } from 'next/navigation'
 import ImageUpload from '@/components/admin/ImageUpload'
 import MultiImageUpload from '@/components/admin/MultiImageUpload'
 
+export const ECOSYSTEMS = [
+  { value: 'forest',    label: '🌳 Floresta' },
+  { value: 'ocean',     label: '🌊 Oceano' },
+  { value: 'arctic',    label: '❄️ Ártico / Neve' },
+  { value: 'savanna',   label: '🌾 Savana' },
+  { value: 'grassland', label: '🌿 Campo / Pradaria' },
+  { value: 'river',     label: '🏞️ Rio / Água doce' },
+  { value: 'domestic',  label: '🏡 Doméstico' },
+]
+
+export const ANIMAL_GROUPS = [
+  { value: 'mammal',       label: '🦊 Mamífero' },
+  { value: 'bird',         label: '🦜 Ave' },
+  { value: 'reptile',      label: '🦎 Réptil' },
+  { value: 'insect',       label: '🐝 Inseto' },
+  { value: 'invertebrate', label: '🐌 Invertebrado' },
+]
+
 type FormState = {
   name: string; name_pt: string; slug: string; species: string
   fact: string; fact_pt: string; price: string; image: string
@@ -13,6 +31,7 @@ type FormState = {
   size: string; size_pt: string
   care_tips: string; care_tips_pt: string
   images: string[]
+  ecosystem: string; animal_group: string
 }
 
 const REQUIRED: { key: keyof FormState; label: string }[] = [
@@ -51,6 +70,7 @@ export default function NewProduct() {
     care_tips: 'Hand wash with care and let air dry.',
     care_tips_pt: 'Lavar à mão com cuidado e deixar secar ao ar.',
     images: [],
+    ecosystem: '', animal_group: '',
   })
 
   function set(field: string, value: string | boolean) {
@@ -93,6 +113,8 @@ export default function NewProduct() {
         care_tips: form.care_tips,
         care_tips_pt: form.care_tips_pt || '',
         images: form.images,
+        ecosystem: form.ecosystem || null,
+        animal_group: form.animal_group || null,
         active: false, // always draft — publish from products list
       }),
     })
@@ -148,6 +170,26 @@ export default function NewProduct() {
             />
           </div>
         ))}
+
+        {/* Ecosystem + Animal Group */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Ecossistema</label>
+            <select value={form.ecosystem} onChange={e => set('ecosystem', e.target.value)}
+              className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors bg-white">
+              <option value="">— Selecionar —</option>
+              {ECOSYSTEMS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Família animal</label>
+            <select value={form.animal_group} onChange={e => set('animal_group', e.target.value)}
+              className="w-full border border-gray-200 px-4 py-2.5 text-[13px] text-ink outline-none focus:border-teal transition-colors bg-white">
+              <option value="">— Selecionar —</option>
+              {ANIMAL_GROUPS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
+          </div>
+        </div>
 
         <div>
           <label className="block text-[11px] tracking-[0.15em] uppercase text-stone mb-2">Fact / Story <span className="text-stone/50 normal-case">(EN)</span></label>
