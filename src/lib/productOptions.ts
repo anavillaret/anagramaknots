@@ -12,6 +12,7 @@ export const ANIMAL_GROUPS = [
   { value: 'mammal',       label: '🦊 Mamífero' },
   { value: 'bird',         label: '🦜 Ave' },
   { value: 'reptile',      label: '🦎 Réptil' },
+  { value: 'fish',         label: '🐟 Peixe' },
   { value: 'insect',       label: '🐝 Inseto' },
   { value: 'invertebrate', label: '🐌 Invertebrado' },
 ]
