@@ -5,7 +5,7 @@ import { useRouter, useParams } from 'next/navigation'
 import type { DbProduct } from '@/lib/supabase'
 import ImageUpload from '@/components/admin/ImageUpload'
 import MultiImageUpload from '@/components/admin/MultiImageUpload'
-import { ECOSYSTEMS, ANIMAL_GROUPS } from '@/app/admin/products/new/page'
+import { ECOSYSTEMS, ANIMAL_GROUPS } from '@/lib/productOptions'
 
 const REQUIRED: { key: keyof DbProduct; label: string }[] = [
   { key: 'image',        label: 'Photo' },
