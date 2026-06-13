@@ -4,7 +4,7 @@ import { getProducts } from '@/lib/products'
 // Force dynamic so the sitemap always includes the latest products.
 export const dynamic = 'force-dynamic'
 
-const BASE_URL = 'https://anagramaknots.com'
+const BASE_URL = 'https://www.anagramaknots.com'
 
 // Site launch date — used as lastModified for static pages that rarely change.
 // Update this if a page gets a significant content overhaul.
