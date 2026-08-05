@@ -93,7 +93,7 @@ export const translations = {
       message: 'The shop is coming soon — browse freely and',
       link: 'commission a piece',
       suffix: 'Purchases will open shortly.',
-      freeShipping: '✦ Free shipping on all orders until June 8th — celebrate World Oceans Day with us',
+      freeShipping: '✦ Free shipping on all orders until the end of August',
     },
     product: {
       addToCart: 'Add to Cart',
@@ -386,7 +386,7 @@ export const translations = {
       message: 'A loja abre em breve — explora à vontade e',
       link: 'faz uma encomenda',
       suffix: 'As compras abrem em breve.',
-      freeShipping: '✦ Envio grátis em todas as encomendas até 8 de junho — celebra o Dia Mundial dos Oceanos connosco',
+      freeShipping: '✦ Envio grátis em todas as encomendas até ao fim de agosto',
     },
     product: {
       addToCart: 'Adicionar ao Carrinho',
