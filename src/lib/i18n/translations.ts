@@ -20,6 +20,9 @@ export const translations = {
       accept: 'Accept',
       decline: 'Decline',
     },
+    banner: {
+      freeShipping: '✦ Free shipping on all orders until June 8th — celebrate World Oceans Day with us',
+    },
     hero: {
       slides: [
         {
@@ -311,6 +314,9 @@ export const translations = {
       message: 'Utilizamos cookies essenciais para o funcionamento do site e cookies do Stripe para pagamentos seguros.',
       accept: 'Aceitar',
       decline: 'Recusar',
+    },
+    banner: {
+      freeShipping: '✦ Envio grátis em todas as encomendas até 8 de junho — celebra o Dia Mundial dos Oceanos connosco',
     },
     hero: {
       slides: [

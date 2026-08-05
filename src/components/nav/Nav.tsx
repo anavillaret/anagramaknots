@@ -8,6 +8,7 @@ import SearchOverlay from '@/components/search/SearchOverlay'
 import CartIcon from '@/components/nav/CartIcon'
 import LangToggle from '@/components/nav/LangToggle'
 import { useLang } from '@/lib/i18n/context'
+import ShippingBanner from '@/components/ui/ShippingBanner'
 
 export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -24,6 +25,7 @@ export default function Nav() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50">
+        <ShippingBanner />
 <div className="bg-white/95 backdrop-blur-sm border-b border-stone-light">
           <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 

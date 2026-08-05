@@ -39,10 +39,16 @@ export async function POST(req: NextRequest) {
     const zoneData = ZONES[zone]
     const n = items.length
 
-    // Human-friendly shipping label, e.g. "Portugal (2 × €6)"
-    const shippingLabel = n > 1
-      ? `${zoneData.label} (${n} × €${zoneData.eurPerPiece})`
-      : zoneData.label
+    const freeShippingUntil = process.env.NEXT_PUBLIC_FREE_SHIPPING_UNTIL
+    const freeShipping = freeShippingUntil
+      ? new Date() <= new Date(freeShippingUntil + 'T23:59:59Z')
+      : false
+
+    const shippingLabel = freeShipping
+      ? `${zoneData.label} — Free Shipping 🌊`
+      : n > 1
+        ? `${zoneData.label} (${n} × €${zoneData.eurPerPiece})`
+        : zoneData.label
 
     const line_items = items.map(({ product, personalisation }) => ({
       price_data: {
@@ -91,7 +97,7 @@ export async function POST(req: NextRequest) {
           shipping_rate_data: {
             type: 'fixed_amount',
             fixed_amount: {
-              amount: Math.round(zoneData.eurPerPiece * n * rate * 100),
+              amount: freeShipping ? 0 : Math.round(zoneData.eurPerPiece * n * rate * 100),
               currency: cur,
             },
             display_name: shippingLabel,
