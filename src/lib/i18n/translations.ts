@@ -20,9 +20,6 @@ export const translations = {
       accept: 'Accept',
       decline: 'Decline',
     },
-    banner: {
-      freeShipping: '✦ Free shipping on all orders until June 8th — celebrate World Oceans Day with us',
-    },
     hero: {
       slides: [
         {
@@ -96,6 +93,7 @@ export const translations = {
       message: 'The shop is coming soon — browse freely and',
       link: 'commission a piece',
       suffix: 'Purchases will open shortly.',
+      freeShipping: '✦ Free shipping on all orders until June 8th — celebrate World Oceans Day with us',
     },
     product: {
       addToCart: 'Add to Cart',
@@ -315,9 +313,6 @@ export const translations = {
       accept: 'Aceitar',
       decline: 'Recusar',
     },
-    banner: {
-      freeShipping: '✦ Envio grátis em todas as encomendas até 8 de junho — celebra o Dia Mundial dos Oceanos connosco',
-    },
     hero: {
       slides: [
         {
@@ -391,6 +386,7 @@ export const translations = {
       message: 'A loja abre em breve — explora à vontade e',
       link: 'faz uma encomenda',
       suffix: 'As compras abrem em breve.',
+      freeShipping: '✦ Envio grátis em todas as encomendas até 8 de junho — celebra o Dia Mundial dos Oceanos connosco',
     },
     product: {
       addToCart: 'Adicionar ao Carrinho',
