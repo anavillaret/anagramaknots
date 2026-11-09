@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getProducts } from '@/lib/products'
 import ProductDetail from '@/components/products/ProductDetail'
+import { SITE_URL } from '@/lib/siteConfig'
 
 export const dynamic = 'force-dynamic'
 
@@ -83,13 +84,13 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     brand: {
       '@type': 'Brand',
       name: 'Anagrama',
-      url: 'https://anagramaknots.com',
+      url: SITE_URL,
     },
-    url: `https://anagramaknots.com/products/${product.slug}`,
+    url: `${SITE_URL}/products/${product.slug}`,
     ...(product.category === 'amigurumis' && { category: 'Toys & Games > Stuffed Animals & Plush Toys' }),
     offers: {
       '@type': 'Offer',
-      url: `https://anagramaknots.com/products/${product.slug}`,
+      url: `${SITE_URL}/products/${product.slug}`,
       priceCurrency: 'EUR',
       price: product.price,
       priceValidUntil,

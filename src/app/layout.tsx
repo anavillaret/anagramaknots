@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { LanguageProvider } from '@/lib/i18n/context'
+import { SITE_URL } from '@/lib/siteConfig'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -9,10 +10,8 @@ const inter = Inter({
   display: 'swap',
 })
 
-const BASE_URL = 'https://anagramaknots.com'
-
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Anagrama — Art in Knots',
     template: '%s — Anagrama',
@@ -42,12 +41,12 @@ export const metadata: Metadata = {
     // Brand
     'Anagrama', 'Anagrama Art in Knots', 'anagramaknots',
   ],
-  authors: [{ name: 'Ana', url: BASE_URL }],
+  authors: [{ name: 'Ana', url: SITE_URL }],
   creator: 'Anagrama',
   openGraph: {
     type: 'website',
     locale: 'en_GB',
-    url: BASE_URL,
+    url: SITE_URL,
     siteName: 'Anagrama',
     title: 'Anagrama — Art in Knots',
     description:
@@ -87,8 +86,8 @@ const organizationJsonLd = {
   '@type': 'Organization',
   name: 'Anagrama',
   alternateName: 'Anagrama Art in Knots',
-  url: BASE_URL,
-  logo: `${BASE_URL}/logo.png`,
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
   description:
     'Handcrafted crochet amigurumis and accessories from Portugal. Each piece is one of a kind, named after a real animal, carrying its story.',
   foundingLocation: {
