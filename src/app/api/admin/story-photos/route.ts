@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
+import { requireAdminSession } from '@/lib/requireAdminSession'
 
 export type StoryPhoto = { src: string; alt: string }
 
 const KEY = 'story_photos'
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   try {
     const db = supabaseAdmin()
     const { data } = await db
@@ -22,6 +26,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   try {
     const { photos } = await req.json()
 

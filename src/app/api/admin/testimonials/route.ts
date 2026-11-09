@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
+import { requireAdminSession } from '@/lib/requireAdminSession'
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   const db = supabaseAdmin()
   const { data, error } = await db
     .from('testimonials')
@@ -13,6 +17,9 @@ export async function GET() {
 }
 
 export async function PATCH(req: NextRequest) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   const { id, status } = await req.json()
 
   if (!id || !['approved', 'rejected', 'pending'].includes(status)) {
@@ -30,6 +37,9 @@ export async function PATCH(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   const { id } = await req.json()
   if (!id) return NextResponse.json({ error: 'Missing id' }, { status: 400 })
 

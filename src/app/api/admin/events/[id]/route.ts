@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { requireAdminSession } from '@/lib/requireAdminSession'
 
 function supabaseAdmin() {
   return createClient(
@@ -10,6 +11,9 @@ function supabaseAdmin() {
 }
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   try {
     const { id } = await params
     const body = await req.json()
@@ -38,7 +42,10 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   }
 }
 
-export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   try {
     const { id } = await params
     const db = supabaseAdmin()

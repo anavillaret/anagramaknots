@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
+import { requireAdminSession } from '@/lib/requireAdminSession'
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   const db = supabaseAdmin()
   const { data, error } = await db.from('partners').select('*').order('sort_order').order('created_at')
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
@@ -9,6 +13,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   const body = await req.json()
   const db = supabaseAdmin()
   const { data, error } = await db.from('partners').insert(body).select().single()

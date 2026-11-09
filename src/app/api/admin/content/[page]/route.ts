@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
+import { requireAdminSession } from '@/lib/requireAdminSession'
 import type { PageKey } from '@/lib/pageContent'
 
 const VALID_PAGES: PageKey[] = [
@@ -11,9 +12,12 @@ const VALID_PAGES: PageKey[] = [
 ]
 
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ page: string }> },
 ) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   const { page } = await params
   const key = page as PageKey
 
@@ -42,6 +46,9 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ page: string }> },
 ) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   const { page } = await params
   const key = page as PageKey
 

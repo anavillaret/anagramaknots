@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
+import { requireAdminSession } from '@/lib/requireAdminSession'
 
 export async function POST(req: NextRequest) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   try {
     const { slugs } = await req.json()
     if (!Array.isArray(slugs) || slugs.length !== 3) {

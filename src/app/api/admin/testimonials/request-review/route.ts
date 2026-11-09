@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { requireAdminSession } from '@/lib/requireAdminSession'
 import { brandedEmail, divider } from '@/lib/emailTemplate'
 
 const TEAL = '#0F7A75'
 
 export async function POST(req: NextRequest) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   const { customer_email, customer_name, product_name, product_id } = await req.json()
 
   if (!customer_email || !product_name) {

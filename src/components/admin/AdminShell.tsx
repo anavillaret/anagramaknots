@@ -30,7 +30,10 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
           <div className="flex items-center gap-4">
             <a href="/" target="_blank" className="text-[11px] text-stone hover:text-ink transition-colors">← View site</a>
             <button
-              onClick={() => { localStorage.removeItem('admin_auth'); window.location.reload() }}
+              onClick={async () => {
+                await fetch('/api/admin/auth', { method: 'DELETE' })
+                window.location.href = '/admin/login'
+              }}
               className="text-[11px] text-stone hover:text-ink transition-colors"
             >
               Log out

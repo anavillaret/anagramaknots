@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
+import { requireAdminSession } from '@/lib/requireAdminSession'
 
 // GET /api/admin/products/:id — fetch a single product (bypasses RLS, works for hidden products)
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const authErr = await requireAdminSession(request)
+  if (authErr) return authErr
+
   const { id } = await params
   const db = supabaseAdmin()
   const { data, error } = await db.from('products').select('*').eq('id', id).single()
@@ -18,6 +22,9 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const authErr = await requireAdminSession(request)
+  if (authErr) return authErr
+
   const { id } = await params
   const body = await request.json()
   const db = supabaseAdmin()
@@ -28,6 +35,9 @@ export async function PATCH(
 
 // POST /api/admin/products/:id  — insert (id param is ignored, used as "new")
 export async function POST(request: NextRequest) {
+  const authErr = await requireAdminSession(request)
+  if (authErr) return authErr
+
   const body = await request.json()
   const db = supabaseAdmin()
   const { data, error } = await db.from('products').insert(body).select().single()
@@ -37,9 +47,12 @@ export async function POST(request: NextRequest) {
 
 // DELETE /api/admin/products/:id — permanently delete a product (hidden only)
 export async function DELETE(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const authErr = await requireAdminSession(request)
+  if (authErr) return authErr
+
   const { id } = await params
   const db = supabaseAdmin()
   // Safety check: only allow deleting hidden products

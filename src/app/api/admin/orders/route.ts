@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { requireAdminSession } from '@/lib/requireAdminSession'
 
 function supabaseAdmin() {
   return createClient(
@@ -9,7 +10,10 @@ function supabaseAdmin() {
   )
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   const db = supabaseAdmin()
   const { data, error } = await db
     .from('orders')
@@ -20,6 +24,9 @@ export async function GET() {
 }
 
 export async function PATCH(req: NextRequest) {
+  const authErr = await requireAdminSession(req)
+  if (authErr) return authErr
+
   try {
     const { id, status } = await req.json()
     if (!id || !status) return NextResponse.json({ error: 'id and status required' }, { status: 400 })
