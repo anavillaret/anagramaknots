@@ -1,12 +1,14 @@
 import ProductsClient from '@/components/products/ProductsClient'
 import ProductsHeader from '@/components/products/ProductsHeader'
 import { getProducts } from '@/lib/products'
+import { SITE_URL } from '@/lib/siteConfig'
 
 export const dynamic = 'force-dynamic'
 
 export const metadata = {
   title: 'Shop Handmade Crochet Amigurumis | The Collection',
   description: 'Browse our full collection of handmade crochet amigurumis from Portugal. Each piece is unique and one of a kind — crochet animals, artisan stuffed toys, and handmade gifts.',
+  alternates: { canonical: `${SITE_URL}/products` },
 }
 
 export default async function ProductsPage() {
