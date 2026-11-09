@@ -4,6 +4,7 @@ import StoryTeaser from '@/components/home/StoryTeaser'
 import MadeForYouTeaser from '@/components/home/MadeForYouTeaser'
 import InstagramStrip from '@/components/home/InstagramStrip'
 import PartnersStrip from '@/components/home/PartnersStrip'
+import TestimonialsStrip from '@/components/home/TestimonialsStrip'
 import { getProducts } from '@/lib/products'
 import { getHeroProducts } from '@/lib/heroConfig'
 import type { Metadata } from 'next'
@@ -31,6 +32,7 @@ export default async function HomePage() {
       <StoryTeaser />
       <MadeForYouTeaser />
       <PartnersStrip />
+      <TestimonialsStrip />
       <InstagramStrip />
     </>
   )
