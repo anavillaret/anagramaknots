@@ -48,6 +48,7 @@ export type DbTestimonial = {
   product_name: string | null
   product_id: string | null
   status: 'pending' | 'approved' | 'rejected'
+  media_urls: string[]
   created_at: string
 }
 

@@ -138,6 +138,9 @@ export const translations = {
       ctaTitle: 'Have a piece from Anagrama?',
       ctaSub: 'Share your experience — it means the world to us and to future customers.',
       ctaButton: 'Leave a review →',
+      photosLabel: 'Add photos (optional)',
+      addPhoto: 'Add photo',
+      photosHint: 'Up to 3 photos · JPG or PNG · Max 5MB each',
     },
     cart: {
       eyebrow: 'Your Cart',
@@ -450,6 +453,9 @@ export const translations = {
       ctaTitle: 'Tens uma peça da Anagrama?',
       ctaSub: 'Partilha a tua experiência — significa muito para nós e para futuros clientes.',
       ctaButton: 'Deixar uma opinião →',
+      photosLabel: 'Adicionar fotos (opcional)',
+      addPhoto: 'Adicionar',
+      photosHint: 'Até 3 fotos · JPG ou PNG · Máx. 5MB cada',
     },
     cart: {
       eyebrow: 'O Teu Carrinho',

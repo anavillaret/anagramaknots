@@ -17,7 +17,7 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const { name, location, text, product_name, product_id } = await req.json()
+  const { name, location, text, product_name, product_id, media_urls } = await req.json()
 
   if (!name?.trim() || !text?.trim()) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -30,6 +30,7 @@ export async function POST(req: NextRequest) {
     text: text.trim(),
     product_name: product_name || null,
     product_id: product_id || null,
+    media_urls: Array.isArray(media_urls) ? media_urls : [],
     status: 'pending',
   })
 

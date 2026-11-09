@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useLang } from '@/lib/i18n/context'
 import BrandSymbol from '@/components/ui/BrandSymbol'
@@ -41,21 +43,7 @@ export default function ReviewsClient({ testimonials }: { testimonials: DbTestim
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {testimonials.map(item => (
-                <div key={item.id} className="flex flex-col gap-4 p-7 bg-linen">
-                  <BrandSymbol size={14} className="text-teal/40" />
-                  <p className="text-[15px] leading-relaxed text-ink italic flex-1">
-                    &ldquo;{item.text}&rdquo;
-                  </p>
-                  <div className="pt-4 border-t border-stone-light/60">
-                    <p className="text-[12px] font-medium text-ink">{item.name}</p>
-                    {item.location && (
-                      <p className="text-[11px] text-stone mt-0.5">{item.location}</p>
-                    )}
-                    {item.product_name && (
-                      <p className="text-[11px] text-teal mt-1.5 tracking-wide">✦ {item.product_name}</p>
-                    )}
-                  </div>
-                </div>
+                <TestimonialCard key={item.id} item={item} />
               ))}
             </div>
 
@@ -76,5 +64,53 @@ export default function ReviewsClient({ testimonials }: { testimonials: DbTestim
         )}
       </div>
     </main>
+  )
+}
+
+function TestimonialCard({ item }: { item: DbTestimonial }) {
+  const [lightbox, setLightbox] = useState<string | null>(null)
+  const photos = item.media_urls ?? []
+
+  return (
+    <>
+      <div className="flex flex-col gap-4 p-7 bg-linen">
+        {/* Photos */}
+        {photos.length > 0 && (
+          <div className={`grid gap-1.5 ${photos.length === 1 ? 'grid-cols-1' : photos.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
+            {photos.slice(0, 3).map((url, i) => (
+              <button
+                key={i}
+                onClick={() => setLightbox(url)}
+                className="relative aspect-square overflow-hidden bg-white cursor-zoom-in"
+              >
+                <Image src={url} alt="" fill className="object-cover hover:scale-105 transition-transform duration-300" sizes="200px" />
+              </button>
+            ))}
+          </div>
+        )}
+
+        <BrandSymbol size={14} className="text-teal/40" />
+        <p className="text-[15px] leading-relaxed text-ink italic flex-1">
+          &ldquo;{item.text}&rdquo;
+        </p>
+        <div className="pt-4 border-t border-stone-light/60">
+          <p className="text-[12px] font-medium text-ink">{item.name}</p>
+          {item.location && <p className="text-[11px] text-stone mt-0.5">{item.location}</p>}
+          {item.product_name && <p className="text-[11px] text-teal mt-1.5 tracking-wide">✦ {item.product_name}</p>}
+        </div>
+      </div>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setLightbox(null)}
+        >
+          <div className="relative max-w-3xl max-h-[90vh] w-full h-full">
+            <Image src={lightbox} alt="" fill className="object-contain" sizes="100vw" />
+          </div>
+        </div>
+      )}
+    </>
   )
 }

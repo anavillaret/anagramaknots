@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { type DbTestimonial } from '@/lib/supabase'
 
 function RequestReviewPanel() {
@@ -192,6 +193,17 @@ export default function AdminTestimonials() {
               <p className="text-[14px] leading-relaxed text-ink italic border-l-2 border-teal/30 pl-3">
                 "{item.text}"
               </p>
+
+              {/* Photos */}
+              {item.media_urls?.length > 0 && (
+                <div className="flex gap-2 flex-wrap">
+                  {item.media_urls.map((url, i) => (
+                    <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="relative w-16 h-16 overflow-hidden bg-gray-50 hover:opacity-80 transition-opacity">
+                      <Image src={url} alt="" fill className="object-cover" sizes="64px" />
+                    </a>
+                  ))}
+                </div>
+              )}
 
               <div className="flex items-center gap-3 pt-1">
                 {saving === item.id ? (
