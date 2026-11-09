@@ -1,12 +1,13 @@
 import { MetadataRoute } from 'next'
+import { SITE_URL } from '@/lib/siteConfig'
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/', '/cart', '/success', '/cancel'],
+      disallow: ['/admin', '/api/', '/cart', '/success', '/cancel'],
     },
-    sitemap: 'https://anagramaknots.com/sitemap.xml',
+    sitemap: `${SITE_URL}/sitemap.xml`,
   }
 }
