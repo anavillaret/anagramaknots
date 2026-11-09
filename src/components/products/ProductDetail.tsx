@@ -14,6 +14,7 @@ import { useLang } from '@/lib/i18n/context'
 import { SHOP_OPEN } from '@/lib/siteConfig'
 import TestimonialsDisplay from '@/components/testimonials/TestimonialsDisplay'
 import TestimonialForm from '@/components/testimonials/TestimonialForm'
+import { viewItem, addToCart } from '@/lib/analytics'
 
 type Lightbox = { photos: string[]; index: number } | null
 
@@ -54,8 +55,22 @@ export default function ProductDetail({ product, related }: { product: Product; 
   const isOnRequest = product.availableOnRequest === true
   const inCart = hasItem(product.id)
 
+  const gaItem = {
+    item_id: product.slug,
+    item_name: product.name,
+    price: product.price,
+    quantity: 1,
+    item_category: product.category,
+  }
+
+  useEffect(() => {
+    viewItem(gaItem)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product.slug])
+
   const handleAdd = () => {
     addItem(product)
+    addToCart(gaItem)
     setJustAdded(true)
     setTimeout(() => setJustAdded(false), 2000)
   }

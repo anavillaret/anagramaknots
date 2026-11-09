@@ -1,13 +1,24 @@
 'use client'
 
+import { useEffect } from 'react'
 import Link from 'next/link'
 import ClearCart from '@/components/cart/ClearCart'
 import Eyebrow from '@/components/ui/Eyebrow'
 import { useLang } from '@/lib/i18n/context'
+import { purchase } from '@/lib/analytics'
+import type { PurchaseData } from '@/lib/analytics'
 
-export default function SuccessContent() {
+export default function SuccessContent({ purchaseData }: { purchaseData: PurchaseData | null }) {
   const { t } = useLang()
   const s = t.success
+
+  useEffect(() => {
+    if (!purchaseData) return
+    const key = `ga_purchase_${purchaseData.transactionId}`
+    if (localStorage.getItem(key)) return
+    purchase(purchaseData)
+    localStorage.setItem(key, '1')
+  }, [purchaseData])
 
   return (
     <main className="pt-36 pb-24 min-h-[70vh] flex flex-col items-center justify-center text-center px-6">

@@ -11,6 +11,7 @@ import BrandSymbol from '@/components/ui/BrandSymbol'
 import Eyebrow from '@/components/ui/Eyebrow'
 import { FX, CURRENCIES } from '@/lib/fx'
 import { SHIPPING_COUNTRIES, ZONES, getZone } from '@/lib/shipping'
+import { beginCheckout } from '@/lib/analytics'
 
 export default function CartClient() {
   const { items, removeItem, total } = useCart()
@@ -37,6 +38,18 @@ export default function CartClient() {
     if (!country) { setError('Please select your destination country.'); return }
     setLoading(true)
     setError('')
+
+    beginCheckout(
+      items.map(({ product }) => ({
+        item_id: product.slug,
+        item_name: product.name,
+        price: product.price * rate,
+        quantity: 1,
+        item_category: product.category,
+      })),
+      total() * rate,
+    )
+
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
