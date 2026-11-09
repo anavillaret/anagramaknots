@@ -3,6 +3,7 @@
 import { useState, FormEvent } from 'react'
 import { Loader2, Check } from 'lucide-react'
 import { useLang } from '@/lib/i18n/context'
+import { generateLead } from '@/lib/analytics'
 
 export default function ContactForm() {
   const { t } = useLang()
@@ -30,6 +31,7 @@ export default function ContactForm() {
       if (res.ok) {
         setStatus('success')
         form.reset()
+        generateLead('contact')
       } else {
         setStatus('error')
       }

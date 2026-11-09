@@ -7,6 +7,7 @@ import { Paperclip, X } from 'lucide-react'
 import { useLang } from '@/lib/i18n/context'
 import BrandSymbol from '@/components/ui/BrandSymbol'
 import Eyebrow from '@/components/ui/Eyebrow'
+import { generateLead } from '@/lib/analytics'
 
 type Status = 'idle' | 'sending' | 'success' | 'error'
 
@@ -78,7 +79,12 @@ function CommissionFormInner() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, productType, description, fileUrls }),
       })
-      setStatus(res.ok ? 'success' : 'error')
+      if (res.ok) {
+        setStatus('success')
+        generateLead('commission')
+      } else {
+        setStatus('error')
+      }
     } catch {
       setStatus('error')
     }
