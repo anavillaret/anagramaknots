@@ -205,9 +205,32 @@ export default function ProductDetail({ product, related }: { product: Product; 
                   </div>
                 )}
 
+                {/* Trust strip */}
+                <div className="mt-4 flex items-center justify-center gap-3 text-[10px] tracking-[0.12em] uppercase text-stone">
+                  <span>✦ {p.trustHandmade}</span>
+                  <span>·</span>
+                  <span>{p.trustSecure}</span>
+                  <span>·</span>
+                  <span>{p.trustUnique}</span>
+                </div>
+
+                {/* Shipping estimate */}
+                <p className="mt-2 text-[11px] text-stone text-center">
+                  {p.shippingEst} ·{' '}
+                  <Link href="/shipping" className="underline underline-offset-2 hover:text-ink transition-colors">
+                    {p.shippingRatesLink}
+                  </Link>
+                </p>
+
                 <p className="mt-4 text-[11px] text-stone text-center">
                   <Link href={commissionHref} className="text-rose underline underline-offset-2 hover:text-rose-dark">
                     {p.commissionLink}
+                  </Link>
+                </p>
+
+                <p className="mt-1 text-[11px] text-stone text-center">
+                  <Link href="/returns" className="hover:text-ink transition-colors">
+                    {p.returnsLink}
                   </Link>
                 </p>
               </>
