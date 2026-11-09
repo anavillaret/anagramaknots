@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
         ${divider()}
         <p style="font-size:15px;line-height:1.7;color:#1a1a1a;font-style:italic;">"${text}"</p>
         ${divider()}
-        <a href="https://anagramaknots.com/admin/testimonials" style="display:inline-block;background:#0F7A75;color:#fff;padding:12px 28px;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;">
+        <a href="https://www.anagramaknots.com/admin/testimonials" style="display:inline-block;background:#0F7A75;color:#fff;padding:12px 28px;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;">
           Approve in Backoffice →
         </a>
       `),

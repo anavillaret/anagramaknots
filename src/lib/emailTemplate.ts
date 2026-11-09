@@ -19,7 +19,7 @@ function emailFooter() {
   return `
     <div style="margin-top:40px;padding:24px 40px;border-top:1px solid #ece8e3;text-align:center;">
       <p style="margin:0;font-size:11px;color:${STONE};letter-spacing:0.1em;">
-        <a href="https://anagramaknots.com" style="color:${TEAL};text-decoration:none;">anagramaknots.com</a>
+        <a href="https://www.anagramaknots.com" style="color:${TEAL};text-decoration:none;">anagramaknots.com</a>
         &nbsp;·&nbsp;
         <a href="https://instagram.com/anagrama_knots" style="color:${TEAL};text-decoration:none;">@anagrama_knots</a>
       </p>

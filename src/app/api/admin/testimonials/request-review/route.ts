@@ -13,9 +13,10 @@ export async function POST(req: NextRequest) {
 
   const firstName = customer_name?.split(' ')[0] || 'there'
 
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.anagramaknots.com'
   const reviewUrl = product_id
-    ? `https://anagramaknots.com/products/${product_id}?review=1`
-    : `https://anagramaknots.com/review`
+    ? `${SITE_URL}/products/${product_id}?review=1`
+    : `${SITE_URL}/review`
 
   const resend = new Resend(process.env.RESEND_API_KEY)
 
