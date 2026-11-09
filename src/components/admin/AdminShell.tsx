@@ -24,6 +24,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
               <a href="/admin/shipping" className="text-[12px] text-stone hover:text-ink transition-colors">Shipping</a>
               <a href="/admin/commission" className="text-[12px] text-stone hover:text-ink transition-colors">Commission</a>
               <a href="/admin/contact" className="text-[12px] text-stone hover:text-ink transition-colors">Contact</a>
+              <a href="/admin/testimonials" className="text-[12px] text-stone hover:text-ink transition-colors">Testimonials</a>
             </nav>
           </div>
           <div className="flex items-center gap-4">

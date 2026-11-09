@@ -12,6 +12,8 @@ import Badge from '@/components/ui/Badge'
 import Watermark from '@/components/ui/Watermark'
 import { useLang } from '@/lib/i18n/context'
 import { SHOP_OPEN } from '@/lib/siteConfig'
+import TestimonialsDisplay from '@/components/testimonials/TestimonialsDisplay'
+import TestimonialForm from '@/components/testimonials/TestimonialForm'
 
 type Lightbox = { photos: string[]; index: number } | null
 
@@ -248,6 +250,20 @@ export default function ProductDetail({ product, related }: { product: Product; 
             </div>
           </div>
         )}
+
+        {/* Testimonials display */}
+        <TestimonialsDisplay />
+
+        {/* Leave a review CTA */}
+        <div className="mt-16 border-t border-stone-light pt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <div>
+              <p className="text-[11px] tracking-[0.3em] uppercase text-teal mb-3">{t.testimonials.ctaTitle}</p>
+              <p className="text-[14px] text-stone leading-relaxed">{t.testimonials.ctaSub}</p>
+            </div>
+            <TestimonialForm productName={lang === 'pt' && product.namePt ? product.namePt : product.name} productId={product.slug} />
+          </div>
+        </div>
 
         {/* Related */}
         {related.length > 0 && (

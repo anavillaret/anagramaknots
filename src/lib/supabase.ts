@@ -40,6 +40,17 @@ export type DbProduct = {
   updated_at: string
 }
 
+export type DbTestimonial = {
+  id: string
+  name: string
+  location: string | null
+  text: string
+  product_name: string | null
+  product_id: string | null
+  status: 'pending' | 'approved' | 'rejected'
+  created_at: string
+}
+
 export type DbOrder = {
   id: string
   stripe_session_id: string | null

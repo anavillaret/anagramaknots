@@ -26,6 +26,7 @@ export default function AdminOrders() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState<string | null>(null)
   const [filter, setFilter] = useState<string>('all')
+  const [reviewSent, setReviewSent] = useState<string | null>(null)
 
   async function load() {
     setLoading(true)
@@ -46,6 +47,25 @@ export default function AdminOrders() {
     })
     await load()
     setSaving(null)
+  }
+
+  async function requestReview(order: DbOrder) {
+    if (!order.customer_email) return
+    const items = Array.isArray(order.line_items) ? order.line_items : []
+    const productName = items[0]?.name ?? 'your piece'
+    setSaving(order.id)
+    await fetch('/api/admin/testimonials/request-review', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        customer_email: order.customer_email,
+        customer_name: order.customer_name,
+        product_name: productName,
+      }),
+    })
+    setReviewSent(order.id)
+    setSaving(null)
+    setTimeout(() => setReviewSent(null), 3000)
   }
 
   const filtered = filter === 'all' ? orders : orders.filter(o => o.status === filter)
@@ -85,6 +105,7 @@ export default function AdminOrders() {
                 <th className="text-left px-4 py-3 text-stone font-medium">Total</th>
                 <th className="text-left px-4 py-3 text-stone font-medium">Status</th>
                 <th className="text-left px-4 py-3 text-stone font-medium">Update</th>
+                <th className="text-left px-4 py-3 text-stone font-medium">Review</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
@@ -154,6 +175,22 @@ export default function AdminOrders() {
                           <option key={s} value={s} className="capitalize">{s}</option>
                         ))}
                       </select>
+                    )}
+                  </td>
+                  <td className="px-4 py-3">
+                    {reviewSent === o.id ? (
+                      <span className="text-[11px] text-green-600">Sent ✓</span>
+                    ) : saving === o.id ? (
+                      <span className="text-stone text-[11px]">Sending…</span>
+                    ) : o.customer_email && o.status === 'delivered' ? (
+                      <button
+                        onClick={() => requestReview(o)}
+                        className="text-[10px] tracking-[0.12em] uppercase px-2.5 py-1.5 border border-teal text-teal hover:bg-teal hover:text-white transition-colors"
+                      >
+                        Request Review
+                      </button>
+                    ) : (
+                      <span className="text-gray-200 text-[11px]">—</span>
                     )}
                   </td>
                 </tr>
