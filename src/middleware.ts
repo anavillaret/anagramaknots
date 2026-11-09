@@ -11,10 +11,11 @@ export async function middleware(request: NextRequest) {
 
   if (isAdminPath || isAdminApi) {
     // ── Auth gate ────────────────────────────────────────────────────────────
-    // /admin/login is public (it IS the login form)
+    // /admin/login and /api/admin/auth are public (login form + login endpoint)
     const isLoginPage = pathname === '/admin/login'
+    const isAuthEndpoint = pathname === '/api/admin/auth'
 
-    if (!isLoginPage) {
+    if (!isLoginPage && !isAuthEndpoint) {
       const secret = process.env.ADMIN_SESSION_SECRET
       const session = request.cookies.get('admin_session')?.value
 
