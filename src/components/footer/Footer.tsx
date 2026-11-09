@@ -76,6 +76,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Anagrama Art in Knots. {t.footer.rights}
           </p>
           <nav className="flex items-center gap-5">
+            <Link href="/reviews" className="text-[10px] tracking-wide text-stone hover:text-ink transition-colors">{t.footer.reviews}</Link>
             <Link href="/privacy" className="text-[10px] tracking-wide text-stone hover:text-ink transition-colors">{t.footer.privacy}</Link>
             <Link href="/terms" className="text-[10px] tracking-wide text-stone hover:text-ink transition-colors">{t.footer.terms}</Link>
             <Link href="/returns" className="text-[10px] tracking-wide text-stone hover:text-ink transition-colors">{t.footer.returns}</Link>

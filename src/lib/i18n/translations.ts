@@ -14,6 +14,7 @@ export const translations = {
       privacy: 'Privacy Policy',
       terms: 'Terms & Conditions',
       returns: 'Returns',
+      reviews: 'Reviews',
     },
     cookie: {
       message: 'We use essential cookies to keep the site working and Stripe cookies for secure payments.',
@@ -325,6 +326,7 @@ export const translations = {
       privacy: 'Política de Privacidade',
       terms: 'Termos e Condições',
       returns: 'Devoluções',
+      reviews: 'Opiniões',
     },
     cookie: {
       message: 'Utilizamos cookies essenciais para o funcionamento do site e cookies do Stripe para pagamentos seguros.',
